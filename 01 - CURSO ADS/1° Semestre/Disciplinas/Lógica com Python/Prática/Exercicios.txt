@@ -1,0 +1,14 @@
+Aula 1 - Dados primitivos
+https://colab.research.google.com/drive/1XRCeTLnoQ6rpb66KOv9siU2sJNOu7Tzj#scrollTo=jeRy4C3-wRXb
+
+Aula 2 - Manipulando listas
+https://colab.research.google.com/drive/1cR2zZ4RE3ciT997EBekD-splkDcWRM3b#scrollTo=NxMQ5XeIY3ng
+
+Aula 3 - Condições, laços for e estrutura de repetição while
+https://colab.research.google.com/drive/1s4sAt1yXQeI5jFjdnE1LRD7912257BLN#scrollTo=tBk8uZhmoA77
+
+Aula 4 - Funções
+https://colab.research.google.com/drive/1FymrpXbTdQTQ1Lc1x_18U38oywTguCpZ?usp=sharing
+
+Aula 5 - Dicionários
+https://colab.research.google.com/drive/1eR_MrtShN89zfY8cW3Y5tcoxUUbhc_ch?usp=sharing
