@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ConsoleApp1/Exemplo_2.csproj" />
+  <Project Path="ConsoleApp2/Exemplo_3.csproj" />
+  <Project Path="Exemplo4/Exemplo4.csproj" />
+  <Project Path="Exemplo_1/Exemplo_1.csproj" />
+</Solution>

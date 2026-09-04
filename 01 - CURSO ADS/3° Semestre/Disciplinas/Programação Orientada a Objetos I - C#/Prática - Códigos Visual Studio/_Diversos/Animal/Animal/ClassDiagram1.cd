@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ProjetoAnimal.Mamifero">
+    <Position X="3.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEEAAAAAAgAAA=</HashCode>
+      <FileName>Mamifero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjetoAnimal.Animal">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAEEAABAAABAAAQAAAAAAAAAEAAAEAAAAABQgQAA=</HashCode>
+      <FileName>Animal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjetoAnimal.Ave">
+    <Position X="1" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAEBAAEBAAAAAAgAAA=</HashCode>
+      <FileName>Ave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjetoAnimal.Peixe">
+    <Position X="6.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAEAAAEAAAAAAAgAAA=</HashCode>
+      <FileName>Peixe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjetoAnimal.Reptil">
+    <Position X="8.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reptil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjetoAnimal.Program" Collapsed="true">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

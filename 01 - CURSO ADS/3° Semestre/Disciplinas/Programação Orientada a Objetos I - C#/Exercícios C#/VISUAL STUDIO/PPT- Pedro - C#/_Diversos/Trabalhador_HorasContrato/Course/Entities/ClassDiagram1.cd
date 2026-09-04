@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Course.Entities.Departamento">
+    <Position X="3.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Entities\Departamento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Course.Entities.HorasContrato">
+    <Position X="1.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAIAAAAAAAEAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\HorasContrato.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Course.Entities.Trabalhador">
+    <Position X="6" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAABAAAAAAEAAEAAIAAAAICAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Entities\Trabalhador.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Course.Entities.Enums.NivelTrabalhador">
+    <Position X="9" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgBAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Enums\NivelTrabalhador.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
