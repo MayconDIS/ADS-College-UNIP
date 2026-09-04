@@ -1,0 +1,141 @@
+# Resolução - Unidade 3: Modelagem de Banco de Dados e NoSQL (Desempenho e Otimização)
+
+---
+
+## Exercício 1
+**Pergunta:** A otimização de consultas no SQL Server torna-se indispensável principalmente quando:
+* A) O banco de dados possui pequeno volume de dados e poucos acessos simultâneos.
+* B) O volume de dados cresce e o número de acessos simultâneos aumenta, exigindo maior eficiência e escalabilidade.
+* C) As consultas são executadas apenas esporadicamente e sem impacto no desempenho.
+* D) O sistema não utiliza índices ou qualquer estratégia de organização de dados.
+* E) O hardware do servidor é o único fator responsável pela performance do banco.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** Sistemas de banco de dados sofrem com o "peso" do crescimento. Quando as tabelas ficam gigantescas e centenas de usuários tentam ler e gravar dados ao mesmo tempo (concorrência), consultas que antes demoravam milissegundos podem travar o servidor. É aí que a otimização vira prioridade máxima.
+* **Por que as outras estão erradas:** Bancos pequenos e sem concorrência (A) rodam bem até sem otimização. Consultas esporádicas não justificam grandes esforços contínuos de *tuning* (C). Otimização *inclui* criar índices, então a D se contradiz. E o hardware (E) jamais resolve tudo sozinho (adicionar memória RAM não salva uma consulta SQL pessimamente escrita).
+
+---
+
+## Exercício 2
+**Pergunta:** Sobre o impacto dos índices nas operações do banco de dados, é correto afirmar que:
+* A) Índices melhoram apenas operações de escrita, sem influenciar consultas de leitura.
+* B) Índices eliminam totalmente a necessidade de manutenção no banco de dados.
+* C) Índices aceleram consultas de leitura, mas introduzem custos adicionais em operações de inserção, atualização e exclusão.
+* D) Índices não influenciam o plano de execução escolhido pelo SQL Server.
+* E) Índices são sempre benéficos, independentemente do perfil de uso do sistema.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** Esta é a regra de ouro dos índices: eles são incríveis para buscas (`SELECT`), mas cobram um preço na hora da gravação. Toda vez que você insere (`INSERT`), atualiza (`UPDATE`) ou deleta (`DELETE`) um dado, o motor do banco precisa atualizar não apenas a tabela, mas também reorganizar todos os índices associados a ela, deixando a gravação mais lenta.
+* **Por que as outras estão erradas:** Eles melhoram a leitura, não a escrita (A). Eles *exigem* manutenção (reconstrução/desfragmentação) (B). Eles são o principal fator que muda um plano de execução (D). E criar índices demais em um sistema que faz muita escrita (como um sistema de logs) é prejudicial, logo não são "sempre" benéficos (E).
+
+---
+
+## Exercício 3
+**Pergunta:** A análise de planos de execução no SQL Server é importante porque:
+* A) Substitui a necessidade de criação de índices.
+* B) Garante automaticamente que todas as consultas utilizem índices clustered.
+* C) Elimina a necessidade de atualização de estatísticas.
+* D) Impede que ocorram varreduras completas de tabelas.
+* E) Permite visualizar como o SQL Server processa a consulta e identificar possíveis gargalos de desempenho.
+
+**Resposta Correta: E**
+* **Por que a E está certa:** O Plano de Execução (Execution Plan) é o "mapa mental" do otimizador do banco. Ele mostra em gráficos (ou texto) os passos exatos que o SQL Server decidiu dar para trazer seus dados, indicando onde o processamento está pesando mais (gargalos).
+* **Por que as outras estão erradas:** Analisar o plano muitas vezes indica que você *precisa* criar um índice (A). Não garante uso de *clustered* (B). O plano *depende* de estatísticas atualizadas para ser preciso (C) e analisar o plano apenas "mostra" a varredura completa (*table scan*), não a impede automaticamente (D).
+
+---
+
+## Exercício 4
+**Pergunta:** O monitoramento de queries no SQL Server é considerado ponto de partida para os ajustes de performance porque:
+* A) Substitui a necessidade de modelagem adequada do banco de dados.
+* B) Permite identificar, com base em dados reais, quais consultas consomem mais recursos e onde estão os principais gargalos.
+* C) Garante automaticamente a criação de índices ideais para todas as tabelas.
+* D) Elimina a necessidade de validação após a aplicação de otimizações.
+* E) Atua apenas na correção de falhas já perceptíveis pelos usuários.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** Otimização não se faz no "achismo". O monitoramento levanta métricas reais do servidor e aponta o dedo para as consultas (queries) que estão consumindo mais CPU, memória ou tempo de disco. Você começa a otimizar exatamente por onde o sistema sofre mais.
+* **Por que as outras estão erradas:** Monitorar não corrige modelagem ruim (A), não cria índices sozinho de forma mágica (C), e toda otimização exige validação para garantir que não quebrou outra coisa (D). O bom monitoramento atua de forma preventiva, antes que o usuário sequer perceba lentidão (E).
+
+---
+
+## Exercício 5
+**Pergunta:** A otimização estrutural do banco de dados envolve:
+* A) Apenas a reescrita de consultas SQL mal formuladas.
+* B) Exclusivamente a substituição do hardware do servidor por equipamentos mais potentes.
+* C) A revisão de índices, estatísticas, organização física dos dados e configurações do ambiente, de forma integrada ao monitoramento.
+* D) A eliminação de todas as junções entre tabelas para reduzir o custo das consultas.
+* E) A aplicação de ajustes isolados, sem necessidade de validação posterior.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** A performance (*tuning*) de um banco de dados é um processo holístico. Ele junta boas práticas de código SQL com a infraestrutura correta (índices limpos, dados desfragmentados, configurações de memória do SQL Server adequadas), tudo guiado pelo que as ferramentas de monitoramento mostram.
+* **Por que as outras estão erradas:** Reescrever SQL é só uma parte (A). Hardware não resolve problemas lógicos (B). Eliminar junções cegamente destrói o modelo relacional (D). E aplicar mudanças sem validar é uma falha grave (E).
+
+---
+
+## Exercício 6
+**Pergunta:** No sistema apresentado, implementado no Microsoft SQL Server, a entidade `ItemPedido` é utilizada para:
+* A) Armazenar exclusivamente os dados cadastrais dos clientes.
+* B) Substituir a entidade `Produto` no controle de estoque.
+* C) Controlar as formas de pagamento disponíveis no sistema.
+* D) Representar a relação muitos-para-muitos entre `Pedido` e `Produto`, registrando os produtos que compõem cada pedido.
+* E) Registrar apenas a data e o valor total do pedido.
+
+**Resposta Correta: D**
+* **Por que a D está certa:** Como um pedido pode ter vários produtos e um produto pode estar em vários pedidos (relacionamento N:N), os bancos relacionais exigem uma tabela associativa intermediária. A tabela `ItemPedido` guarda exatamente essa união (ex: no Pedido 100, o Produto "Mouse" teve 2 unidades).
+* **Por que as outras estão erradas:** Dados de clientes ficam na tabela `Cliente` (A). A tabela `Produto` continua existindo para o cadastro dos itens (B). Pagamentos ficam em tabela própria (C) e cabeçalhos de pedido (data e total) ficam na própria tabela `Pedido` (E).
+
+---
+
+## Exercício 7
+**Pergunta:** No modelo lógico da solução proposta, a integridade referencial é garantida, principalmente, por meio:
+* A) Da utilização exclusiva de índices nas tabelas.
+* B) Da definição de funções analíticas nas consultas.
+* C) Da criação de chaves estrangeiras (FK) que referenciam chaves primárias (PK) de outras tabelas.
+* D) Da obrigatoriedade de uso de CTEs em todas as consultas.
+* E) Da aplicação de comandos SELECT com INNER JOIN.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** As Chaves Estrangeiras (Foreign Keys - FK) são as travas de segurança do banco relacional. Elas amarram uma tabela na outra, impedindo (por exemplo) que você registre um item de pedido para um produto que foi apagado ou que não existe no sistema.
+* **Por que as outras estão erradas:** Índices apenas aceleram buscas (A). Funções analíticas (`OVER/PARTITION`), CTEs (tabelas temporárias em memória) e `JOINs` são recursos para consulta (leitura) de dados, não impõem regras estruturais de gravação ou proteção de dados (B, D e E).
+
+---
+
+## Exercício 8
+**Pergunta:** Na consulta que verifica a situação financeira de cada pedido, o uso de `LEFT JOIN` tem como principal objetivo:
+* A) Excluir pedidos que ainda não possuem pagamento registrado.
+* B) Garantir que apenas pedidos totalmente pagos apareçam no resultado.
+* C) Ordenar os pedidos pelo valor total pago.
+* D) Substituir a necessidade de utilizar a função COALESCE.
+* E) Permitir que pedidos sem pagamento também sejam exibidos na consulta.
+
+**Resposta Correta: E**
+* **Por que a E está certa:** O `LEFT JOIN` cruza as tabelas preservando **todos** os registros da tabela da "esquerda" (neste caso, `Pedido`), mesmo que eles não tenham nenhum correspondente na tabela da "direita" (`Pagamento`). Assim, o relatório mostrará os pedidos pagos e também os que ainda não receberam pagamento (onde os dados de pagamento virão como `NULL`).
+* **Por que as outras estão erradas:** Excluir pedidos sem pagamento seria o papel do `INNER JOIN` (A e B). Ordenação se faz com `ORDER BY` (C). `COALESCE` é usado justamente para tratar os campos nulos que o `LEFT JOIN` acaba trazendo (D).
+
+---
+
+## Exercício 9
+**Pergunta:** A função `DENSE_RANK()` utilizada na análise de faturamento por cliente tem a finalidade de:
+* A) Agrupar os pedidos por data e eliminar registros duplicados.
+* B) Gerar automaticamente uma classificação dos clientes com base no faturamento, sem eliminar linhas do resultado.
+* C) Substituir a cláusula GROUP BY na soma dos valores.
+* D) Calcular o total acumulado mensal das vendas.
+* E) Converter valores nulos em zero para evitar erros.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** Funções de janela (Window Functions), como `RANK()` ou `DENSE_RANK()`, são usadas para criar classificações (pódios) de forma dinâmica. A grande vantagem é que elas adicionam uma coluna com a posição (1º lugar, 2º lugar) do cliente na consulta atual **sem** precisar agrupar ou condensar as linhas originais.
+* **Por que as outras estão erradas:** O `GROUP BY` e a eliminação de registros mudam a quantidade de linhas no relatório, algo que funções de janela evitam (A e C). Soma acumulada geralmente usa `SUM() OVER(...)` e não `RANK` (D). Converter nulos é papel de `ISNULL` ou `COALESCE` (E).
+
+---
+
+## Exercício 10
+**Pergunta:** A criação de funções definidas pelo usuário, como a função escalar `fn_total_pedido`, tem como principal objetivo:
+* A) Centralizar regras de cálculo e reduzir a repetição de código em diferentes consultas.
+* B) Substituir completamente as consultas SQL no sistema.
+* C) Eliminar a necessidade de chaves primárias nas tabelas.
+* D) Impedir o uso de agregações como SUM nas consultas principais.
+* E) Automatizar exclusivamente a criação de índices no banco de dados.
+
+**Resposta Correta: A**
+* **Por que a A está certa:** Funções definidas pelo usuário (UDF - User Defined Functions) permitem que você pegue uma fórmula ou lógica complexa e a guarde dentro do banco. Em vez de desenvolvedores repetirem o código do cálculo de frete ou de impostos do pedido em 50 telas diferentes, eles apenas "chamam" a função. Isso facilita demais a manutenção (se a regra mudar, você altera só em um lugar).
+* **Por que as outras estão erradas:** Funções *ajudam* o SQL, não o substituem (B). Não têm relação com integridade de chaves ou modelagem física (C). Elas frequentemente usam agregações internamente e não impedem nada externamente (D). E rotinas que afetam a estrutura do banco (DDL/índices) são geralmente feitas via Stored Procedures, não funções (E).

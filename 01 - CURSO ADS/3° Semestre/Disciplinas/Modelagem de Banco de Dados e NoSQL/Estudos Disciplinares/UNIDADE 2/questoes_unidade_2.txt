@@ -1,0 +1,141 @@
+# Resolução - Unidade 2: Modelagem de Banco de Dados e NoSQL
+
+---
+
+## Exercício 1
+**Pergunta:** A utilização de esquemas no SQL Server tem como principal finalidade:
+* A) Substituir a criação de bancos de dados distintos para cada aplicação.
+* B) Organizar logicamente objetos como tabelas e visões, facilitando administração e controle de permissões.
+* C) Eliminar a necessidade de definir chaves primárias nas tabelas.
+* D) Aumentar automaticamente o desempenho das consultas por meio de indexação implícita.
+* E) Impedir a criação de relacionamentos entre tabelas.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** Esquemas (schemas) no SQL Server funcionam como "pastas" lógicas dentro de um banco de dados (ex: `vendas.Pedidos`, `rh.Funcionarios`). Eles agrupam objetos por contexto ou setor, tornando a administração e a concessão de permissões de segurança muito mais fáceis e organizadas.
+* **Por que as outras estão erradas:** Esquemas organizam internamente um banco, não substituem a criação de outros bancos (A). Eles não afetam regras de chaves primárias (C), não criam índices automáticos para melhorar desempenho (D) e não impedem relacionamentos, muito pelo contrário (E).
+
+---
+
+## Exercício 2
+**Pergunta:** No SQL Server, a chave primária é importante porque:
+* A) Permite armazenar valores nulos em colunas essenciais.
+* B) Substitui a necessidade de chaves estrangeiras.
+* C) Garante que todos os atributos da tabela sejam únicos.
+* D) Impede a realização de operações de atualização na tabela.
+* E) Identifica unicamente cada registro da tabela e cria automaticamente um índice associado.
+
+**Resposta Correta: E**
+* **Por que a E está certa:** A chave primária (Primary Key - PK) garante a regra fundamental de que nenhuma linha seja duplicada (identidade única). Além disso, no SQL Server, ao criar uma PK, o sistema cria automaticamente um índice *Clustered* (físico) para otimizar a busca por esse identificador.
+* **Por que as outras estão erradas:** Chaves primárias **proíbem** valores nulos (A). Elas trabalham *em conjunto* com as chaves estrangeiras, não as substituem (B). Garantem a unicidade apenas da coluna que é chave, não de todos os atributos/colunas (C). E não impedem atualizações (updates) nos demais dados do registro (D).
+
+---
+
+## Exercício 3
+**Pergunta:** A escolha adequada dos tipos de dados no SQL Server influencia diretamente:
+* A) Apenas a organização visual das tabelas no sistema gerenciador.
+* B) Somente a compatibilidade com sistemas externos.
+* C) A integridade dos dados, o consumo de espaço em disco e o desempenho das consultas.
+* D) Exclusivamente a possibilidade de utilizar comandos DCL.
+* E) Apenas a definição de permissões de acesso aos usuários.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** Escolher o tipo certo (ex: usar `INT` em vez de `VARCHAR` para números) garante que o usuário não digite letras onde devem ser números (integridade), economiza o tamanho do arquivo do banco de dados (espaço em disco) e faz com que o motor do banco leia os dados muito mais rápido (desempenho).
+* **Por que as outras estão erradas:** Os tipos de dados não lidam apenas com o visual (A), nem com segurança de permissões de quem acessa o banco (E) ou comandos de controle DCL, como GRANT/REVOKE (D). A compatibilidade externa (B) é afetada, mas não é o "somente" ou fator principal.
+
+---
+
+## Exercício 4
+**Pergunta:** A cláusula WHERE em uma consulta SQL é utilizada para:
+* A) Definir o produto cartesiano entre tabelas.
+* B) Selecionar atributos específicos que serão exibidos no resultado.
+* C) Eliminar automaticamente valores duplicados do resultado.
+* D) Filtrar registros com base em condições utilizando operadores de comparação e conectivos lógicos.
+* E) Agrupar registros para aplicação de funções agregadas.
+
+**Resposta Correta: D**
+* **Por que a D está certa:** O `WHERE` atua como um filtro rigoroso na consulta. Ele analisa linha por linha e só retorna os dados que retornem *Verdadeiro* para a condição imposta (ex: `WHERE idade > 18 AND status = 'Ativo'`).
+* **Por que as outras estão erradas:** Produto cartesiano ocorre no `FROM/CROSS JOIN` sem filtro (A). Selecionar atributos visíveis é o papel do `SELECT` (B). Eliminar duplicados é o papel do `DISTINCT` (C). Agrupar para funções agregadas (como SUM ou COUNT) é o papel do `GROUP BY` (E).
+
+---
+
+## Exercício 5
+**Pergunta:** Sobre os procedimentos armazenados no SQL Server, é correto afirmar que:
+* A) Encapsulam lógica de consulta e manipulação de dados, promovendo reutilização, segurança e melhor desempenho.
+* B) São utilizados exclusivamente para realizar operações de junção entre tabelas.
+* C) Impedem a utilização de funções agregadas em consultas complexas.
+* D) Substituem completamente o uso de índices e a análise de planos de execução.
+* E) Só podem ser utilizados para executar instruções SELECT simples.
+
+**Resposta Correta: A**
+* **Por que a A está certa:** Procedimentos armazenados (Stored Procedures) são "scripts" de comandos SQL guardados dentro do banco. Eles compilam a lógica (desempenho), evitam repetição de código (reutilização) e evitam que a aplicação precise ter acesso direto às tabelas, liberando acesso apenas à procedure (segurança contra SQL Injection).
+* **Por que as outras estão erradas:** Eles não substituem índices (D). São altamente flexíveis, podendo executar INSERT, UPDATE, DELETE e lógica condicional, não se limitando a junções (B) ou SELECT simples (E), além de permitirem o uso de funções agregadas livremente (C).
+
+---
+
+## Exercício 6
+**Pergunta:** As ferramentas de modelagem relacional no SQL Server desempenham papel essencial porque:
+* A) Substituem completamente a necessidade de análise de requisitos do sistema.
+* B) Permitem representar entidades, relacionamentos e restrições, favorecendo compreensão e comunicação entre profissionais.
+* C) Eliminam a necessidade de documentação do banco de dados.
+* D) Funcionam apenas como recursos gráficos sem relação com a estrutura física do banco.
+* E) São utilizadas exclusivamente em ambientes educacionais.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** A modelagem visual cria um mapa da estrutura do banco (diagrama). Isso traduz as regras complexas para algo visual, ajudando desenvolvedores, DBAs e clientes a entenderem a arquitetura dos dados e como eles se ligam.
+* **Por que as outras estão erradas:** A modelagem é um *produto* da análise de requisitos, não a substitui (A). Ela própria é uma forma de documentação, então não elimina essa necessidade (C). Ferramentas modernas geram o código SQL a partir do desenho e vice-versa, logo têm profunda relação com a estrutura física (D). E são o padrão da indústria e do mercado de trabalho, não apenas acadêmicas (E).
+
+---
+
+## Exercício 7
+**Pergunta:** No contexto do uso do SQL Server Management Studio para criação de DER, é correto afirmar que:
+* A) O SSMS atua apenas na modelagem conceitual inicial do banco de dados.
+* B) O DER criado no SSMS não possui relação com a estrutura física implementada.
+* C) O SSMS permite gerar diagramas a partir das estruturas físicas existentes no banco de dados.
+* D) O uso de DER no SSMS dispensa a definição de chaves primárias e estrangeiras.
+* E) O SSMS substitui completamente ferramentas especializadas de modelagem conceitual.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** O SSMS (SQL Server Management Studio) possui um recurso de "Database Diagrams" que faz engenharia reversa. Você seleciona as tabelas que já existem fisicamente no banco e ele gera automaticamente o Diagrama Entidade-Relacionamento visualizando essas tabelas e como elas estão conectadas.
+* **Por que as outras estão erradas:** Ele não atua no modelo conceitual (A), atua estritamente no modelo físico gerando o visual (B). Ele não dispensa as chaves (D), pois desenha as conexões exatamente lendo onde existem chaves primárias e estrangeiras. E ele não substitui ferramentas como o ERwin ou o brModelo, que são feitas do zero para planejamento inicial (E).
+
+---
+
+## Exercício 8
+**Pergunta:** Uma boa prática na utilização de DER no SSMS consiste em:
+* A) Concentrar todas as tabelas do banco em um único diagrama, independentemente do tamanho do sistema.
+* B) Criar diagramas com escopos delimitados, organizados por áreas funcionais ou módulos.
+* C) Evitar a atualização dos diagramas para preservar a versão original do projeto.
+* D) Utilizar o diagrama apenas como recurso estético, sem função analítica.
+* E) Permitir que qualquer usuário modifique diagramas sem controle de governança.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** Um banco corporativo pode ter centenas ou milhares de tabelas. A melhor prática é separar os diagramas por "domínio" (ex: "Módulo Financeiro", "Módulo RH"), mantendo o desenho limpo, fácil de ler e útil para quem vai dar manutenção naquela área específica.
+* **Por que as outras estão erradas:** Jogar tudo num único diagrama gera o famoso "diagrama espaguete", impossível de ler (A). Diagramas devem ser atualizados sempre que o banco mudar (C). Eles são vitais para a análise de impacto (D) e o banco sempre deve ter controle de segurança e acesso/governança (E).
+
+---
+
+## Exercício 9
+**Pergunta:** Sobre o uso do Azure Data Studio, pode-se afirmar que:
+* A) É uma ferramenta voltada exclusivamente à administração técnica do banco de dados.
+* B) Substitui completamente o SQL Server Management Studio em todas as funções.
+* C) Não permite a execução de comandos SQL.
+* D) Integra consulta, visualização e manipulação de dados em um ambiente multiplataforma e extensível.
+* E) Funciona apenas com bancos de dados não relacionais.
+
+**Resposta Correta: D**
+* **Por que a D está certa:** O Azure Data Studio é uma IDE moderna da Microsoft (baseada no motor do VS Code). Ele roda no Windows, Mac e Linux (multiplataforma), aceita extensões e foca fortemente na experiência do desenvolvedor e do analista de dados (consultas e gráficos).
+* **Por que as outras estão erradas:** Ele não substitui o SSMS (B), pois o SSMS ainda é a ferramenta principal para o DBA fazer configurações de rede/servidor pesadas (A). O ADS executa SQL perfeitamente (C) e foi criado essencialmente para relacionais (SQL Server, PostgreSQL), embora possa ter extensões para outros (E).
+
+---
+
+## Exercício 10
+**Pergunta:** O uso de notebooks no Azure Data Studio é relevante porque:
+* A) Impede a visualização gráfica dos resultados das consultas.
+* B) Permite combinar texto explicativo, código e visualizações em um único documento, favorecendo documentação e reprodutibilidade.
+* C) Elimina a necessidade de consultas SQL.
+* D) É utilizado apenas para armazenamento temporário de dados.
+* E) Substitui completamente relatórios e painéis analíticos.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** Os SQL Notebooks no Azure Data Studio (inspirados no Jupyter Notebooks) permitem mesclar blocos de texto formatado (Markdown) com blocos de código SQL executável e os resultados desses códigos em tempo real. Isso é incrível para criar tutoriais, runbooks de manutenção documentada ou roteiros de análise de dados.
+* **Por que as outras estão erradas:** O grande trunfo é justamente permitir a visualização gráfica (A). O código que vai lá dentro é SQL (C). Não armazena dados, apenas o código e os resultados em formato de documento (D) e não substitui painéis como o Power BI, mas serve como ferramenta de análise para o time de dados (E).

@@ -1,0 +1,141 @@
+# Resolução - Unidade 1: Modelagem de Banco de Dados e NoSQL
+
+---
+
+## Exercício 1
+**Pergunta:** A modelagem de banco de dados relacional tem como principal objetivo:
+* A) Executar comandos SQL diretamente no sistema gerenciador de banco de dados.
+* B) Estabelecer uma estrutura lógica e organizada para armazenamento, acesso e manipulação dos dados.
+* C) Substituir completamente a análise de requisitos do sistema.
+* D) Eliminar a necessidade de integridade e consistência dos dados.
+* E) Representar apenas dados físicos do servidor.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** O objetivo primário da modelagem relacional é criar um "mapa" estruturado (lógico) que diz como os dados se relacionam entre si. Isso garante que as informações sejam guardadas e recuperadas de forma eficiente e sem duplicações desnecessárias.
+* **Por que as outras estão erradas:** A modelagem não executa comandos (A), isso é papel da linguagem (SQL). Ela depende da análise de requisitos, não a substitui (C). Ela existe justamente para *garantir* a integridade dos dados, não eliminá-la (D). E atua na camada conceitual e lógica, não apenas no armazenamento físico do HD/servidor (E).
+
+---
+
+## Exercício 2
+**Pergunta:** No modelo relacional, uma entidade é representada por:
+* A) Uma linha (tupla) isolada dentro de uma tabela.
+* B) Um conjunto de índices aplicados a várias tabelas.
+* C) Uma tabela que representa um objeto ou conceito do mundo real com significado para o sistema.
+* D) Um relacionamento obrigatório entre duas tabelas.
+* E) Um atributo derivado calculado a partir de outros atributos.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** Quando passamos do modelo conceitual (onde identificamos entidades, como "Cliente" ou "Produto") para o modelo lógico/físico relacional, cada entidade se transforma em uma **tabela**.
+* **Por que as outras estão erradas:** Uma linha (A) representa um registro único (uma ocorrência daquela entidade, ex: "o cliente João"). Índices (B) servem para performance. Relacionamentos (D) são representados por chaves estrangeiras. Atributos (E) são as colunas da tabela.
+
+---
+
+## Exercício 3
+**Pergunta:** No contexto da pirâmide DIKW, a informação é caracterizada como:
+* A) Um dado bruto sem qualquer interpretação.
+* B) O uso ético e estratégico do conhecimento acumulado.
+* C) A aplicação da experiência para tomada de decisões complexas.
+* D) O resultado do processamento e organização dos dados, tornando-os compreensíveis.
+* E) Um conjunto de valores obrigatoriamente armazenados em tabelas relacionais.
+
+**Resposta Correta: D**
+* **Por que a D está certa:** Na pirâmide DIKW, "Dados" (Data) são os fatos puros. Quando você organiza, processa e dá contexto a esses dados, eles sobem um nível e se transformam em "Informação" (Information) (ex: o número 35 é um dado; 35ºC é uma informação sobre a temperatura).
+* **Por que as outras estão erradas:** A opção (A) descreve o nível de "Dados". As opções (B) e (C) descrevem os níveis mais altos de "Sabedoria" (Wisdom) e "Conhecimento" (Knowledge). A opção (E) restringe o conceito apenas à tecnologia de banco de dados, o que é conceitualmente incorreto.
+
+---
+
+## Exercício 4
+**Pergunta:** Um relacionamento muitos-para-muitos (N:N) no modelo relacional deve ser implementado por meio de:
+* A) Uma chave primária composta apenas por atributos derivados.
+* B) Uma entidade associativa ou tabela intermediária contendo as chaves das entidades envolvidas.
+* C) Um atributo multivalorado dentro de uma única tabela.
+* D) A duplicação de registros nas duas tabelas principais.
+* E) A exclusão de uma das entidades envolvidas no relacionamento.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** Bancos de dados relacionais não suportam relacionamentos N:N diretos. A regra de ouro é criar uma terceira tabela (chamada tabela associativa ou de ligação) que receba as chaves primárias das duas tabelas originais como chaves estrangeiras.
+* **Por que as outras estão erradas:** Atributos derivados (A) não resolvem relacionamentos. Atributos multivalorados (C) quebram a Primeira Forma Normal (1FN). Duplicar registros (D) gera redundância severa e anomalias. Excluir a entidade (E) destrói o modelo do negócio.
+
+---
+
+## Exercício 5
+**Pergunta:** A integridade referencial em um banco de dados relacional garante que:
+* A) Todos os atributos sejam obrigatoriamente multivalorados.
+* B) As entidades fracas existam, independentemente das entidades fortes.
+* C) Cada chave estrangeira corresponda a uma chave primária válida na tabela referenciada.
+* D) Não existam atributos derivados no modelo conceitual.
+* E) Todas as tabelas possuam apenas chaves naturais.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** A integridade referencial é a regra que impede a criação de registros "órfãos". Se um Pedido diz que pertence ao Cliente 10, a regra de integridade garante que o Cliente 10 de fato existe na tabela de Clientes.
+* **Por que as outras estão erradas:** Atributos multivalorados (A) são proibidos no modelo relacional básico. Entidades fracas *dependem* das fortes (B). A integridade referencial não tem relação com proibir atributos derivados (D) ou forçar o uso de chaves naturais (E - chaves artificiais/surrogate são super comuns).
+
+---
+
+## Exercício 6
+**Pergunta:** A desnormalização no SQL Server é caracterizada como:
+* A) A eliminação total das regras de normalização em qualquer cenário.
+* B) A introdução controlada de redundância em um modelo previamente normalizado para atender a requisitos de desempenho.
+* C) A substituição obrigatória do modelo relacional por modelos NoSQL.
+* D) A remoção de índices para simplificar a estrutura do banco de dados.
+* E) A aplicação automática de paralelismo em todas as consultas.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** Desnormalizar não é "fazer errado". É um processo consciente e arquitetado onde pegamos um banco perfeito (normalizado) e unimos algumas tabelas intencionalmente, gerando redundância, para evitar que o banco precise fazer muitas consultas difíceis (JOINs) na hora de ler os dados.
+* **Por que as outras estão erradas:** Não é a eliminação total das regras (A). Não tem a ver com migrar para NoSQL (C). Remover índices (D) piora o desempenho. O paralelismo (E) é uma função de execução do motor do banco, não uma técnica de modelagem.
+
+---
+
+## Exercício 7
+**Pergunta:** Uma das principais vantagens da desnormalização no SQL Server está relacionada:
+* A) Ao aumento da complexidade das consultas com múltiplas junções.
+* B) À eliminação da necessidade de manutenção de estatísticas.
+* C) À redução do custo de junções em consultas frequentes, melhorando o tempo de resposta.
+* D) À garantia automática de integridade referencial.
+* E) À diminuição do volume total de dados armazenados.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** A maior dor de um banco normalizado muito grande é o custo computacional de juntar muitas tabelas fragmentadas usando `JOIN`. A desnormalização resolve isso colocando os dados juntos na mesma tabela, tornando a leitura extremamente rápida em relatórios.
+* **Por que as outras estão erradas:** Ela visa *diminuir* a complexidade, não aumentar (A). Não elimina a manutenção do banco (B). Ela *piora* a garantia de integridade (D) e *aumenta* o volume de dados armazenados devido à redundância (E).
+
+---
+
+## Exercício 8
+**Pergunta:** Entre as desvantagens da desnormalização no SQL Server, destaca-se:
+* A) A eliminação de redundância e redução do espaço em disco.
+* B) O aumento da redundância de dados, elevando o risco de inconsistências.
+* C) A simplificação das transações e redução de conflitos de concorrência.
+* D) A redução do consumo de recursos em operações de escrita.
+* E) A diminuição da necessidade de manutenção estrutural.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** O preço a se pagar por consultas rápidas na desnormalização é a redundância. Como a mesma informação passa a existir em vários lugares, quando você precisa atualizar um dado, corre o risco de atualizar em um lugar e esquecer em outro, gerando inconsistência de dados (anomalias de atualização).
+* **Por que as outras estão erradas:** A desnormalização *aumenta* a redundância e o espaço em disco (A). Ela complica as transações de escrita (insert/update/delete) (C e E), aumentando o custo e o tempo de gravação dos dados (D).
+
+---
+
+## Exercício 9
+**Pergunta:** Das ferramentas de otimização do SQL Server, os índices têm como principal finalidade:
+* A) Substituir completamente a análise de planos de execução.
+* B) Armazenar dados redundantes para fins de backup.
+* C) Organizar fisicamente todas as tabelas da mesma maneira.
+* D) Permitir acesso mais rápido aos registros, reduzindo varreduras completas nas tabelas.
+* E) Eliminar a necessidade de tuning de consultas.
+
+**Resposta Correta: D**
+* **Por que a D está certa:** Um índice em um banco de dados funciona exatamente como o índice remissivo no final de um livro grosso. Ele cria uma estrutura secundária (geralmente em árvore-B) que permite ao motor do banco achar a linha desejada rapidamente, sem precisar ler a tabela inteira do início ao fim (table scan).
+* **Por que as outras estão erradas:** Índices não substituem o trabalho de análise do DBA (A e E). Eles não são ferramentas de backup (B). E existem índices físicos (clustered) e lógicos (non-clustered), então não organizam as tabelas todas de uma única maneira física (C).
+
+---
+
+## Exercício 10
+**Pergunta:** A análise de planos de execução no SQL Server é importante porque:
+* A) Substitui a necessidade de manutenção de estatísticas.
+* B) Permite visualizar a estratégia escolhida pelo otimizador e identificar possíveis gargalos de desempenho.
+* C) Garante automaticamente que todas as consultas sejam executadas em paralelo.
+* D) Impede o uso de índices inadequados.
+* E) Elimina a necessidade de reescrita de consultas SQL.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** O plano de execução (Execution Plan) é o "GPS" do SQL Server. Ele mostra graficamente o caminho que o banco escolheu para buscar os dados. Analisando isso, o desenvolvedor ou DBA descobre onde a consulta está demorando (o gargalo) e pode agir para corrigir (criando um índice, por exemplo).
+* **Por que as outras estão erradas:** O plano *depende* das estatísticas para ser bom, logo não as substitui (A). O paralelismo depende da complexidade, não é garantido em tudo (C). O banco pode sim escolher índices ruins se o desenvolvedor não otimizar a query (D). Pelo contrário, muitas vezes analisar o plano mostra que você *precisa* reescrever a consulta (E).

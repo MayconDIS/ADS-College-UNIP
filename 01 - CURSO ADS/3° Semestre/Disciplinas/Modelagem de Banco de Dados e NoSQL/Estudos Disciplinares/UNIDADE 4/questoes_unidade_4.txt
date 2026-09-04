@@ -1,0 +1,141 @@
+# Resolução - Unidade 4: Modelagem de Banco de Dados e NoSQL
+
+---
+
+## Exercício 1
+**Pergunta:** O surgimento dos bancos de dados NoSQL está principalmente relacionado:
+* A) À substituição completa dos bancos relacionais em todos os sistemas corporativos.
+* B) À necessidade de reduzir o uso da linguagem SQL em aplicações tradicionais.
+* C) Às limitações dos modelos relacionais diante de grandes volumes de dados, alta escalabilidade e ambientes distribuídos.
+* D) À eliminação da necessidade de integridade transacional em sistemas críticos.
+* E) À padronização de esquemas rígidos para dados semiestruturados.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** Com o boom da internet (redes sociais, IoT, Big Data), os bancos relacionais tradicionais começaram a "sofrer" para armazenar petabytes de dados e distribuir processamento entre vários servidores. O NoSQL nasceu exatamente para resolver esses problemas de **volume massivo, velocidade e escalabilidade horizontal**.
+* **Por que as outras estão erradas:** O NoSQL não veio para substituir o relacional (A), mas sim para complementar. Ele não foca em reduzir o SQL em apps tradicionais (B), não propõe eliminar a segurança transacional onde ela é crítica (D - bancos financeiros continuam usando relacional) e é famoso justamente por *não* ter esquemas rígidos (E).
+
+---
+
+## Exercício 2
+**Pergunta:** Uma característica central dos bancos de dados NoSQL é:
+* A) A obrigatoriedade de definição prévia de esquemas rígidos para todas as estruturas de dados.
+* B) A ausência de qualquer tipo de consistência nos dados armazenados.
+* C) A eliminação total da possibilidade de uso em ambientes distribuídos.
+* D) A flexibilidade estrutural, permitindo armazenar dados sem esquema fixo previamente definido.
+* E) O foco exclusivo em transações fortemente consistentes.
+
+**Resposta Correta: D**
+* **Por que a D está certa:** A maioria dos bancos NoSQL (como o MongoDB) é *schemaless* (sem esquema fixo). Isso significa que você pode gravar um cliente apenas com "Nome" e "Email", e o próximo cliente com "Nome", "Telefone" e "Endereço", tudo na mesma coleção, sem precisar alterar a estrutura da tabela antes.
+* **Por que as outras estão erradas:** Eles fogem de esquemas rígidos (A). Eles possuem consistência (geralmente a "consistência eventual"), não a ausência dela (B). Foram feitos exatamente *para* ambientes distribuídos (C). E o foco não é exclusividade na consistência forte (E), pois muitas vezes eles abrem mão disso para focar em disponibilidade e tolerância a falhas (Teorema CAP).
+
+---
+
+## Exercício 3
+**Pergunta:** Os bancos de dados NoSQL orientados a grafos são especialmente indicados para aplicações que:
+* A) Exigem apenas acesso direto por chave única, sem necessidade de relacionamentos.
+* B) Processam grandes volumes de dados com padrões de consulta exclusivamente tabulares.
+* C) Armazenam apenas dados temporários para cache distribuído.
+* D) Necessitam exclusivamente de operações simples de leitura e escrita sem conexões entre dados.
+* E) Dependem da análise eficiente de relacionamentos complexos entre entidades.
+
+**Resposta Correta: E**
+* **Por que a E está certa:** Bancos orientados a grafos (como o Neo4j) tratam os relacionamentos como "cidadãos de primeira classe". Se você precisa mapear "quem conhece quem" (redes sociais), detecção de fraudes ou rotas de GPS, essa tecnologia analisa essas teias complexas de forma incrivelmente rápida.
+* **Por que as outras estão erradas:** Acesso por chave única é banco Chave-Valor (A). Consultas tabulares são Relacionais (B). Cache temporário usa Chave-Valor em memória, como o Redis (C). Operações sem conexões vão na contramão do que um Grafo faz (D).
+
+---
+
+## Exercício 4
+**Pergunta:** A escolha por bancos de dados NoSQL em vez de bancos relacionais é mais adequada quando:
+* A) A aplicação exige consistência forte imediata e transações complexas com múltiplas tabelas.
+* B) O sistema lida com grande volume de dados, necessidade de escalabilidade horizontal e tolerância a inconsistências temporárias.
+* C) O domínio do problema é altamente estruturado e depende de integridade referencial rígida.
+* D) Há necessidade predominante de consultas complexas com múltiplas junções e agregações sofisticadas em SQL.
+* E) O ambiente exige forte padronização baseada exclusivamente no modelo relacional tradicional.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** O "habitat natural" do NoSQL é o cenário de alto volume e alta velocidade (Big Data), onde você precisa plugar dezenas de servidores (escalabilidade horizontal) e não tem problema se uma postagem no feed demorar meio segundo a mais para aparecer para um amigo (tolerância à consistência eventual).
+* **Por que as outras estão erradas:** As opções A, C, D e E descrevem *exatamente* o cenário perfeito para se usar um **banco de dados Relacional tradicional** (estruturas rígidas, necessidade de `JOINs` complexos, forte integridade garantida e padrão transacional ACID).
+
+---
+
+## Exercício 5
+**Pergunta:** Em arquiteturas híbridas que combinam bancos relacionais e NoSQL, é correto afirmar que:
+* A) O banco NoSQL substitui integralmente o banco relacional como núcleo transacional do sistema.
+* B) O banco relacional é utilizado apenas para armazenamento temporário de dados em cache.
+* C) A utilização simultânea de bancos relacionais e NoSQL elimina a necessidade de planejamento arquitetural.
+* D) A abordagem híbrida é recomendada apenas para sistemas de pequeno porte e baixa complexidade.
+* E) O banco relacional costuma assumir o papel de núcleo transacional, enquanto o NoSQL atende a requisitos como alta volumetria, flexibilidade ou acesso intensivo.
+
+**Resposta Correta: E**
+* **Por que a E está certa:** Essa prática se chama *Persistência Poliglota*. Exemplo clássico do e-commerce: o banco Relacional guarda o pagamento e a nota fiscal do cliente (onde o dado não pode falhar ou sumir de jeito nenhum), e o banco NoSQL guarda o catálogo de produtos e os itens no carrinho (alta velocidade, flexibilidade).
+* **Por que as outras estão erradas:** O NoSQL raramente é o núcleo de transações financeiras (A). Quem faz papel de cache é banco em memória, não o relacional (B). Misturar tecnologias *aumenta* drasticamente a necessidade de planejamento (C) e é o padrão de sistemas gigantes e de altíssima complexidade (Netflix, Amazon), não de pequenos (D).
+
+---
+
+## Exercício 6
+**Pergunta:** Em bancos de dados NoSQL, a otimização difere do modelo relacional porque:
+* A) Está concentrada exclusivamente na criação de índices e ajustes de consultas SQL.
+* B) Baseia-se apenas no aumento de hardware do servidor principal.
+* C) Exige uma abordagem arquitetural que considere distribuição de dados, tolerância a falhas e equilíbrio entre desempenho e consistência.
+* D) Elimina a necessidade de planejamento estrutural prévio.
+* E) Depende unicamente de técnicas de cache interno.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** Como o NoSQL roda distribuído (vários servidores espalhados), otimizá-lo significa pensar em como os dados vão ser espalhados pela rede, o que acontece se um servidor "morrer" (tolerância a falhas) e como equilibrar a velocidade de leitura contra a garantia de que o dado é o mais recente (Teorema CAP).
+* **Por que as outras estão erradas:** O NoSQL não usa a linguagem SQL padronizada (A). A ideia é não depender do servidor principal gigante (escalabilidade vertical - B). Embora seja sem esquema rígido, *exige* planejamento pesado de arquitetura e modelo de acesso (D). E vai muito além do cache (E).
+
+---
+
+## Exercício 7
+**Pergunta:** O principal objetivo do sharding em bancos NoSQL é:
+* A) Dividir logicamente os dados em fragmentos distribuídos entre diferentes nós, permitindo escalabilidade horizontal.
+* B) Criar cópias redundantes dos dados para aumentar a segurança.
+* C) Garantir consistência forte em todas as operações de escrita.
+* D) Reduzir a necessidade de monitoramento do sistema.
+* E) Substituir completamente o particionamento de dados.
+
+**Resposta Correta: A**
+* **Por que a A está certa:** *Sharding* (particionamento horizontal) é pegar um banco de dados gigantesco de 10 Terabytes e quebrar em 10 servidores de 1 Terabyte cada. Metade dos clientes ficam no Servidor A, e a outra metade no Servidor B. Isso permite distribuir a carga de processamento e armazenamento indefinidamente (escalar horizontalmente).
+* **Por que as outras estão erradas:** Criar cópias se chama "Replicação", não sharding (B). Ele foca em performance/escala, não na consistência forte (C). Aumenta a complexidade e a necessidade de monitoramento (D). E *Sharding* é, na verdade, um tipo de particionamento, logo não o substitui (E).
+
+---
+
+## Exercício 8
+**Pergunta:** A replicação em sistemas NoSQL contribui, principalmente, para:
+* A) Eliminar a necessidade de particionamento de dados.
+* B) Aumentar disponibilidade, tolerância a falhas e, em alguns cenários, melhorar desempenho de leitura.
+* C) Garantir que todas as leituras ocorram apenas no nó principal.
+* D) Reduzir o número de nós do cluster.
+* E) Impedir a adoção de consistência eventual.
+
+**Resposta Correta: B**
+* **Por que a B está certa:** *Replicação* é tirar "xerox" do seu banco de dados em tempo real. Se o Servidor Principal (onde o cliente A foi salvo) queimar/cair, o Servidor Secundário tem uma cópia exata e assume na hora (alta disponibilidade e tolerância a falhas). Além disso, você pode direcionar os usuários para lerem os dados das cópias, desafogando o principal (melhora leitura).
+* **Por que as outras estão erradas:** Não elimina o *sharding* (A); geralmente trabalham juntos. Direcionar leitura só pro principal mata a performance (C). Replicação *aumenta* o número de servidores/nós (D). E, por natureza, a replicação entre vários nós costuma adotar justamente a consistência eventual (E).
+
+---
+
+## Exercício 9
+**Pergunta:** Em ambientes NoSQL, a escalabilidade horizontal caracteriza-se por:
+* A) Aumentar a capacidade de um único servidor por meio de hardware mais potente.
+* B) Reduzir a redundância de dados para melhorar desempenho.
+* C) Limitar o número de usuários simultâneos para manter estabilidade.
+* D) Priorizar exclusivamente consistência forte em detrimento da disponibilidade.
+* E) Adicionar novos nós ao sistema para ampliar capacidade de forma incremental.
+
+**Resposta Correta: E**
+* **Por que a E está certa:** Escalabilidade Horizontal (Scale-Out) significa colocar mais máquinas "comuns" lado a lado para dividir o peso do trabalho (novos nós). Se o sistema ficar lento, você simplesmente liga um novo servidor barato na rede do cluster.
+* **Por que as outras estão erradas:** Aumentar a memória ou processador de um único servidor é chamado de Escalabilidade Vertical (Scale-Up) (A). Limitar usuários é o oposto de escalar (C). As opções B e D fogem da definição técnica do que significa "escalar horizontalmente".
+
+---
+
+## Exercício 10
+**Pergunta:** O desempenho em ambientes NoSQL depende:
+* A) Apenas da eficiência de um único nó centralizado.
+* B) Exclusivamente da velocidade do disco rígido utilizado.
+* C) Da interação entre latência, throughput, concorrência e padrões de acesso em uma arquitetura distribuída.
+* D) Apenas da quantidade de memória disponível em um servidor.
+* E) Da eliminação total de qualquer forma de replicação.
+
+**Resposta Correta: C**
+* **Por que a C está certa:** Em um sistema distribuído, o dado viaja pela rede entre vários servidores. Logo, o quão rápido o sistema é depende da *latência* da rede (tempo de resposta), do *throughput* (volume de dados suportado), de quantas pessoas estão acessando ao mesmo tempo (*concorrência*) e de como a sua aplicação pede esses dados.
+* **Por que as outras estão erradas:** Em NoSQL não existe "nó único centralizado" como regra (A). O disco e a memória (B e D) importam, mas a resposta em arquitetura distribuída jamais depende "exclusivamente" ou "apenas" deles. Por fim, eliminar a replicação (E) deixaria o banco absurdamente vulnerável a falhas.
