@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Atividade Complementar - Representação Discente 2026.1</title>
+    <style>
+        /* 1. RESET GERAL E CONFIGURAÇÃO DO BODY */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #525659;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            padding: 30px;
+            font-family: Arial, "Times New Roman", serif;
+            font-size: 12pt;
+            color: black;
+        }
+
+        /* 2. ESTRUTURA DA PÁGINA (Padrão ABNT Estrito - A4) */
+        .page {
+            background-color: white;
+            width: 21cm;
+            min-height: 29.7cm;
+            /* Margens ABNT: Superior 3cm, Direita 2cm, Inferior 2cm, Esquerda 3cm */
+            padding: 3cm 2cm 2cm 3cm; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        /* 3. NUMERAÇÃO DE PÁGINAS (ABNT - Canto superior direito) */
+        .page-number {
+            position: absolute;
+            top: 2cm;
+            right: 2cm;
+            font-size: 10pt;
+            font-family: Arial, "Times New Roman", serif;
+        }
+
+        /* 4. TIPOGRAFIA E TEXTOS */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: bold;
+            color: black;
+            margin-top: 1.5em;
+            margin-bottom: 1em;
+            text-indent: 0;
+        }
+        
+        h1, h2 {
+            text-align: center;
+            font-size: 14pt;
+        }
+
+        h3, h4 {
+            text-align: left;
+            font-size: 12pt;
+        }
+
+        p {
+            text-align: justify;
+            line-height: 1.5;
+            text-indent: 1.5cm; /* Recuo de primeira linha */
+            margin-top: 0;
+            margin-bottom: 1em;
+        }
+        
+        .uppercase { text-transform: uppercase; }
+
+        /* 5. TABELAS (Estrutura e Design Padrão) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 12pt;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        /* 6. SUMÁRIO (Estilo Índice ABNT) */
+        .sumario-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            font-size: 12pt;
+        }
+        
+        .sumario-item a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+        
+        .sumario-item a:hover {
+            text-decoration: underline;
+        }
+
+        .sumario-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #000;
+            margin: 0 10px;
+            position: relative;
+            top: -4px;
+        }
+
+        /* 7. IMAGENS E LEGENDAS */
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .image-container img:hover {
+            opacity: 0.8;
+        }
+
+        .caption {
+            text-align: center;
+            font-size: 10pt;
+            text-indent: 0;
+        }
+
+        /* 8. ESTILOS DA CAPA (Idêntico ao PIM III fornecido) */
+        .logo-unip { 
+            display: block; 
+            margin: 0 auto 0.5cm auto; 
+            width: 6cm; 
+            border: none !important; 
+            cursor: default !important;
+        }
+        
+        .logo-unip:hover { opacity: 1 !important; }
+
+        .capa-header { 
+            text-align: center; 
+            line-height: 1.5; 
+            margin-bottom: 2cm; 
+            font-size: 12pt;
+            font-weight: normal;
+        }
+
+        .table-capa { 
+            width: 75%; 
+            margin: 0 auto; 
+            border: none !important; 
+            border-collapse: collapse;
+        }
+        
+        .table-capa th, .table-capa td { 
+            border: none !important; 
+            padding: 4px 8px; 
+            background-color: transparent; 
+            text-align: left;
+            font-size: 12pt;
+        }
+        
+        .table-capa th { font-weight: bold; }
+        .table-capa td { font-weight: normal; }
+
+        .capa-footer { 
+            position: absolute; 
+            bottom: 2cm; 
+            left: 3cm; 
+            right: 2cm; 
+            text-align: center; 
+            line-height: 1.5; 
+            font-weight: bold;
+        }
+
+        /* 9. RESPONSIVIDADE (Mobile) */
+        @media screen and (max-width: 800px) {
+            body { padding: 10px; }
+            .page { width: 100%; height: auto !important; min-height: auto; padding: 20px; margin-bottom: 15px; box-shadow: none; }
+            .capa-footer { position: relative; bottom: auto; left: auto; right: auto; margin-top: 2cm; }
+            .table-capa { width: 100%; margin-top: 2cm; margin-bottom: 2cm; }
+            p { text-indent: 1cm; }
+            .sumario-dots { display: none; }
+        }
+
+        /* 10. MÍDIA DE IMPRESSÃO (Sem folhas em branco e PDF limpo) */
+        @page {
+            size: A4;
+            margin: 0; 
+        }
+
+        @media print {
+            body { background-color: white; margin: 0; padding: 0; gap: 0; }
+            .page {
+                box-shadow: none; margin: 0; border: none; 
+                width: 21cm;
+                height: 29.7cm; /* Trava o tamanho na hora da impressão, base do PIM III */
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+            .page:last-of-type { page-break-after: auto; }
+            .image-container img { cursor: default; }
+            .image-container img:hover { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="page" id="capa" aria-label="Capa do Trabalho">
+        <header>
+            <img src="Logo UNIP.png" alt="Logo da Universidade Paulista" class="logo-unip" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/UNIP_Logo.svg/1200px-UNIP_Logo.svg.png'">
+            <div class="capa-header uppercase">
+                UNIVERSIDADE PAULISTA<br>
+                ICET - INSTITUTO DE CIÊNCIAS EXATAS E TECNOLOGIA<br>
+                CURSO SUPERIOR DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS<br><br><br>
+                ATIVIDADES COMPLEMENTARES (AC)<br><br><br>
+                RELATÓRIO DE ATIVIDADES DE REPRESENTAÇÃO DISCENTE<br>
+                <span style="text-transform: none;">(Referente ao 1º Semestre de 2026)</span>
+            </div>
+        </header>
+        
+        <table class="table-capa" aria-label="Tabela de Autores">
+            <tr><th width="70%">Nome</th><th width="30%">R.A</th></tr>
+            <tr>
+                <td>Maycon Douglas Inácio Silva</td>
+                <td>H719CD3</td>
+            </tr>
+        </table>
+        
+        <footer class="capa-footer uppercase">
+            São José dos Campos - SP<br>Fevereiro / 2026
+        </footer>
+    </section>
+
+    <section class="page" id="sumario">
+        <h2>Sumário</h2>
+        
+        <div class="sumario-item">
+            <a href="#dados-cadastro">1. Dados de Cadastro</a>
+            <div class="sumario-dots"></div>
+            <span>3</span>
+        </div>
+        
+        <div class="sumario-item">
+            <a href="#descricao-atividade">2. Descrição da Atividade</a>
+            <div class="sumario-dots"></div>
+            <span>4</span>
+        </div>
+
+        <div class="sumario-item">
+            <a href="#conclusao-local">3. Conclusão e Local</a>
+            <div class="sumario-dots"></div>
+            <span>5</span>
+        </div>
+
+        <div class="sumario-item">
+            <a href="#comprovacoes">4. Comprovações</a>
+            <div class="sumario-dots"></div>
+            <span>6</span>
+        </div>
+    </section>
+
+    <section class="page" id="dados-cadastro">
+        <div class="page-number">3</div>
+        <h2>Dados de Cadastro</h2>
+        
+        <h3>Campus</h3>
+        <p>Campus SJC Dutra - São José dos Campos (SP)</p>
+
+        <h3>Alunos Participantes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>RA</th>
+                    <th>Nome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>H719CD3</td>
+                    <td>Maycon Douglas Inácio Silva</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><em>Turma: DS3A48</em></p>
+
+        <h3>Período</h3>
+        <p>Ano: 2026 | Semestre: 1°</p>
+
+        <h3>Área Temática</h3>
+        <p>Educação, Comunicação e Gestão Acadêmica.</p>
+
+        <h3>Ação</h3>
+        <p>Representação Discente (Atividade Complementar).</p>
+    </section>
+
+    <section class="page" id="descricao-atividade">
+        <div class="page-number">4</div>
+        <h2>Descrição da Atividade</h2>
+        
+        <h3>Descrição Geral da Atividade</h3>
+        <p>A atividade complementar consistiu no exercício da função de Vice-Representante de Turma (DS3A48) durante o 1º semestre letivo de 2026. O foco principal da atuação foi garantir uma comunicação clara e fluida entre a coordenação do curso de Análise e Desenvolvimento de Sistemas (ADS) e os alunos. O trabalho envolveu o acompanhamento e o repasse de informações institucionais, assegurando que toda a turma ficasse por dentro dos comunicados, prazos e demandas acadêmicas de forma rápida e organizada.</p>
+
+        <h3>Descrição da participação do aluno</h3>
+        <h4>Maycon Douglas Inácio Silva</h4>
+        <p>Como Vice-Representante, fiquei responsável por gerenciar a comunicação acadêmica da turma, utilizando principalmente o nosso grupo oficial no aplicativo de mensagens instantâneas. Minha rotina envolveu a triagem e o repasse ágil de documentos acadêmicos, avisos da coordenação e diretrizes essenciais. Dessa forma, procurei manter os colegas sempre atualizados, evitando que perdessem informações cruciais para o bom andamento das disciplinas e do semestre como um todo.</p>
+    </section>
+
+    <section class="page" id="conclusao-local">
+        <div class="page-number">5</div>
+        <h2>Conclusão e Resultados Alcançados</h2>
+        <p>O exercício da vice-representação neste semestre foi uma excelente oportunidade para desenvolver habilidades práticas de comunicação e organização. A responsabilidade de ser a ponte entre a coordenação e os alunos exigiu proatividade e um bom gerenciamento de tempo, garantindo que as mensagens chegassem de maneira clara e no momento certo para todos.</p>
+        <p>Essa experiência ajudou a fortalecer o senso de responsabilidade coletiva e o trabalho em equipe dentro da turma. Acredito que manter um grupo bem informado é essencial para um ambiente acadêmico mais colaborativo, e essa prática serviu como uma ótima base para o desenvolvimento de competências interpessoais (soft skills) que são muito valorizadas no dia a dia do mercado de trabalho.</p>
+
+        <h2>Local onde a atividade foi realizada</h2>
+        <p>As atividades de comunicação e representação foram executadas de forma híbrida (presencial e digital) interagindo com as dependências do Campus da universidade.</p>
+        <div class="image-container">
+            <img src="Foto Campus UNIP.png" alt="Foto do Campus UNIP SJC Dutra" class="dynamic-img" title="Clique para trocar a imagem (JPG, PNG, etc)">
+            <p class="caption">Fonte: Acervo pessoal do autor</p>
+        </div>
+    </section>
+
+    <section class="page" id="comprovacoes">
+        <div class="page-number">6</div>
+        <h2>Comprovação (Evidências da Atividade)</h2>
+        
+        <h3>Comprovação 1 – Repasse de Curso Complementar (Git)</h3>
+        <p><em>Captura de tela do grupo oficial da turma demonstrando o repasse do curso básico de Git, proposto pelo professor Egídio em sala de aula, com o intuito de facilitar os estudos e o desenvolvimento técnico dos alunos.</em></p>
+        <div class="image-container">
+            <img src="Comprovante 1.png" alt="Print do repasse do curso de Git" class="dynamic-img" title="Clique para trocar a imagem (JPG, PNG, etc)">
+            <p class="caption">Fonte: Acervo pessoal do autor</p>
+        </div>
+    </section>
+
+    <section class="page" id="comprovacoes-2">
+        <div class="page-number">7</div>
+        <h2>Comprovação (Continuação)</h2>
+
+        <h3>Comprovação 2 – Divulgação do Plantão Psicológico da UNIP</h3>
+        <p><em>Captura de tela evidenciando o compartilhamento de informações sobre o plantão psicológico. A iniciativa visa o cuidado com a saúde mental dos estudantes e, simultaneamente, apoia o estágio dos alunos formandos do curso de Psicologia do próprio campus.</em></p>
+        <div class="image-container">
+            <img src="Comprovante 2.png" alt="Print da divulgação do plantão psicológico" class="dynamic-img" title="Clique para trocar a imagem (JPG, PNG, etc)">
+            <p class="caption">Fonte: Acervo pessoal do autor</p>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('.dynamic-img');
+            
+            images.forEach(img => {
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.accept = 'image/png, image/jpeg, image/jpg, image/webp, image/gif';
+                fileInput.style.display = 'none';
+
+                fileInput.addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            img.src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                img.addEventListener('click', () => {
+                    fileInput.click();
+                });
+
+                document.body.appendChild(fileInput);
+            });
+        });
+    </script>
+</body>
+</html>

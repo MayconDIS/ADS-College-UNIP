@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Extensão Universitária — Prestação de Serviços (70h) · AI-Workspace</title>
+    <!--
+      ────────────────────────────────────────────────────────────────────────
+      RELATÓRIO DE ATIVIDADE DE EXTENSÃO UNIVERSITÁRIA (70 horas)
+      UNIP · ICET · CST em Análise e Desenvolvimento de Sistemas
+      Ação: Prestação de serviços — AI-Workspace (painel PowerShell)
+
+      Formato ABNT: A4, margens 3cm superior/esquerda e 2cm inferior/direita,
+      Arial 12pt, parágrafo justificado com recuo de 1,25cm~1,5cm.
+      Para gerar o PDF: abrir no Chrome, anexar as imagens da seção 4 clicando
+      sobre elas e imprimir (Ctrl+P) na MESMA sessão — a troca não é salva.
+      ────────────────────────────────────────────────────────────────────────
+    -->
+    <style>
+        /* 1. RESET GERAL E CONFIGURAÇÃO DO BODY */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #525659;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            padding: 30px;
+            font-family: Arial, "Times New Roman", serif;
+            font-size: 12pt;
+            color: black;
+        }
+
+        /* 2. ESTRUTURA DA PÁGINA (Padrão ABNT Estrito - A4) */
+        .page {
+            background-color: white;
+            width: 21cm;
+            min-height: 29.7cm;
+            /* Margens ABNT: Superior 3cm, Direita 2cm, Inferior 2cm, Esquerda 3cm */
+            padding: 3cm 2cm 2cm 3cm;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        /* 3. NUMERAÇÃO DE PÁGINAS (ABNT - Canto superior direito) */
+        .page-number {
+            position: absolute;
+            top: 2cm;
+            right: 2cm;
+            font-size: 10pt;
+            font-family: Arial, "Times New Roman", serif;
+        }
+
+        /* 4. TIPOGRAFIA E TEXTOS */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: bold;
+            color: black;
+            margin-top: 1.1em;
+            margin-bottom: 0.7em;
+            text-indent: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-size: 14pt;
+        }
+
+        h3, h4 {
+            text-align: left;
+            font-size: 12pt;
+        }
+
+        h2:first-of-type, h3:first-child { margin-top: 0; }
+
+        p {
+            text-align: justify;
+            line-height: 1.5;
+            text-indent: 1.5cm; /* Recuo de primeira linha */
+            margin-top: 0;
+            margin-bottom: 0.8em;
+        }
+
+        ul, ol {
+            margin: 0 0 0.8em 1.5cm;
+            padding-left: 0.8cm;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        li { margin-bottom: 0.35em; }
+
+        .uppercase { text-transform: uppercase; }
+        .no-indent { text-indent: 0; }
+
+        /* Campo ainda por preencher — visível de propósito, inclusive impresso. */
+        .pendente {
+            background-color: #ffe9a8;
+            border: 1px dashed #b58900;
+            padding: 0 4px;
+            font-weight: bold;
+        }
+
+        /* 5. TABELAS (Estrutura e Design Padrão) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 12pt;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .table-dados td:first-child { text-align: left; font-weight: bold; width: 32%; }
+        .table-dados td:last-child { text-align: left; }
+
+        /* 6. SUMÁRIO (Estilo Índice ABNT) */
+        .sumario-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            font-size: 12pt;
+        }
+
+        .sumario-item a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .sumario-item a:hover {
+            text-decoration: underline;
+        }
+
+        .sumario-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #000;
+            margin: 0 10px;
+            position: relative;
+            top: -4px;
+        }
+
+        /* 7. IMAGENS E LEGENDAS */
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 11cm;
+            height: auto;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .image-container img:hover {
+            opacity: 0.8;
+        }
+
+        .caption {
+            text-align: center;
+            font-size: 10pt;
+            text-indent: 0;
+        }
+
+        .figure-title {
+            text-align: center;
+            font-size: 10pt;
+            text-indent: 0;
+            margin-bottom: 5px;
+        }
+
+        /* 8. ESTILOS DA CAPA */
+        .logo-unip {
+            display: block;
+            margin: 0 auto 0.5cm auto;
+            width: 6cm;
+            border: none !important;
+            cursor: default !important;
+        }
+
+        .logo-unip:hover { opacity: 1 !important; }
+
+        .capa-header {
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 2cm;
+            font-size: 12pt;
+            font-weight: normal;
+        }
+
+        .table-capa {
+            width: 75%;
+            margin: 0 auto;
+            border: none !important;
+            border-collapse: collapse;
+        }
+
+        .table-capa th, .table-capa td {
+            border: none !important;
+            padding: 4px 8px;
+            background-color: transparent;
+            text-align: left;
+            font-size: 12pt;
+        }
+
+        .table-capa th { font-weight: bold; }
+        .table-capa td { font-weight: normal; }
+
+        .capa-footer {
+            position: absolute;
+            bottom: 2cm;
+            left: 3cm;
+            right: 2cm;
+            text-align: center;
+            line-height: 1.5;
+            font-weight: bold;
+        }
+
+        /* 9. RESPONSIVIDADE (Mobile) */
+        @media screen and (max-width: 800px) {
+            body { padding: 10px; }
+            .page { width: 100%; height: auto !important; min-height: auto; padding: 20px; margin-bottom: 15px; box-shadow: none; }
+            .capa-footer { position: relative; bottom: auto; left: auto; right: auto; margin-top: 2cm; }
+            .table-capa { width: 100%; margin-top: 2cm; margin-bottom: 2cm; }
+            p { text-indent: 1cm; }
+            ul, ol { margin-left: 0.5cm; }
+            .sumario-dots { display: none; }
+        }
+
+        /* 10. MÍDIA DE IMPRESSÃO (PDF limpo) */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body { background-color: white; margin: 0; padding: 0; gap: 0; display: block; }
+            .page {
+                box-shadow: none; margin: 0; border: none;
+                width: 100%;
+                min-height: 29.5cm;
+                page-break-after: always;
+            }
+            .page:last-of-type { page-break-after: auto; }
+            .image-container img { cursor: default; }
+            .image-container img:hover { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="page" id="capa" aria-label="Capa do Trabalho">
+        <header>
+            <img src="assets/Logo UNIP.png" alt="Logo da Universidade Paulista" class="logo-unip" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/UNIP_Logo.svg/1200px-UNIP_Logo.svg.png'">
+            <div class="capa-header uppercase">
+                UNIVERSIDADE PAULISTA<br>
+                ICET - INSTITUTO DE CIÊNCIAS EXATAS E TECNOLOGIA<br>
+                CURSO SUPERIOR DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS<br><br><br>
+                EXTENSÃO UNIVERSITÁRIA<br><br><br>
+                RELATÓRIO DE ATIVIDADE DE EXTENSÃO — PRESTAÇÃO DE SERVIÇOS<br>
+                <span style="text-transform: none;">(AI-Workspace: Painel de Diagnóstico e Manutenção para Windows)</span><br>
+                <span style="text-transform: none;">Carga horária: 70 horas</span>
+            </div>
+        </header>
+
+        <table class="table-capa" aria-label="Tabela de Autores">
+            <tr><th width="70%">Nome</th><th width="30%">R.A</th></tr>
+            <tr><td>Maycon Douglas Inácio Silva</td><td>H719CD3</td></tr>
+        </table>
+
+        <footer class="capa-footer uppercase">
+            São José dos Campos - SP<br>Agosto / 2026
+        </footer>
+    </section>
+
+    <section class="page" id="sumario">
+        <h2>Sumário</h2>
+        <div class="sumario-item"><a href="#dados-cadastro">1. Dados de Cadastro</a><div class="sumario-dots"></div><span>3</span></div>
+        <div class="sumario-item"><a href="#descricao-1">2. Descrição da Atividade</a><div class="sumario-dots"></div><span>4</span></div>
+        <div class="sumario-item"><a href="#conclusao">3. Conclusão e Resultados Alcançados</a><div class="sumario-dots"></div><span>10</span></div>
+        <div class="sumario-item"><a href="#comprovacao">4. Comprovação</a><div class="sumario-dots"></div><span>19</span></div>
+    </section>
+
+    <section class="page" id="dados-cadastro">
+        <div class="page-number">3</div>
+        <h2>1. Dados de Cadastro</h2>
+
+        <h3>Campus</h3>
+        <p>Campus SJC Dutra - São José dos Campos (SP)</p>
+
+        <h3>Aluno Participante</h3>
+        <table>
+            <thead><tr><th>Número</th><th>R.A.</th><th>Nome</th><th>Curso</th></tr></thead>
+            <tbody><tr><td>1</td><td>H719CD3</td><td>Maycon Douglas Inácio Silva</td><td>Análise e Desenvolvimento de Sistemas</td></tr></tbody>
+        </table>
+        <p class="no-indent"><em>Turma: DS4A48</em></p>
+        <p class="no-indent"><em>Atividade individual. O aluno respondeu integralmente pela concepção, desenvolvimento, documentação bilíngue, empacotamento do instalador e publicação da ferramenta.</em></p>
+
+        <h3>Período</h3>
+        <p>Ano: 2026 | Semestre: 4º | Desenvolvimento: 21/05/2026 a 13/06/2026 | Publicação: 13/06/2026</p>
+
+        <h3>Área Temática e Projeto</h3>
+        <p>TECNOLOGIA E PRODUÇÃO &middot; Desenvolvimento de aplicativos/ software/ website para a comunidade, organizações não governamentais, etc.</p>
+
+        <h3>Ação</h3>
+        <p>Prestação de serviços (70 horas)</p>
+
+        <h3>Público Beneficiário e Natureza da Contribuição</h3>
+        <table class="table-dados">
+            <tr><td>Público Beneficiário</td><td>Usuários e técnicos de Windows, estudantes de TI e suporte técnico comunitário</td></tr>
+            <tr><td>Pessoas Impactadas</td><td>180 pessoas (usuários únicos alcançados, apurados na análise da publicação)</td></tr>
+            <tr><td>Natureza</td><td>Voluntária e não remunerada — software gratuito, código aberto, sem anúncios e sem coleta de dados</td></tr>
+        </table>
+    </section>
+
+    <section class="page" id="descricao-1">
+        <div class="page-number">4</div>
+        <h2>2. Descrição da Atividade</h2>
+        <h3>2.1 Descrição Geral da Atividade</h3>
+        <p>A atividade consistiu no desenvolvimento e na disponibilização gratuita do
+        <strong>AI-Workspace</strong>, um painel central de diagnóstico, limpeza e manutenção
+        para o sistema operacional Windows, executado inteiramente no console via PowerShell e
+        distribuído em código aberto.</p>
+
+        <p>O problema atacado é concreto e cotidiano: manter um computador Windows saudável
+        exige percorrer utilitários dispersos pelo sistema — Gerenciador de Tarefas, Limpeza de
+        Disco, <code>sfc</code>, <code>DISM</code>, Planos de Energia, configurações de
+        inicialização — cada um com sua própria interface e sua própria curva de aprendizado.
+        Quem não é técnico não sabe onde procurar; quem é técnico perde tempo alternando entre
+        eles. O AI-Workspace reúne <strong>13 ferramentas</strong> sob um único menu numerado, no
+        qual cada tarefa se resolve digitando um número.</p>
+
+        <h4>Diagnóstico e Monitoramento</h4>
+        <ul>
+            <li><strong>[1] Auditoria de Boot:</strong> analisa os programas que iniciam com o
+            Windows, para diagnosticar lentidão na partida.</li>
+            <li><strong>[2] Diagnóstico de Rede:</strong> latência, rotas e portas TCP abertas
+            com os processos donos de cada uma.</li>
+            <li><strong>[3] Escanear Redes Wi-Fi:</strong> examina os canais das redes vizinhas e
+            sugere os canais livres em 2.4 GHz e 5 GHz.</li>
+            <li><strong>[4] Monitor de Hardware:</strong> telemetria de processador e memória em
+            tempo real.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="descricao-2">
+        <div class="page-number">5</div>
+        <h2>2. Descrição da Atividade (continuação)</h2>
+
+        <h4>Limpeza e Espaço em Disco</h4>
+        <ul>
+            <li><strong>[5] Caçar Arquivos Duplicados:</strong> identificação por hash SHA-256,
+            com modo rápido (pasta do usuário) e profundo (unidade inteira).</li>
+            <li><strong>[6] Escanear Espaço Ocupado:</strong> mapeamento de consumo de disco,
+            também em dois modos.</li>
+            <li><strong>[7] Limpar Arquivos Temporários:</strong> remoção de caches e arquivos
+            órfãos de Prefetch e Temp.</li>
+            <li><strong>[8] Organizar Pasta de Downloads:</strong> classificação automática em
+            Imagens, Vídeos, Documentos, Compactados e Código.</li>
+        </ul>
+
+        <h4>Manutenção e Otimização</h4>
+        <ul>
+            <li><strong>[9] Gerenciar Layout de Telas:</strong> salva e restaura arranjos de
+            janelas do espaço de trabalho.</li>
+            <li><strong>[10] Otimizador de Sistema (Seguro):</strong> desativa telemetrias
+            intrusivas e remove <em>bloatware</em>, criando ponto de restauração antes de
+            agir.</li>
+            <li><strong>[11] Reparo do Sistema:</strong> checagem e restauração da Component
+            Store via <code>SFC</code> e <code>DISM</code>.</li>
+            <li><strong>[12] Gerenciar Planos de Energia:</strong> lista e alterna os planos
+            ativos.</li>
+            <li><strong>[13] Ejetar Armazenamento Externo:</strong> ejeção segura de SSDs e
+            pendrives mesmo em uso, fechando <em>handles</em> de arquivo pela API nativa CIM/WMI
+            e controlando o AutoPlay.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="descricao-3">
+        <div class="page-number">6</div>
+        <h2>2. Descrição da Atividade (continuação)</h2>
+
+        <h4>Decisões técnicas que orientaram o projeto</h4>
+        <ul>
+            <li><strong>Bilíngue de fato, não traduzido por cima.</strong> O menu existe em
+            português (<code>ajuda</code>) e inglês (<code>help</code>), e o comando
+            <code>help</code> preserva o comportamento nativo do PowerShell quando recebe
+            parâmetros — <code>help Get-Service</code> continua funcionando. Uma ferramenta de
+            comunidade que quebra um comando padrão do sistema causa mais dano do que
+            benefício.</li>
+            <li><strong>Instalação em dois cliques ou por linha de comando.</strong> O instalador
+            copia o workspace para <code>C:\AI_Workspace</code> e registra os comandos globais no
+            perfil do PowerShell. Há um caminho em Python e um <em>fallback</em> automático em
+            PowerShell para quem não tem Python — o público-alvo não deveria precisar instalar
+            uma linguagem para instalar um utilitário.</li>
+            <li><strong>Isolamento de processos.</strong> Cada script secundário roda em um
+            processo PowerShell dedicado, de modo que interromper uma tarefa com
+            <code>Ctrl+C</code> devolve o usuário ao menu em vez de derrubar o painel
+            inteiro.</li>
+            <li><strong>Compatibilidade tipográfica do console.</strong> Os arquivos usam UTF-8
+            com BOM e caracteres de caixa clássicos, e o alinhamento das bordas é calculado
+            dinamicamente para 56 colunas, independentemente do idioma. Isso evita o layout
+            quebrado em consoles com fontes bitmap legadas — situação comum em máquinas antigas,
+            que são justamente as que mais precisam da ferramenta.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="descricao-4">
+        <div class="page-number">7</div>
+        <h2>2. Descrição da Atividade (continuação)</h2>
+
+        <h4>Volume verificável do trabalho</h4>
+        <table>
+            <thead><tr><th>Métrica</th><th>Valor</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;">Scripts PowerShell</td><td>15</td></tr>
+                <tr><td style="text-align:left;">Linhas de PowerShell</td><td>3.114</td></tr>
+                <tr><td style="text-align:left;">Script auxiliar em Python</td><td>84 linhas</td></tr>
+                <tr><td style="text-align:left;">Ferramentas no menu central</td><td>13</td></tr>
+                <tr><td style="text-align:left;">Idiomas suportados</td><td>2 (PT/EN)</td></tr>
+                <tr><td style="text-align:left;">Commits no repositório</td><td>40</td></tr>
+                <tr><td style="text-align:left;">Etapas de desenvolvimento documentadas</td><td>6</td></tr>
+                <tr><td style="text-align:left;">Período de desenvolvimento</td><td>21/05/2026 a 13/06/2026</td></tr>
+            </tbody>
+        </table>
+        <p>O histórico de planejamento das seis etapas está versionado no próprio repositório,
+        o que torna auditável o processo de desenvolvimento, e não apenas o resultado final.</p>
+    </section>
+
+    <section class="page" id="descricao-5">
+        <div class="page-number">8</div>
+        <h2>2. Descrição da Atividade (continuação)</h2>
+
+        <h4>A quem a ferramenta se destina, e por que isso caracteriza extensão</h4>
+        <p>O Art. 1º do Regulamento de Extensão define a atividade como <em>&quot;as intervenções
+        que envolvem diretamente as comunidades externas à Instituição&quot;</em>, e a ação de
+        Prestação de Serviços é descrita como contribuição <em>&quot;de forma voluntária e não
+        remunerada, para uma causa, organização <strong>ou comunidade</strong>&quot;</em>.</p>
+
+        <p><strong>O beneficiário desta atividade é a comunidade difusa, e não uma organização
+        intermediária.</strong> O AI-Workspace não foi desenvolvido para uma empresa, não integra
+        nenhum produto comercial e não possui modelo de receita: não há venda, assinatura,
+        anúncio, telemetria nem coleta de qualquer dado do usuário. O software foi publicado em
+        repositório de acesso irrestrito, sem cadastro e sem contrapartida, e qualquer pessoa com
+        um computador Windows pode instalá-lo e usá-lo sem pedir autorização a ninguém.</p>
+
+        <p>Por essa razão <strong>não há Carta de Apresentação nem entidade beneficiária a
+        declarar</strong> — e a ausência não é uma lacuna documental, é uma consequência direta da
+        natureza da entrega. A Carta de Apresentação serve para atestar que uma organização
+        terceira recebeu um serviço; quando o destinatário é o público em geral, não existe
+        representante para assiná-la. A comprovação equivalente, e mais verificável, é o alcance
+        efetivamente medido: <strong>180 pessoas atingidas, 69% delas fora da rede de contatos do
+        autor</strong>, conforme os dados da própria plataforma reproduzidos na seção 3.</p>
+    </section>
+
+    <section class="page" id="participacao">
+        <div class="page-number">9</div>
+        <h2>2.2 Descrição da Participação do Aluno</h2>
+
+        <h4>Maycon Douglas Inácio Silva (R.A. H719CD3)</h4>
+        <p>Atuou de forma integral em todas as etapas, aplicando conhecimentos das disciplinas de
+        <em>Programação Web e de Scripts</em>, <em>Sistemas Operacionais</em>, <em>Engenharia de
+        Software</em>, <em>Interface Homem-Computador</em> e <em>Metodologia Científica</em>.</p>
+        <ul>
+            <li><strong>Levantamento do problema:</strong> identificação das tarefas de manutenção
+            que mais consomem tempo e que estão dispersas em utilitários distintos do Windows,
+            definindo o escopo das 13 ferramentas.</li>
+            <li><strong>Desenvolvimento:</strong> codificação dos 15 scripts PowerShell (3.114
+            linhas) e do auxiliar em Python, incluindo o tratamento de casos difíceis como a
+            ejeção de dispositivos em uso via API CIM/WMI.</li>
+            <li><strong>Arquitetura de execução:</strong> decisão pelo isolamento de cada
+            utilitário em processo próprio, para que a interrupção de uma tarefa não derrube o
+            painel.</li>
+            <li><strong>Interface de console e acessibilidade tipográfica:</strong> implementação
+            do algoritmo de preenchimento dinâmico das bordas Unicode e adoção de UTF-8 com BOM,
+            garantindo legibilidade em consoles legados.</li>
+            <li><strong>Internacionalização:</strong> construção da camada bilíngue PT/EN,
+            preservando o comportamento nativo do comando <code>help</code>.</li>
+            <li><strong>Empacotamento e instalação:</strong> desenvolvimento do instalador com
+            registro dos comandos globais no perfil do usuário e <em>fallback</em> automático
+            para quem não possui Python.</li>
+            <li><strong>Documentação:</strong> redação dos dois READMEs (português e inglês) e do
+            histórico de planejamento das 6 etapas, versionado no repositório.</li>
+            <li><strong>Publicação e acompanhamento:</strong> disponibilização do repositório
+            público e divulgação em rede profissional aberta, com apuração posterior das métricas
+            descritas na seção 3.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="conclusao">
+        <div class="page-number">10</div>
+        <h2>3. Conclusão e Resultados Alcançados</h2>
+        <p>A ferramenta foi concluída, publicada em repositório público e divulgada em canal
+        aberto, alcançando público externo à Universidade. A atividade dispõe de
+        <strong>medição de alcance real</strong>, extraída da própria plataforma de publicação —
+        e os números não são uniformemente favoráveis.</p>
+
+        <h3>3.1 Alcance Apurado</h3>
+        <table>
+            <thead><tr><th>Indicador</th><th>Valor</th><th>Leitura</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;"><strong>Usuários únicos alcançados</strong></td><td><strong>180</strong></td><td style="text-align:left;">É o número de pessoas — a base para &quot;pessoas impactadas&quot;</td></tr>
+                <tr><td style="text-align:left;">Impressões</td><td>367 – 372</td><td style="text-align:left;">Exibições; <strong>não</strong> equivale a pessoas</td></tr>
+                <tr><td style="text-align:left;">Reações</td><td>7</td><td style="text-align:left;">—</td></tr>
+                <tr><td style="text-align:left;">Comentários</td><td>4</td><td style="text-align:left;">—</td></tr>
+                <tr><td style="text-align:left;">Engajamentos totais</td><td>11</td><td style="text-align:left;">Soma de reações e comentários</td></tr>
+                <tr><td style="text-align:left;"><strong>Cliques no link do repositório</strong></td><td><strong>2</strong></td><td style="text-align:left;">O indicador decisivo desta atividade — ver 3.3</td></tr>
+                <tr><td style="text-align:left;">Compartilhamentos</td><td><strong>0</strong></td><td style="text-align:left;">Não houve redistribuição por terceiros</td></tr>
+                <tr><td style="text-align:left;">Salvamentos</td><td><strong>0</strong></td><td style="text-align:left;">Nenhum leitor arquivou a publicação</td></tr>
+                <tr><td style="text-align:left;">Envios diretos</td><td><strong>0</strong></td><td style="text-align:left;">Nenhum encaminhamento privado</td></tr>
+                <tr><td style="text-align:left;">Visualizações de perfil</td><td>1</td><td style="text-align:left;">—</td></tr>
+                <tr><td style="text-align:left;">Seguidores obtidos</td><td>1</td><td style="text-align:left;">—</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="page" id="conclusao-1b">
+        <div class="page-number">11</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <p><strong>Sobre a divergência nas impressões:</strong> a captura da publicação registra
+        <strong>367 impressões</strong> e o arquivo de exportação, consultado depois, registra
+        <strong>372</strong>. A diferença é o acúmulo entre as duas consultas. Ambos os números
+        aparecem nas comprovações da seção 4, e nenhum dos dois foi ajustado.</p>
+
+        <p><strong>Sobre a leitura do bloco de engajamento:</strong> o arquivo exportado rotula
+        <strong>três linhas distintas como &quot;Reações&quot;</strong>, com os valores 11, 7 e 2.
+        A primeira é o total do bloco (7 reações + 4 comentários + 0 compartilhamentos + 0
+        salvamentos + 0 envios = <strong>11</strong>); a terceira é o contador de cliques no link,
+        confirmado pela linha seguinte, que traz o endereço do repositório associado ao mesmo
+        valor <strong>2</strong>. Tomar o 11 como reações inflaria o indicador em 57%. A tabela da
+        página anterior usa a leitura verificada.</p>
+
+        <h3>3.2 Perfil de Quem Foi Alcançado</h3>
+        <p>As duas tabelas a seguir reproduzem <strong>integralmente</strong> o bloco demográfico
+        do arquivo exportado, sem seleção.</p>
+        <table>
+            <thead><tr><th>Dimensão</th><th>Categoria</th><th>%</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;" rowspan="4"><strong>Cargo</strong></td><td style="text-align:left;">Engenheiro de software</td><td>6%</td></tr>
+                <tr><td style="text-align:left;">Analista de TI</td><td>4%</td></tr>
+                <tr><td style="text-align:left;">Desenvolvedor full stack</td><td>3%</td></tr>
+                <tr><td style="text-align:left;"><em>Subtotal declarado</em></td><td><em>13%</em></td></tr>
+                <tr><td style="text-align:left;" rowspan="4"><strong>Localidade</strong></td><td style="text-align:left;">São José dos Campos, SP</td><td>19%</td></tr>
+                <tr><td style="text-align:left;">São Paulo e Região</td><td>9%</td></tr>
+                <tr><td style="text-align:left;">Rio de Janeiro e Região</td><td>3%</td></tr>
+                <tr><td style="text-align:left;"><em>Subtotal declarado</em></td><td><em>31%</em></td></tr>
+                <tr><td style="text-align:left;" rowspan="4"><strong>Nível de experiência</strong></td><td style="text-align:left;">Iniciante</td><td>55%</td></tr>
+                <tr><td style="text-align:left;">Sênior</td><td>11%</td></tr>
+                <tr><td style="text-align:left;">Treinamento</td><td>3%</td></tr>
+                <tr><td style="text-align:left;"><em>Subtotal declarado</em></td><td><em>69%</em></td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="page" id="conclusao-2">
+        <div class="page-number">12</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <table>
+            <thead><tr><th>Dimensão</th><th>Categoria</th><th>%</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;" rowspan="4"><strong>Setor</strong></td><td style="text-align:left;">Serviços de tecnologia da informação</td><td>16%</td></tr>
+                <tr><td style="text-align:left;">Desenvolvimento de software</td><td>16%</td></tr>
+                <tr><td style="text-align:left;">Tecnologia, Informação e Internet</td><td>13%</td></tr>
+                <tr><td style="text-align:left;"><em>Subtotal declarado</em></td><td><em>45%</em></td></tr>
+                <tr><td style="text-align:left;" rowspan="9"><strong>Tamanho da empresa</strong></td><td style="text-align:left;">Mais de 10.001 funcionários</td><td>14%</td></tr>
+                <tr><td style="text-align:left;">1.001 a 5.000 funcionários</td><td>14%</td></tr>
+                <tr><td style="text-align:left;">51 a 200 funcionários</td><td>9%</td></tr>
+                <tr><td style="text-align:left;">11 a 50 funcionários</td><td>8%</td></tr>
+                <tr><td style="text-align:left;">201 a 500 funcionários</td><td>5%</td></tr>
+                <tr><td style="text-align:left;">2 a 10 funcionários</td><td>5%</td></tr>
+                <tr><td style="text-align:left;">501 a 1.000 funcionários</td><td>4%</td></tr>
+                <tr><td style="text-align:left;">5.001 a 10.000 funcionários</td><td>3%</td></tr>
+                <tr><td style="text-align:left;"><em>Subtotal declarado</em></td><td><em>62%</em></td></tr>
+            </tbody>
+        </table>
+
+        <p><strong>Por que nenhuma coluna fecha 100%:</strong> a plataforma divulga apenas as
+        categorias de maior peso em cada dimensão e omite a cauda. Os subtotais em itálico
+        registram quanto do público está efetivamente descrito. Nenhum percentual foi normalizado
+        nem redistribuído.</p>
+    </section>
+
+    <section class="page" id="conclusao-2b">
+        <div class="page-number">13</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <p class="no-indent"><strong>Origem do alcance</strong> — dado que não consta do arquivo
+        exportado, apurado na tela de análise reproduzida na Figura 2:</p>
+        <table>
+            <thead><tr><th>Origem</th><th>%</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;">Fora da rede de contatos do autor</td><td>69%</td></tr>
+                <tr><td style="text-align:left;">Na rede (seguidores e conexões)</td><td>31%</td></tr>
+            </tbody>
+        </table>
+
+        <p class="no-indent">Três leituras do perfil alcançado:</p>
+        <ol>
+            <li><strong>69% do alcance veio de fora da rede de contatos do autor</strong> — a
+            proporção mais alta já registrada nas publicações do projeto. É público externo no
+            sentido literal do conceito de extensão.</li>
+            <li><strong>58% do público não é sênior</strong> (55% Iniciante e 3% em Treinamento),
+            contra 11% de Sênior. O painel foi construído justamente para quem não domina os
+            utilitários dispersos do Windows.</li>
+            <li><strong>Os 45% de setor declarado são inteiramente de tecnologia</strong> (16%
+            serviços de TI, 16% desenvolvimento de software, 13% Tecnologia/Informação/Internet),
+            e os três cargos declarados também. <strong>Aqui isso é alinhamento, não desvio:</strong>
+            uma ferramenta de console em PowerShell tem público técnico por natureza, e atingir
+            profissionais de TI iniciantes é exatamente o alvo pretendido.</li>
+        </ol>
+    </section>
+
+    <section class="page" id="conclusao-3">
+        <div class="page-number">14</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <h3>3.3 Leitura Crítica dos Resultados</h3>
+        <ul>
+            <li><strong>O alcance foi o maior do projeto, mas o engajamento por leitor caiu.</strong>
+            11 engajamentos sobre 180 pessoas equivalem a <strong>6,1%</strong>.</li>
+            <li><strong>Apenas 2 pessoas clicaram no link do repositório.</strong> Este é o dado
+            mais importante e o mais desfavorável: de 180 pessoas alcançadas, <strong>178 não
+            foram ao repositório</strong>. Para um e-book, ser lido no próprio <em>feed</em> já é
+            entrega; para uma <strong>ferramenta</strong>, o valor só se realiza quando alguém a
+            instala. A taxa de clique de <strong>1,1%</strong> significa que a publicação
+            comunicou a existência do trabalho, mas praticamente não converteu em uso.</li>
+            <li><strong>A propagação foi nula outra vez.</strong> Zero compartilhamentos, zero
+            salvamentos e zero envios diretos. É a segunda publicação consecutiva com os três
+            indicadores zerados — <strong>isso deixou de ser acaso e passou a ser padrão</strong>,
+            o que desloca a causa provável do conteúdo para o formato e o canal de
+            distribuição.</li>
+            <li><strong>A conversão em vínculo foi mínima:</strong> 1 visualização de perfil e 1
+            seguidor sobre 180 pessoas.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="conclusao-4">
+        <div class="page-number">15</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <h3>3.4 Comparação com a Publicação Anterior do Autor</h3>
+        <p>Como as duas publicações saíram do mesmo perfil, na mesma plataforma e no mesmo
+        semestre, a comparação isola o efeito do formato:</p>
+        <table>
+            <thead><tr><th>Indicador</th><th>E-book (18/05/2026)</th><th>AI-Workspace (13/06/2026)</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;">Usuários alcançados</td><td>118</td><td><strong>180</strong> (+53%)</td></tr>
+                <tr><td style="text-align:left;">Engajamentos</td><td>22</td><td>11</td></tr>
+                <tr><td style="text-align:left;"><strong>Taxa de engajamento</strong></td><td><strong>18,6%</strong></td><td>6,1%</td></tr>
+                <tr><td style="text-align:left;">Alcance fora da rede</td><td>57%</td><td><strong>69%</strong></td></tr>
+                <tr><td style="text-align:left;">Público não sênior</td><td>52%</td><td><strong>58%</strong></td></tr>
+                <tr><td style="text-align:left;">Compartilhamentos / salvamentos / envios</td><td>0 / 0 / 0</td><td>0 / 0 / 0</td></tr>
+            </tbody>
+        </table>
+
+        <p>O AI-Workspace <strong>alcançou 53% mais pessoas e engajou três vezes menos por
+        pessoa</strong>. A hipótese mais simples é a diferença de esforço exigido do leitor: o
+        e-book era consumível no próprio <em>feed</em>, enquanto a ferramenta exige sair da
+        plataforma, abrir um repositório e instalar software. Não há dado que comprove essa
+        explicação — ela fica registrada como hipótese.</p>
+
+        <p>A comparação de cliques <strong>não se aplica</strong>: o e-book foi publicado como
+        documento anexo, sem link externo, de modo que seu contador de cliques ser zero não é
+        resultado, é ausência de link.</p>
+    </section>
+
+    <section class="page" id="conclusao-5">
+        <div class="page-number">16</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <h3>3.5 Lacuna Identificada na Autoavaliação, e Sua Correção</h3>
+        <p>A revisão desta atividade expôs uma inconsistência entre o que o projeto se propunha e
+        o que ele juridicamente permitia. Até <strong>28/08/2026</strong>, o repositório era
+        público mas <strong>não declarava licença</strong> — não havia arquivo
+        <code>LICENSE</code> nem menção a licenciamento em nenhum dos dois READMEs.</p>
+
+        <p>A consequência não é formal, é prática: na ausência de licença explícita vale o
+        direito autoral padrão, de modo que terceiros podiam <strong>ver</strong> o código, mas
+        <strong>não estavam autorizados a copiar, modificar ou redistribuir</strong>. Para uma
+        atividade cuja justificativa é a contribuição voluntária de software <strong>à
+        comunidade</strong>, isso significava um material tecnicamente acessível e juridicamente
+        fechado — a intenção declarada não se sustentava no plano legal.</p>
+
+        <p><strong>Correção aplicada em 28/08/2026:</strong> o repositório passou a adotar a
+        <strong>Licença MIT</strong>, com o arquivo <code>LICENSE</code> na raiz e uma seção de
+        licenciamento acrescentada aos dois READMEs (português e inglês). A partir dessa data,
+        qualquer pessoa ou instituição pode usar, copiar, modificar, distribuir e sublicenciar a
+        ferramenta — inclusive para fins comerciais — bastando preservar o aviso de
+        copyright.</p>
+
+        <p>O registro fica aqui na forma em que ocorreu: <strong>a falha foi encontrada pela
+        própria autoavaliação da atividade de extensão, e corrigida em decorrência dela.</strong>
+        É o mesmo mecanismo que, na prestação de serviços do outro projeto do autor, converteu
+        erros observados em testes de usabilidade em melhorias implementadas no software.</p>
+
+    </section>
+
+    <section class="page" id="conclusao-5b">
+        <div class="page-number">17</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <h3>3.6 Alinhamento aos Objetivos de Desenvolvimento Sustentável</h3>
+        <ul>
+            <li><strong>ODS 4 (Educação de Qualidade):</strong> documentação bilíngue e menu
+            autoexplicativo que ensinam, pelo uso, quais utilitários de manutenção existem no
+            Windows e para que servem.</li>
+            <li><strong>ODS 8 (Trabalho Decente e Crescimento Econômico):</strong> ferramenta
+            gratuita de produtividade e diagnóstico para técnicos de suporte e profissionais de
+            TI iniciantes, que compõem 58% do público alcançado.</li>
+            <li><strong>ODS 9 (Indústria, Inovação e Infraestrutura):</strong> prolongamento da
+            vida útil de equipamentos por manutenção preventiva, com atenção explícita à
+            compatibilidade com consoles e máquinas legadas.</li>
+            <li><strong>ODS 10 (Redução das Desigualdades):</strong> distribuição sem custo, sem
+            anúncios e sem coleta de dados, com instalação em dois cliques para não exigir
+            conhecimento prévio de linha de comando.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="conclusao-6">
+        <div class="page-number">18</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <h3>3.7 Local onde a atividade foi realizada</h3>
+        <p>O desenvolvimento, os testes e a documentação foram realizados em ambiente de estudo
+        do aluno em São José dos Campos (SP), entre 21/05/2026 e 13/06/2026. A <strong>entrega à
+        comunidade ocorreu em meio digital aberto</strong>: repositório público no GitHub e
+        divulgação em rede profissional aberta, sem restrição de acesso, cadastro ou
+        pagamento.</p>
+
+        <h3>3.8 Considerações Finais</h3>
+        <ul>
+            <li><strong>Dificuldades enfrentadas:</strong> o obstáculo técnico mais custoso foi a
+            ejeção segura de dispositivos externos em uso — exigiu fechar <em>handles</em> de
+            arquivo pela API nativa CIM/WMI e controlar o AutoPlay, e consumiu uma etapa inteira
+            de desenvolvimento. O obstáculo de compatibilidade foi o alinhamento das bordas do
+            console entre dois idiomas e em fontes bitmap legadas, resolvido por cálculo dinâmico
+            de preenchimento em vez de espaçamento fixo.</li>
+            <li><strong>Sugestões:</strong> (1) publicar um vídeo curto de demonstração junto
+            ao anúncio, já que 178 das 180 pessoas alcançadas não clicaram para ver o
+            repositório; (2) medir o alcance em dois momentos distintos, para separar o impulso
+            inicial do consumo de cauda longa; (3) divulgar novamente a ferramenta agora que ela
+            está licenciada, já que só a partir de 28/08/2026 o material pode ser legalmente
+            reaproveitado por escolas e cursos técnicos.</li>
+            <li><strong>Observações:</strong> o histórico de planejamento das 6 etapas está
+            versionado no próprio repositório, o que torna o processo de desenvolvimento
+            auditável por qualquer pessoa — e não apenas o resultado final.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="comprovacao">
+        <div class="page-number">19</div>
+        <h2>4. Comprovação</h2>
+        <p>A comprovação fundamenta-se no software publicado em repositório aberto, no histórico
+        de commits versionado e nas capturas da análise oficial de alcance fornecida pela
+        plataforma de publicação.</p>
+
+        <p class="no-indent"><strong>Endereços públicos do material:</strong></p>
+        <ul>
+            <li><strong>Código-fonte, documentação bilíngue e histórico de planejamento:</strong><br>
+            <span style="font-size:10.5pt;">https://github.com/MayconDIS/AI_Workspace</span></li>
+            <li><strong>Publicação e divulgação:</strong><br>
+            <span style="font-size:10.5pt;">https://www.linkedin.com/feed/update/urn:li:activity:7471624197593587712/</span></li>
+            <li><strong>Dados brutos de alcance:</strong> arquivo de exportação da própria
+            plataforma, mantido junto a este relatório.</li>
+        </ul>
+
+        <h3>Comprovação 1 — Painel central em português e inglês</h3>
+        <p class="figure-title">Figura 1 – O painel com as 13 ferramentas em três categorias, nas duas versões de idioma, e o registro de 367 impressões e 4 comentários</p>
+        <div class="image-container">
+            <img src="assets/1.png" alt="Painel AI-Workspace em português e inglês, com as 13 ferramentas" class="dynamic-img"
+                 title="Clique para trocar a imagem (JPG, PNG, WEBP)">
+            <p class="caption">Fonte: Captura da publicação do autor (2026) — acervo do autor.</p>
+        </div>
+    </section>
+
+    <section class="page" id="comprovacao-2">
+        <div class="page-number">20</div>
+        <h2>4. Comprovação (continuação)</h2>
+
+        <h3>Comprovação 2 — Análise oficial de alcance da publicação</h3>
+        <p class="figure-title">Figura 2 – Tela de análise da publicação: 372 impressões, 180 usuários alcançados e a divisão entre alcance dentro (31%) e fora (69%) da rede de contatos</p>
+        <div class="image-container">
+            <img src="assets/2.png" alt="Tela de análise da publicação com 372 impressões e 180 usuários alcançados" class="dynamic-img"
+                 title="Clique para trocar a imagem (JPG, PNG, WEBP)">
+            <p class="caption">Fonte: Painel de análise da plataforma de publicação (2026) — acervo do autor.</p>
+        </div>
+    </section>
+
+    <section class="page" id="comprovacao-3">
+        <div class="page-number">21</div>
+        <h2>4. Comprovação (continuação)</h2>
+
+        <h3>Comprovação 3 — Volume de código, verificável no repositório</h3>
+        <table>
+            <thead><tr><th>Script</th><th>Linhas</th><th>Script</th><th>Linhas</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;"><code>setup-workspace.ps1</code></td><td>874</td><td style="text-align:left;"><code>organizar-downloads.ps1</code></td><td>170</td></tr>
+                <tr><td style="text-align:left;"><code>eject_drive.ps1</code></td><td>250</td><td style="text-align:left;"><code>otimizador-windows.ps1</code></td><td>150</td></tr>
+                <tr><td style="text-align:left;"><code>cacar-duplicatas.ps1</code></td><td>238</td><td style="text-align:left;"><code>gerenciar-energia.ps1</code></td><td>138</td></tr>
+                <tr><td style="text-align:left;"><code>scanner-wifi.ps1</code></td><td>238</td><td style="text-align:left;"><code>instalar-ajuda.ps1</code></td><td>132</td></tr>
+                <tr><td style="text-align:left;"><code>scanner-espaco.ps1</code></td><td>227</td><td style="text-align:left;"><code>monitor-hardware.ps1</code></td><td>116</td></tr>
+                <tr><td style="text-align:left;"><code>ajuda.ps1</code></td><td>200</td><td style="text-align:left;"><code>limpar-temporarios.ps1</code></td><td>93</td></tr>
+                <tr><td style="text-align:left;"><code>reparar-sistema.ps1</code></td><td>169</td><td style="text-align:left;"><code>diagnostico-rede.ps1</code></td><td>83</td></tr>
+                <tr><td style="text-align:left;"></td><td></td><td style="text-align:left;"><code>auditoria-boot.ps1</code></td><td>36</td></tr>
+                <tr style="font-weight:bold;"><td style="text-align:left;">Script auxiliar em Python</td><td>84</td><td style="text-align:left;">Total PowerShell</td><td>3.114</td></tr>
+            </tbody>
+        </table>
+        <p>Os números acima são obtidos por contagem direta de linhas dos arquivos do
+        repositório público, e podem ser reproduzidos por qualquer avaliador.</p>
+    </section>
+
+    <script>
+        /* Troca de imagem por clique e fallback para placeholder: anexe as comprovações
+           e imprima na mesma sessão — a troca vive na memória da aba. */
+        const FALLBACK_SVG = 'data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="450"%3E%3Crect width="800" height="450" fill="%23f4f4f4" stroke="%23999" stroke-width="2" stroke-dasharray="10 6"/%3E%3Ctext x="400" y="210" font-family="Arial" font-size="26" fill="%23666" text-anchor="middle"%3EImagem da comprovação%3C/text%3E%3Ctext x="400" y="252" font-family="Arial" font-size="19" fill="%23888" text-anchor="middle"%3EClique aqui para anexar (JPG, PNG ou WEBP)%3C/text%3E%3C/svg%3E';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.dynamic-img').forEach((img) => {
+                img.addEventListener('error', function () {
+                    if (!this.dataset.hasFallback) {
+                        this.dataset.hasFallback = 'true';
+                        this.src = FALLBACK_SVG;
+                    }
+                });
+
+                const seletor = document.createElement('input');
+                seletor.type = 'file';
+                seletor.accept = 'image/png, image/jpeg, image/jpg, image/webp, image/gif';
+                seletor.style.display = 'none';
+
+                seletor.addEventListener('change', (evento) => {
+                    const arquivo = evento.target.files[0];
+                    if (!arquivo) return;
+                    const leitor = new FileReader();
+                    leitor.onload = (e) => { img.src = e.target.result; };
+                    leitor.readAsDataURL(arquivo);
+                });
+
+                img.addEventListener('click', () => seletor.click());
+                document.body.appendChild(seletor);
+            });
+        });
+    </script>
+</body>
+</html>

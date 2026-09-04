@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Extensão Universitária — Ebook (50h)</title>
+    <!--
+      ────────────────────────────────────────────────────────────────────────
+      RELATÓRIO DE ATIVIDADE DE EXTENSÃO UNIVERSITÁRIA (50 horas)
+      UNIP · ICET · CST em Análise e Desenvolvimento de Sistemas
+      Ação: Ebook — "Super IA World: Curiosidades da Inteligência Artificial"
+
+      Formato ABNT: A4, margens 3cm superior/esquerda e 2cm inferior/direita,
+      Arial 12pt, parágrafo justificado com recuo de 1,25cm~1,5cm.
+      Para gerar o PDF: abrir no Chrome, anexar as imagens da seção 4 clicando
+      sobre elas e imprimir (Ctrl+P) na MESMA sessão — a troca não é salva.
+      ────────────────────────────────────────────────────────────────────────
+    -->
+    <style>
+        /* 1. RESET GERAL E CONFIGURAÇÃO DO BODY */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #525659;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            padding: 30px;
+            font-family: Arial, "Times New Roman", serif;
+            font-size: 12pt;
+            color: black;
+        }
+
+        /* 2. ESTRUTURA DA PÁGINA (Padrão ABNT Estrito - A4) */
+        .page {
+            background-color: white;
+            width: 21cm;
+            min-height: 29.7cm;
+            /* Margens ABNT: Superior 3cm, Direita 2cm, Inferior 2cm, Esquerda 3cm */
+            padding: 3cm 2cm 2cm 3cm;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        /* 3. NUMERAÇÃO DE PÁGINAS (ABNT - Canto superior direito) */
+        .page-number {
+            position: absolute;
+            top: 2cm;
+            right: 2cm;
+            font-size: 10pt;
+            font-family: Arial, "Times New Roman", serif;
+        }
+
+        /* 4. TIPOGRAFIA E TEXTOS */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: bold;
+            color: black;
+            margin-top: 1.1em;
+            margin-bottom: 0.7em;
+            text-indent: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-size: 14pt;
+        }
+
+        h3, h4 {
+            text-align: left;
+            font-size: 12pt;
+        }
+
+        h2:first-of-type, h3:first-child { margin-top: 0; }
+
+        p {
+            text-align: justify;
+            line-height: 1.5;
+            text-indent: 1.5cm; /* Recuo de primeira linha */
+            margin-top: 0;
+            margin-bottom: 0.8em;
+        }
+
+        ul, ol {
+            margin: 0 0 0.8em 1.5cm;
+            padding-left: 0.8cm;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        li { margin-bottom: 0.35em; }
+
+        .uppercase { text-transform: uppercase; }
+        .no-indent { text-indent: 0; }
+
+        /* Campo ainda por preencher — visível de propósito, inclusive impresso. */
+        .pendente {
+            background-color: #ffe9a8;
+            border: 1px dashed #b58900;
+            padding: 0 4px;
+            font-weight: bold;
+        }
+
+        /* 5. TABELAS (Estrutura e Design Padrão) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 12pt;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .table-dados td:first-child { text-align: left; font-weight: bold; width: 32%; }
+        .table-dados td:last-child { text-align: left; }
+
+        /* 6. SUMÁRIO (Estilo Índice ABNT) */
+        .sumario-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            font-size: 12pt;
+        }
+
+        .sumario-item a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .sumario-item a:hover {
+            text-decoration: underline;
+        }
+
+        .sumario-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #000;
+            margin: 0 10px;
+            position: relative;
+            top: -4px;
+        }
+
+        /* 7. IMAGENS E LEGENDAS */
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 11cm;
+            height: auto;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .image-container img:hover {
+            opacity: 0.8;
+        }
+
+        .caption {
+            text-align: center;
+            font-size: 10pt;
+            text-indent: 0;
+        }
+
+        .figure-title {
+            text-align: center;
+            font-size: 10pt;
+            text-indent: 0;
+            margin-bottom: 5px;
+        }
+
+        /* 8. ESTILOS DA CAPA */
+        .logo-unip {
+            display: block;
+            margin: 0 auto 0.5cm auto;
+            width: 6cm;
+            border: none !important;
+            cursor: default !important;
+        }
+
+        .logo-unip:hover { opacity: 1 !important; }
+
+        .capa-header {
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 2cm;
+            font-size: 12pt;
+            font-weight: normal;
+        }
+
+        .table-capa {
+            width: 75%;
+            margin: 0 auto;
+            border: none !important;
+            border-collapse: collapse;
+        }
+
+        .table-capa th, .table-capa td {
+            border: none !important;
+            padding: 4px 8px;
+            background-color: transparent;
+            text-align: left;
+            font-size: 12pt;
+        }
+
+        .table-capa th { font-weight: bold; }
+        .table-capa td { font-weight: normal; }
+
+        .capa-footer {
+            position: absolute;
+            bottom: 2cm;
+            left: 3cm;
+            right: 2cm;
+            text-align: center;
+            line-height: 1.5;
+            font-weight: bold;
+        }
+
+        /* 9. RESPONSIVIDADE (Mobile) */
+        @media screen and (max-width: 800px) {
+            body { padding: 10px; }
+            .page { width: 100%; height: auto !important; min-height: auto; padding: 20px; margin-bottom: 15px; box-shadow: none; }
+            .capa-footer { position: relative; bottom: auto; left: auto; right: auto; margin-top: 2cm; }
+            .table-capa { width: 100%; margin-top: 2cm; margin-bottom: 2cm; }
+            p { text-indent: 1cm; }
+            ul, ol { margin-left: 0.5cm; }
+            .sumario-dots { display: none; }
+        }
+
+        /* 10. MÍDIA DE IMPRESSÃO (PDF limpo) */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body { background-color: white; margin: 0; padding: 0; gap: 0; display: block; }
+            .page {
+                box-shadow: none; margin: 0; border: none;
+                width: 100%;
+                min-height: 29.5cm;
+                page-break-after: always;
+            }
+            .page:last-of-type { page-break-after: auto; }
+            .image-container img { cursor: default; }
+            .image-container img:hover { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="page" id="capa" aria-label="Capa do Trabalho">
+        <header>
+            <img src="assets/Logo UNIP.png" alt="Logo da Universidade Paulista" class="logo-unip" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/UNIP_Logo.svg/1200px-UNIP_Logo.svg.png'">
+            <div class="capa-header uppercase">
+                UNIVERSIDADE PAULISTA<br>
+                ICET - INSTITUTO DE CIÊNCIAS EXATAS E TECNOLOGIA<br>
+                CURSO SUPERIOR DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS<br><br><br>
+                EXTENSÃO UNIVERSITÁRIA<br><br><br>
+                RELATÓRIO DE ATIVIDADE DE EXTENSÃO — EBOOK<br>
+                <span style="text-transform: none;">(Super IA World: Curiosidades da Inteligência Artificial)</span><br>
+                <span style="text-transform: none;">Carga horária: 50 horas</span>
+            </div>
+        </header>
+
+        <table class="table-capa" aria-label="Tabela de Autores">
+            <tr><th width="70%">Nome</th><th width="30%">R.A</th></tr>
+            <tr>
+                <td>Maycon Douglas Inácio Silva</td>
+                <td>H719CD3</td>
+            </tr>
+        </table>
+
+        <footer class="capa-footer uppercase">
+            São José dos Campos - SP<br>Agosto / 2026
+        </footer>
+    </section>
+
+    <section class="page" id="sumario">
+        <h2>Sumário</h2>
+
+        <div class="sumario-item">
+            <a href="#dados-cadastro">1. Dados de Cadastro</a>
+            <div class="sumario-dots"></div>
+            <span>3</span>
+        </div>
+
+        <div class="sumario-item">
+            <a href="#descricao-1">2. Descrição da Atividade</a>
+            <div class="sumario-dots"></div>
+            <span>4</span>
+        </div>
+
+        <div class="sumario-item">
+            <a href="#conclusao">3. Conclusão e Resultados Alcançados</a>
+            <div class="sumario-dots"></div>
+            <span>7</span>
+        </div>
+
+        <div class="sumario-item">
+            <a href="#comprovacao">4. Comprovação</a>
+            <div class="sumario-dots"></div>
+            <span>14</span>
+        </div>
+    </section>
+
+    <section class="page" id="dados-cadastro">
+        <div class="page-number">3</div>
+        <h2>1. Dados de Cadastro</h2>
+
+        <h3>Campus</h3>
+        <p>Campus SJC Dutra - São José dos Campos (SP)</p>
+
+        <h3>Aluno Participante</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>R.A.</th>
+                    <th>Nome</th>
+                    <th>Curso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>H719CD3</td>
+                    <td>Maycon Douglas Inácio Silva</td>
+                    <td>Análise e Desenvolvimento de Sistemas</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="no-indent"><em>Turma: DS4A48</em></p>
+        <p class="no-indent"><em>Atividade individual. O aluno respondeu integralmente pela pesquisa de conteúdo, redação, desenvolvimento front-end, diagramação e divulgação do material.</em></p>
+
+        <h3>Período</h3>
+        <p>Ano: 2026 | Semestre: 4º | Publicação do material: 18/05/2026</p>
+
+        <h3>Área Temática e Projeto</h3>
+        <p>TRABALHO, ECONOMIA E ADMINISTRAÇÃO &middot; Programas e projetos desenvolvidos para a comunidade.</p>
+
+        <h3>Ação</h3>
+        <p>Ebook (50 horas)</p>
+
+        <h3>Público Beneficiário e Alcance</h3>
+        <table class="table-dados">
+            <tr><td>Público Beneficiário</td><td>Estudantes, profissionais em transição de carreira e público leigo interessado em Inteligência Artificial</td></tr>
+            <tr><td>Pessoas Impactadas</td><td>118 pessoas (usuários únicos alcançados, apurados na análise da publicação)</td></tr>
+            <tr><td>Licença do Material</td><td>MIT — uso, cópia e redistribuição livres para fins educacionais</td></tr>
+        </table>
+    </section>
+
+    <section class="page" id="descricao-1">
+        <div class="page-number">4</div>
+        <h2>2. Descrição da Atividade</h2>
+        <h3>2.1 Descrição Geral da Atividade</h3>
+        <p>A presente atividade de extensão universitária consistiu na pesquisa, redação e
+        desenvolvimento do e-book digital <strong>&quot;Super IA World: Curiosidades da
+        Inteligência Artificial&quot;</strong>, material de divulgação científica de
+        <strong>10 páginas</strong> que explica o funcionamento interno dos modelos de
+        linguagem para um público sem formação técnica.</p>
+
+        <p>A escolha editorial central foi usar a <strong>estética dos jogos 16-bits dos anos
+        1990</strong> como veículo pedagógico: o material é organizado como um mapa de fases,
+        e cada conceito de Inteligência Artificial é apresentado como um &quot;mundo&quot; a
+        ser percorrido. A decisão não é ornamental — a nostalgia reduz a barreira de entrada de
+        um assunto que costuma afastar o leigo pela densidade do vocabulário, e a progressão em
+        fases dá ao leitor uma noção de percurso que um índice convencional não transmite.</p>
+
+        <p class="no-indent">O conteúdo foi estruturado em sete unidades:</p>
+        <ul>
+            <li><strong>Mundo 1-1 — O Apetite por Dados:</strong> a escala de treinamento dos
+            modelos atuais e o que significa processar trilhões de palavras.</li>
+            <li><strong>Mundo 1-2 — O Fator Humano:</strong> aprendizado por reforço com retorno
+            humano (RLHF) e IA Constitucional; por que a máquina não aprende sozinha o que é uma
+            boa resposta.</li>
+            <li><strong>Mundo 1-3 — O Motor Transformer:</strong> a arquitetura que viabilizou a
+            geração atual de modelos, explicada sem notação matemática.</li>
+            <li><strong>Mundo 1-4 — Tokens e Contexto:</strong> o que é um token, como a janela
+            de contexto evoluiu e por que ela limita o que o modelo &quot;lembra&quot;.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="descricao-2">
+        <div class="page-number">5</div>
+        <h2>2. Descrição da Atividade (continuação)</h2>
+        <ul>
+            <li><strong>Fase do Chefão — A Caixa Preta:</strong> comportamentos emergentes e os
+            limites da interpretabilidade; o capítulo assume explicitamente o que a área ainda
+            não sabe explicar.</li>
+            <li><strong>Bônus — A Fusão: IA + Impacto Humano:</strong> hiper-personalização e
+            agência digital, com as implicações práticas para quem estuda e trabalha.</li>
+            <li><strong>Mundo Especial — Referências:</strong> os artigos científicos e marcos
+            históricos que sustentam cada afirmação do material.</li>
+        </ul>
+
+        <p>O conteúdo foi atualizado até <strong>maio de 2026</strong>, contemplando os modelos
+        em circulação naquele momento (GPT-5.5, Claude Opus 4.7 e Gemini 3.1 Pro), de modo que o
+        leitor encontre exemplos correspondentes às ferramentas que efetivamente tem à mão.</p>
+
+        <p>Do ponto de vista técnico, o e-book foi implementado como aplicação web autocontida
+        em <strong>HTML5 semântico, CSS3 modularizado segundo a convenção SMACSS e
+        JavaScript</strong>, com separação em módulos de variáveis, base, layout, componentes,
+        temas e impressão. Foram aplicados rótulos ARIA, metadados Open Graph e classes de
+        leitura assistida para acessibilidade, além de folha de impressão A4 que permite
+        consumir o material em papel sem perda de diagramação. O código-fonte está publicado
+        sob <strong>licença MIT</strong> em repositório aberto no GitHub, e a divulgação foi
+        feita em rede profissional aberta, sem qualquer barreira de cadastro, pagamento ou
+        captura de dados do leitor.</p>
+    </section>
+
+    <section class="page" id="participacao">
+        <div class="page-number">6</div>
+        <h2>2.2 Descrição da Participação do Aluno</h2>
+
+        <h4>Maycon Douglas Inácio Silva (R.A. H719CD3)</h4>
+        <p>Atuou de forma integral em todas as etapas da atividade, aplicando conhecimentos das
+        disciplinas de <em>Programação Web</em>, <em>Interface Homem-Computador</em>,
+        <em>Engenharia de Software</em>, <em>Metodologia Científica</em> e <em>Comunicação e
+        Expressão</em>.</p>
+        <ul>
+            <li><strong>Pesquisa e apuração de conteúdo:</strong> levantamento dos artigos
+            científicos e marcos históricos que fundamentam cada capítulo, com verificação das
+            afirmações técnicas contra a literatura de origem e registro das fontes no capítulo
+            de Referências.</li>
+            <li><strong>Redação e adequação de linguagem:</strong> tradução de terminologia
+            técnica (Transformer, token, janela de contexto, RLHF) para linguagem cotidiana,
+            preservando a precisão conceitual — o critério adotado foi que nenhuma simplificação
+            poderia tornar a explicação falsa.</li>
+            <li><strong>Desenvolvimento front-end:</strong> codificação do <code>index.html</code>,
+            modularização do CSS em arquitetura SMACSS, implementação dos fundos em
+            <em>parallax</em>, das animações de cenário e da folha de impressão A4.</li>
+            <li><strong>Acessibilidade e metadados:</strong> aplicação de rótulos ARIA, classes
+            de leitura assistida e metadados Open Graph para leitura por tecnologia assistiva e
+            para pré-visualização correta ao ser compartilhado.</li>
+            <li><strong>Direção de arte:</strong> produção e ajuste das artes em pixel art e da
+            capa, mantendo a coerência da referência visual 16-bits ao longo das dez páginas.</li>
+            <li><strong>Publicação e divulgação:</strong> disponibilização do repositório sob
+            licença MIT e publicação do material em rede profissional aberta, com acompanhamento
+            posterior das métricas de alcance descritas na seção 3.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="conclusao">
+        <div class="page-number">7</div>
+        <h2>3. Conclusão e Resultados Alcançados</h2>
+        <p>O e-book foi concluído, publicado em acesso aberto e efetivamente consumido por
+        público externo à Universidade. Diferentemente de um material apenas produzido e
+        arquivado, esta atividade dispõe de <strong>medição de alcance real</strong>, extraída
+        da própria plataforma de publicação.</p>
+
+        <h3>3.1 Alcance Apurado</h3>
+        <table>
+            <thead>
+                <tr><th>Indicador</th><th>Valor</th><th>Leitura</th></tr>
+            </thead>
+            <tbody>
+                <tr><td style="text-align:left;"><strong>Usuários únicos alcançados</strong></td><td><strong>118</strong></td><td style="text-align:left;">É o número de pessoas — a base para &quot;pessoas impactadas&quot;</td></tr>
+                <tr><td style="text-align:left;">Impressões</td><td>207 – 213</td><td style="text-align:left;">Exibições do conteúdo; <strong>não</strong> equivale a pessoas</td></tr>
+                <tr><td style="text-align:left;">Reações</td><td>11</td><td style="text-align:left;">—</td></tr>
+                <tr><td style="text-align:left;">Comentários</td><td>11</td><td style="text-align:left;">Proporção incomum: 1 comentário por reação</td></tr>
+                <tr><td style="text-align:left;">Engajamentos totais</td><td>22</td><td style="text-align:left;">Soma de reações e comentários</td></tr>
+                <tr><td style="text-align:left;">Compartilhamentos</td><td><strong>0</strong></td><td style="text-align:left;">Não houve redistribuição por terceiros</td></tr>
+                <tr><td style="text-align:left;">Salvamentos</td><td><strong>0</strong></td><td style="text-align:left;">Nenhum leitor arquivou o material</td></tr>
+                <tr><td style="text-align:left;">Envios diretos</td><td><strong>0</strong></td><td style="text-align:left;">Nenhum encaminhamento privado</td></tr>
+                <tr><td style="text-align:left;">Visualizações de perfil geradas</td><td>4</td><td style="text-align:left;">—</td></tr>
+                <tr><td style="text-align:left;">Seguidores obtidos</td><td>1</td><td style="text-align:left;">—</td></tr>
+            </tbody>
+        </table>
+
+        <p><strong>Sobre a divergência nas impressões:</strong> o arquivo de exportação da
+        plataforma registra <strong>207 impressões</strong> e a tela de análise consultada
+        posteriormente exibe <strong>213</strong>. A diferença é o acúmulo natural entre as duas
+        consultas. Ambos os números constam das comprovações da seção 4, e nenhum dos dois foi
+        ajustado para parecer melhor.</p>
+    </section>
+
+    <section class="page" id="conclusao-1b">
+        <div class="page-number">8</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <p><strong>Sobre a leitura do bloco de engajamento:</strong> o arquivo exportado rotula
+        <strong>três linhas distintas como &quot;Reações&quot;</strong>, com os valores 22, 11 e
+        0. A primeira é o total do bloco, e não a contagem de reações — o que se confirma pela
+        soma das linhas seguintes (11 reações + 11 comentários + 0 compartilhamentos + 0
+        salvamentos + 0 envios + 0 no botão Premium = <strong>22</strong>). Tomar o 22 como
+        reações dobraria o indicador. A tabela da página anterior usa a leitura verificada.</p>
+
+        <h3>3.2 Perfil de Quem Foi Alcançado</h3>
+        <p>As duas tabelas a seguir reproduzem <strong>integralmente</strong> o bloco demográfico
+        do arquivo exportado pela plataforma, sem seleção.</p>
+
+        <table>
+            <thead>
+                <tr><th>Dimensão</th><th>Categoria</th><th>%</th></tr>
+            </thead>
+            <tbody>
+                <tr><td style="text-align:left;" rowspan="4"><strong>Localidade</strong></td><td style="text-align:left;">São José dos Campos, SP</td><td>46%</td></tr>
+                <tr><td style="text-align:left;">São Paulo e Região</td><td>7%</td></tr>
+                <tr><td style="text-align:left;">Jacareí, SP</td><td>5%</td></tr>
+                <tr><td style="text-align:left;"><em>Subtotal declarado</em></td><td><em>58%</em></td></tr>
+                <tr><td style="text-align:left;" rowspan="4"><strong>Nível de experiência</strong></td><td style="text-align:left;">Iniciante</td><td>47%</td></tr>
+                <tr><td style="text-align:left;">Sênior</td><td>19%</td></tr>
+                <tr><td style="text-align:left;">Treinamento</td><td>5%</td></tr>
+                <tr><td style="text-align:left;"><em>Subtotal declarado</em></td><td><em>71%</em></td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="page" id="conclusao-2">
+        <div class="page-number">9</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <table>
+            <thead>
+                <tr><th>Dimensão</th><th>Categoria</th><th>%</th></tr>
+            </thead>
+            <tbody>
+                <tr><td style="text-align:left;" rowspan="5"><strong>Setor</strong></td><td style="text-align:left;">Tecnologia, Informação e Internet</td><td>15%</td></tr>
+                <tr><td style="text-align:left;">Educação superior</td><td>7%</td></tr>
+                <tr><td style="text-align:left;">Serviços de tecnologia da informação</td><td>6%</td></tr>
+                <tr><td style="text-align:left;">Desenvolvimento de software</td><td>6%</td></tr>
+                <tr><td style="text-align:left;"><em>Subtotal declarado</em></td><td><em>34%</em></td></tr>
+                <tr><td style="text-align:left;" rowspan="8"><strong>Tamanho da empresa</strong></td><td style="text-align:left;">51 a 200 funcionários</td><td>14%</td></tr>
+                <tr><td style="text-align:left;">Mais de 10.001 funcionários</td><td>14%</td></tr>
+                <tr><td style="text-align:left;">11 a 50 funcionários</td><td>8%</td></tr>
+                <tr><td style="text-align:left;">1.001 a 5.000 funcionários</td><td>8%</td></tr>
+                <tr><td style="text-align:left;">201 a 500 funcionários</td><td>8%</td></tr>
+                <tr><td style="text-align:left;">2 a 10 funcionários</td><td>6%</td></tr>
+                <tr><td style="text-align:left;">5.001 a 10.000 funcionários</td><td>6%</td></tr>
+                <tr><td style="text-align:left;"><em>Subtotal declarado</em></td><td><em>64%</em></td></tr>
+            </tbody>
+        </table>
+
+        <p><strong>Por que nenhuma coluna fecha 100%:</strong> a plataforma divulga apenas as
+        categorias de maior peso em cada dimensão e omite a cauda. Os subtotais em itálico
+        registram quanto do público está efetivamente descrito em cada linha de análise — o
+        restante existe, mas não foi informado pela fonte. Nenhum percentual foi normalizado nem
+        redistribuído.</p>
+    </section>
+
+    <section class="page" id="conclusao-2b">
+        <div class="page-number">10</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <p class="no-indent"><strong>Origem do alcance</strong> — dado que não consta do arquivo
+        exportado, apurado na tela de análise reproduzida na Figura 3:</p>
+        <table>
+            <thead><tr><th>Origem</th><th>%</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:left;">Fora da rede de contatos do autor</td><td>57%</td></tr>
+                <tr><td style="text-align:left;">Na rede (seguidores e conexões)</td><td>43%</td></tr>
+            </tbody>
+        </table>
+
+        <p class="no-indent">Dois dados sustentam o enquadramento da atividade como extensão:</p>
+        <ol>
+            <li><strong>57% do alcance veio de fora da rede de contatos do autor.</strong> A
+            maior parte de quem leu não conhecia o autor — é público externo no sentido literal,
+            não circulação entre colegas.</li>
+            <li><strong>52% do público não é sênior</strong> (47% Iniciante e 5% em Treinamento).
+            O material atingiu majoritariamente o perfil para o qual foi escrito: quem ainda não
+            domina o assunto. Se o alcance tivesse se concentrado no público Sênior — que ficou
+            em 19% —, o e-book teria sido lido por quem menos precisava dele.</li>
+        </ol>
+
+        <p class="no-indent">Dois outros achados do bloco demográfico merecem registro, e
+        <strong>um deles é desfavorável</strong>:</p>
+        <ul>
+            <li><strong>27% do público declarado já trabalha com tecnologia</strong> (15% em
+            Tecnologia/Informação/Internet, 6% em serviços de TI e 6% em desenvolvimento de
+            software). Um material escrito para desmistificar IA para leigos foi lido, em mais de
+            um quarto de sua audiência descrita, por quem já domina o assunto. Isso não invalida
+            o alcance sobre iniciantes, mas mostra que a distribuição da plataforma entrega o
+            conteúdo a quem já demonstra interesse na área — não a quem está fora dela.</li>
+            <li><strong>O porte das empresas é disperso:</strong> a maior fatia é de 14%, e as
+            sete faixas declaradas somam 64% sem concentração relevante. O material não ficou
+            restrito a um tipo de organização, o que é favorável ao caráter difuso esperado de
+            uma publicação em acesso aberto.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="conclusao-3">
+        <div class="page-number">11</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <h3>3.3 Leitura Crítica dos Resultados</h3>
+        <p class="no-indent">Os números não são uniformemente favoráveis, e registrá-los assim é
+        parte do rigor da avaliação:</p>
+        <ul>
+            <li><strong>O engajamento por leitor foi alto.</strong> 22 engajamentos sobre 118
+            pessoas alcançadas equivalem a <strong>18,6%</strong> — bem acima do usual para
+            conteúdo técnico longo. A paridade entre reações (11) e comentários (11) é o dado
+            mais forte: comentar exige muito mais esforço que reagir, e a igualdade indica que o
+            material gerou conversa, não apenas aprovação passiva.</li>
+            <li><strong>A propagação foi nula.</strong> Zero compartilhamentos, zero salvamentos
+            e zero envios diretos significam que o material não circulou além da primeira
+            exibição. Todo o alcance veio da distribuição da própria plataforma; nenhum leitor o
+            repassou. É a principal limitação desta edição.</li>
+            <li><strong>A conversão em vínculo foi baixa.</strong> 4 visualizações de perfil e 1
+            seguidor sobre 118 pessoas indicam que o conteúdo foi consumido no lugar onde
+            estava, sem levar o leitor adiante.</li>
+            <li><strong>O alcance é geograficamente concentrado.</strong> 58% do público está em
+            São José dos Campos, São Paulo e Jacareí, o que restringe o caráter difuso que se
+            esperaria de um material publicado em acesso aberto.</li>
+        </ul>
+
+        <p><strong>Hipótese para a propagação nula:</strong> o e-book foi publicado como
+        documento anexo dentro da rede social, formato que é lido no próprio aplicativo e não
+        gera um endereço que o leitor possa repassar com facilidade. Não há como confirmar essa
+        hipótese com os dados disponíveis — ela fica registrada como ponto a testar, não como
+        conclusão.</p>
+    </section>
+
+    <section class="page" id="conclusao-4">
+        <div class="page-number">12</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <h3>3.4 Alinhamento aos Objetivos de Desenvolvimento Sustentável</h3>
+        <ul>
+            <li><strong>ODS 4 (Educação de Qualidade):</strong> oferta de material didático
+            gratuito sobre Inteligência Artificial, escrito para público sem formação técnica e
+            sem barreira de cadastro ou pagamento.</li>
+            <li><strong>ODS 8 (Trabalho Decente e Crescimento Econômico):</strong> alfabetização
+            em uma tecnologia que já reorganiza o mercado de trabalho, dirigida majoritariamente
+            (52%) a profissionais em nível iniciante ou em treinamento.</li>
+            <li><strong>ODS 9 (Indústria, Inovação e Infraestrutura):</strong> divulgação
+            científica de arquiteturas computacionais contemporâneas, com as fontes primárias
+            declaradas.</li>
+            <li><strong>ODS 10 (Redução das Desigualdades):</strong> publicação sob licença MIT
+            em repositório aberto, permitindo que qualquer pessoa ou instituição use, adapte e
+            redistribua o material sem custo nem autorização prévia.</li>
+        </ul>
+
+        <h3>3.5 Local onde a atividade foi realizada</h3>
+        <p>A pesquisa, a redação, o desenvolvimento front-end e a diagramação foram realizados
+        em ambiente de estudo do aluno em São José dos Campos (SP). A <strong>entrega à
+        comunidade ocorreu em meio digital aberto</strong>: repositório público no GitHub, sob
+        licença MIT, e publicação em rede profissional aberta, sem restrição de acesso.</p>
+    </section>
+
+    <section class="page" id="conclusao-5">
+        <div class="page-number">13</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <h3>3.6 Considerações Finais</h3>
+        <ul>
+            <li><strong>Dificuldades enfrentadas:</strong> o desafio central foi impedir que a
+            linguagem lúdica corrompesse a precisão técnica. Explicar a arquitetura Transformer
+            sem notação matemática e sem tornar a explicação falsa exigiu várias reescritas, e o
+            critério final adotado foi verificar cada simplificação contra o artigo científico
+            de origem antes de aceitá-la. O segundo desafio foi o prazo de validade do conteúdo:
+            um material sobre IA envelhece em meses, o que obrigou a datar explicitamente o
+            recorte (maio de 2026) em vez de escrever como se fosse permanente.</li>
+            <li><strong>Sugestões:</strong> para uma próxima edição, publicar o e-book também
+            como página web com endereço próprio, e não apenas como documento anexo à rede
+            social — é a intervenção mais direta sobre a propagação nula descrita em 3.3.
+            Recomenda-se ainda medir o alcance em dois momentos distintos (uma semana e um mês
+            após a publicação) para separar o efeito do impulso inicial do consumo de cauda
+            longa. Por fim, o dado de que 27% da audiência descrita já atua em tecnologia sugere
+            testar canais fora do meio técnico, onde o material encontraria o público que de
+            fato pretende alcançar.</li>
+            <li><strong>Observações:</strong> a licença MIT e o repositório aberto tornam o
+            material reaproveitável por escolas e cursos técnicos sem qualquer trâmite de
+            autorização, o que amplia o alcance potencial para além do que as métricas desta
+            publicação registram.</li>
+        </ul>
+    </section>
+
+    <section class="page" id="comprovacao">
+        <div class="page-number">14</div>
+        <h2>4. Comprovação</h2>
+        <p>A comprovação fundamenta-se no material publicado em acesso aberto, no código-fonte
+        versionado e nas capturas da análise oficial de alcance fornecida pela própria
+        plataforma de publicação.</p>
+
+        <p class="no-indent"><strong>Endereços públicos do material:</strong></p>
+        <ul>
+            <li><strong>Código-fonte e e-book (GitHub, licença MIT):</strong><br>
+            <span style="font-size:10.5pt;">https://github.com/MayconDIS/Super_IA_World-E-book_Curiosidades_da_IA</span></li>
+            <li><strong>Publicação e divulgação:</strong><br>
+            <span style="font-size:10.5pt;">https://www.linkedin.com/feed/update/urn:li:activity:7462130232884580352/</span></li>
+            <li><strong>Dados brutos de alcance:</strong> arquivo de exportação da própria
+            plataforma, mantido junto a este relatório.</li>
+        </ul>
+
+        <h3>Comprovação 1 — Publicação em destaque no perfil do autor</h3>
+        <p class="figure-title">Figura 1 – Publicação fixada em destaque, com o título do e-book e o registro de 11 comentários</p>
+        <div class="image-container">
+            <img src="assets/1.png" alt="Publicação do e-book fixada em destaque no perfil do autor" class="dynamic-img"
+                 title="Clique para trocar a imagem (JPG, PNG, WEBP)">
+            <p class="caption">Fonte: Captura da publicação do autor (2026) — acervo do autor.</p>
+        </div>
+    </section>
+
+    <section class="page" id="comprovacao-2">
+        <div class="page-number">15</div>
+        <h2>4. Comprovação (continuação)</h2>
+
+        <h3>Comprovação 2 — Carrossel de páginas do e-book e contador de impressões</h3>
+        <p class="figure-title">Figura 2 – Capa, Mapa do Mundo e Mundo 1-1 do e-book, com o contador de 207 impressões</p>
+        <div class="image-container">
+            <img src="assets/2.png" alt="Carrossel com capa, mapa do mundo e primeiro capítulo do e-book, e o contador de 207 impressões" class="dynamic-img"
+                 title="Clique para trocar a imagem (JPG, PNG, WEBP)">
+            <p class="caption">Fonte: Captura da publicação do autor (2026) — acervo do autor.</p>
+        </div>
+    </section>
+
+    <section class="page" id="comprovacao-3">
+        <div class="page-number">16</div>
+        <h2>4. Comprovação (continuação)</h2>
+
+        <h3>Comprovação 3 — Análise oficial de alcance da publicação</h3>
+        <p class="figure-title">Figura 3 – Tela de análise da publicação: 213 impressões, 118 usuários alcançados e a divisão entre alcance dentro (43%) e fora (57%) da rede de contatos</p>
+        <div class="image-container">
+            <img src="assets/3.png" alt="Tela de análise da publicação com 213 impressões e 118 usuários alcançados" class="dynamic-img"
+                 title="Clique para trocar a imagem (JPG, PNG, WEBP)">
+            <p class="caption">Fonte: Painel de análise da plataforma de publicação (2026) — acervo do autor.</p>
+        </div>
+    </section>
+
+    <script>
+        /* Troca de imagem por clique e fallback para placeholder: anexe as comprovações
+           e imprima na mesma sessão — a troca vive na memória da aba. */
+        const FALLBACK_SVG = 'data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="450"%3E%3Crect width="800" height="450" fill="%23f4f4f4" stroke="%23999" stroke-width="2" stroke-dasharray="10 6"/%3E%3Ctext x="400" y="210" font-family="Arial" font-size="26" fill="%23666" text-anchor="middle"%3EImagem da comprovação%3C/text%3E%3Ctext x="400" y="252" font-family="Arial" font-size="19" fill="%23888" text-anchor="middle"%3EClique aqui para anexar (JPG, PNG ou WEBP)%3C/text%3E%3C/svg%3E';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.dynamic-img').forEach((img) => {
+                img.addEventListener('error', function () {
+                    if (!this.dataset.hasFallback) {
+                        this.dataset.hasFallback = 'true';
+                        this.src = FALLBACK_SVG;
+                    }
+                });
+
+                const seletor = document.createElement('input');
+                seletor.type = 'file';
+                seletor.accept = 'image/png, image/jpeg, image/jpg, image/webp, image/gif';
+                seletor.style.display = 'none';
+
+                seletor.addEventListener('change', (evento) => {
+                    const arquivo = evento.target.files[0];
+                    if (!arquivo) return;
+                    const leitor = new FileReader();
+                    leitor.onload = (e) => { img.src = e.target.result; };
+                    leitor.readAsDataURL(arquivo);
+                });
+
+                img.addEventListener('click', () => seletor.click());
+                document.body.appendChild(seletor);
+            });
+        });
+    </script>
+</body>
+</html>
