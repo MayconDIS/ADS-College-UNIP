@@ -1,0 +1,43 @@
+-- Definições do arquivo de Banco de Dados
+-- Será criado como primeira instãncia "ON PRIMARY"
+CREATE DATABASE teste01 ON PRIMARY 
+(NAME= teste01,
+FILENAME = 'C:\SQL\teste01.mdf', -- O caminho deve existir no disco
+SIZE = 8MB, 
+MAXSIZE = 20MB, -- Crescimento até o tamanho especificado
+FILEGROWTH = 10%) -- Cresce 10% do tamanho atual especificado
+
+-- Definições do arquivo de log
+LOG ON ( 
+NAME =teste01_log,
+FILENAME = 'C:\SQL\teste01_log.ldf', 
+-- O caminho deve existir no disco
+SIZE = 1MB, 
+MAXSIZE = 10MB,
+FILEGROWTH = 1MB) -- Cresce em incrementos de 1MB
+GO -- Garante que todos os comandos descritos 
+      --até aqui sejam executados. 
+
+-- Consulta à bds existentes - forma 1
+SELECT name 
+FROM master.sys.databases 
+ORDER BY name; -- Lista os bds por ordem de nome
+
+-- Existem Stored Procedures armazenados pelo sistema
+EXEC sp_databases;
+
+-- selecionar um banco para uso
+ USE teste01;
+
+-- Obter informações sobre um bd específico
+EXEC sp_helpdb teste01;
+
+-- Excluir banco de dados
+DROP DATABASE IF EXISTS TESTE02
+
+-- Excluir banco em uso
+USE master 
+GO
+ALTER DATABASE teste01
+SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+DROP DATABASE teste01;
