@@ -1,0 +1,15 @@
+# Executáveis e instaladores pesados (> 100MB)
+*.exe
+
+# Arquivos temporários e backups
+*.tmp
+*.bak
+*.~*
+*.chc
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
