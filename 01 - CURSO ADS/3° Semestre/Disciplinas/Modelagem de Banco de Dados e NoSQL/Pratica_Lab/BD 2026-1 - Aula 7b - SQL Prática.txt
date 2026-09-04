@@ -1,0 +1,49 @@
+--create database clinica;
+
+--use clinica;
+
+/*
+create table medico (
+	crm int,
+	nome varchar(30),
+	sexo char(1),
+	nacionalidade varchar(20),
+	especializacao varchar(20),
+	sala tinyint
+	);
+*/
+
+
+
+
+
+
+--create database escola;
+
+--use escola;
+
+--create table ALUNO (RA char(7), NOME varchar(100));
+
+--alter table ALUNO add DT_NASCIMENTO date;
+
+--alter table ALUNO alter column RA char(7) NOT NULL;
+
+--alter table ALUNO add constraint PK_ALUNO primary key(RA);
+
+-- alter table ALUNO drop column DT_NASCIMENTO;
+
+-- drop table ALUNO;
+
+/*
+insert into ALUNO (RA, NOME, DT_NASCIMENTO) 		
+values ('1234567', 'João da Silva','2010-08-15');
+*/
+
+-- update ALUNO set NOME = 'JOÃO DOS SANTOS' where RA='1234567';
+
+--delete from ALUNO where RA='1234567';
+
+--delete from ALUNO;
+--truncate table ALUNO;
+
+--SELECT * FROM aluno;

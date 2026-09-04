@@ -1,0 +1,33 @@
+Exemplo simples e completo de como criar uma tabela básica em SQL usando o comando 
+CREATE TABLE, incluindo boas práticas como definição de tipos de dados e restrições:
+
+create database DB_aulaTeste
+use DB_aulateste
+
+--Criação de uma tabela chamada "clientes"
+
+CREATE TABLE clientes 
+(   id INT identity(1,1) PRIMARY KEY,  -- Identificador único(autoincremento)
+    nome VARCHAR(100) NOT NULL,    -- Nome do cliente (obrigatório)
+    email VARCHAR(150) UNIQUE,       -- E-mail único
+    data_cadastro DATETIME DEFAULT GETDATE() -- Data de cadastro com valor padrão
+);
+
+-- Inserindo dados na tabela clientes:
+
+INSERT INTO clientes (nome, email) VALUES ('Maria Silva', 'maria@email.com');
+
+-- Visualizando os dados de clientes:
+
+SELECT * FROM clientes;
+
+
+============================
+
+CREATE TABLE Tbl_Produto (
+   id_Produto INT PRIMARY KEY,
+   descricao_Produto VARCHAR(50),
+   qtde_Produto INT,
+   preco_Produto DECIMAL(10,2)
+);
+

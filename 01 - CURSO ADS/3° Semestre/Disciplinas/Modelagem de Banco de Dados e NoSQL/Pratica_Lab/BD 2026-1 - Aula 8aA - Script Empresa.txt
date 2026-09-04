@@ -1,0 +1,158 @@
+--create database empresa;
+
+--use empresa;
+
+/*
+CREATE TABLE Funcion (
+Codigo INT NOT NULL,
+Nome VARCHAR(10) NOT NULL,
+Salario DECIMAL(15,2),
+Setor INT,
+  PRIMARY KEY (Codigo));
+__________________________________________________
+
+/*CREATE TABLE exemplo (
+    id INT AUTO_INCREMENT PRIMARY KEY, [ NÃO FUNCIONA]
+    nome VARCHAR(100)
+);*/
+
+/*CREATE TABLE exemplo (
+    id INT IDENTITY(1,1) PRIMARY KEY, [ FUNCIONA]
+    nome NVARCHAR(100)
+);*/
+
+ALTER TABLE exemplo MODIFY id INT AUTO_INCREMENT; [ NÃO FUNCIONA]
+__________________________________________________
+
+CREATE TABLE Setor (
+Codigo INT NOT NULL,
+Setor VARCHAR(20) NOT NULL,
+  PRIMARY KEY (Codigo));
+
+CREATE TABLE Cliente (
+Codigo INT NOT NULL,
+Nome VARCHAR(10) NOT NULL,
+Sobrenome VARCHAR(10) NOT NULL,
+  PRIMARY KEY (Codigo));
+
+CREATE TABLE Pedido (
+Codigo INT NOT NULL,
+Cliente INT NOT NULL,
+Valor DECIMAL(15,2),
+  PRIMARY KEY (Codigo));
+
+
+-- Funcion
+INSERT INTO Funcion VALUES (1,'Tadeu', 1500, 1);
+INSERT INTO Funcion VALUES (2,'Ylane', 1200, 2);
+INSERT INTO Funcion VALUES (3,'Julian', 1000, 1);
+INSERT INTO Funcion VALUES (4,'Ewerton', 1000, 1);
+INSERT INTO Funcion VALUES (5,'João', 800, 2);
+INSERT INTO Funcion VALUES (6,'Geraldo', 1500, 3);
+INSERT INTO Funcion VALUES (7,'Maria', 500, null);
+-- Setor
+INSERT INTO Setor VALUES (1,'Desenvolvimento');
+INSERT INTO Setor VALUES (2,'Manutenção');
+INSERT INTO Setor VALUES (3,'Financeiro');
+INSERT INTO Setor VALUES (4,'Vendas');
+
+-- Cliente
+INSERT INTO Cliente VALUES (1,'Francisco', 'Silva');
+INSERT INTO Cliente VALUES (2,'José', 'Lima');
+INSERT INTO Cliente VALUES (3,'Maria', 'Silva');
+INSERT INTO Cliente VALUES (4,'Adriana', 'Ferreira');
+INSERT INTO Cliente VALUES (5,'João', 'Oliveira');
+INSERT INTO Cliente VALUES (6,'Eduarda', 'Souza');
+-- Pedido
+INSERT INTO Pedido VALUES (1,2, 1000);
+INSERT INTO Pedido VALUES (2,4, 2000);
+INSERT INTO Pedido VALUES (3,2, 1500);
+INSERT INTO Pedido VALUES (4,5, 2500);
+INSERT INTO Pedido VALUES (5,2, 1000);
+
+*/
+
+--use empresa;
+
+--select Codigo, Nome from Funcion
+
+--select * from Funcion
+
+--select Codigo, Nome from Funcion where Nome = 'Tadeu'
+
+--select Codigo, Nome from Funcion where Nome <> 'Tadeu'
+
+-- select Codigo, Nome from Funcion where Nome > 'Tadeu'
+
+--select Codigo, Nome from Funcion where Nome >= 'Tadeu'
+
+--select Codigo, Nome from Funcion where Nome < 'Tadeu'
+
+--select Codigo, Nome from Funcion where Nome <= 'Tadeu'
+
+--select Codigo, Nome from Funcion where Nome between 'João' and 'Tadeu'
+
+--select Codigo, Nome from Funcion where Nome not between 'João' and 'Tadeu'
+
+-- select Codigo, Nome from Funcion where Nome in ('João','Tadeu')
+
+-- select Codigo, Nome from Funcion where Nome not in ('João','Tadeu')
+
+-- select Codigo, Nome from Funcion where Nome like'J%'
+
+-- select Codigo, Nome from Funcion where Setor is null
+
+-- select Codigo, Nome from Funcion where Setor is not null
+
+-- select Codigo, Nome from Funcion where Setor is not null and Codigo = 1
+
+-- select Codigo, Nome from Funcion where Nome = 'Tadeu' or Nome = 'Ylane'
+
+-- select Codigo, Nome from Funcion order by Nome asc
+
+-- select Codigo, Nome from Funcion order by Nome
+
+-- select Codigo, Nome from Funcion order by Nome desc
+
+-- select a.Codigo, a.Nome, b.Setor from Funcion a inner join Setor b on (b.Codigo = a.Setor)
+
+-- select a.Codigo, a.Nome, b.Setor from Funcion a join Setor b on (b.Codigo = a.Setor)
+
+-- select a.Codigo, a.Nome, b.Setor from Funcion a left outer join Setor b on (b.Codigo = a.Setor)
+
+-- select a.Codigo, a.Nome, b.Setor from Funcion a right outer join Setor b on (b.Codigo = a.Setor)
+
+-- select a.Codigo, a.Nome, b.Setor from Funcion a full outer join Setor b on (b.Codigo = a.Setor)
+
+-- select Nome from Funcion union select Nome from Cliente
+
+-- select Nome from Funcion union all select Nome from Cliente
+
+-- select Codigo, Nome from Cliente where Codigo in ( select Cliente from Pedido )
+
+-- select Codigo, Nome from Cliente where Codigo in ( select Cliente from Pedido where Valor >= 2000 )
+
+-- select avg(Salario) as Media from Funcion
+
+-- select max(Codigo) as Maior_Codigo from Funcion
+
+-- select min(Codigo) as Menor_Codigo from Funcion
+
+-- select sum(Salario) as Total from Funcion
+
+-- select count(Codigo) as QtTotal from Funcion
+
+-- select distinct(Cliente) from Pedido
+
+-- select sum(Valor) as Soma, Cliente from Pedido group by Cliente
+
+-- select sum(Valor) as Soma, Cliente from Pedido group by Cliente having sum(Valor) >= 2500
+
+-- select Nome, (Salario + 200) as Salario_Atual from Funcion
+
+-- select Nome, (Salario - 200) as Salario_Atual from Funcion
+
+-- select Nome, (Salario * 1.5) as Salario_Atual from Funcion
+
+-- select Nome, (Salario / 2) as Salario_Quinzena from Funcion
+
