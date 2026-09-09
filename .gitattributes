@@ -1,0 +1,66 @@
+###############################################################################
+# Finais de linha
+#
+# O Git for Windows ativa core.autocrlf=true no config de sistema
+# (C:/Program Files/Git/etc/gitconfig), o que converte LF -> CRLF no checkout.
+# As regras abaixo fixam LF tanto no repositorio quanto no disco, para que o
+# conteudo seja identico em qualquer maquina.
+###############################################################################
+* text=auto eol=lf
+
+###############################################################################
+# Binarios - nunca aplicar conversao de fim de linha.
+#
+# O Git ja detecta binarios sozinho (procura bytes NUL nos primeiros 8 KB),
+# mas as regras explicitas evitam corrupcao caso a deteccao falhe em algum
+# arquivo - risco real aqui, com centenas de PDFs, imagens e docs do Office.
+###############################################################################
+
+# Documentos
+*.pdf   binary
+*.doc   binary
+*.docx  binary
+*.ppt   binary
+*.pptx  binary
+*.xls   binary
+*.xlsx  binary
+*.chm   binary
+*.thmx  binary
+
+# Imagens
+*.bmp   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+
+# Audio e video
+*.mp3   binary
+*.m4a   binary
+*.wav   binary
+*.mp4   binary
+
+# Compilados e artefatos (.NET, Delphi, Java, C)
+*.dll   binary
+*.exe   binary
+*.jar   binary
+*.o     binary
+*.bin   binary
+*.res   binary
+*.dcu   binary
+*.dcuil binary
+*.identcache binary
+
+# Formatos de ferramentas de estudo
+*.apkg  binary
+*.asz   binary
+*.bml   binary
+*.brm   binary
+*.brm3  binary
+*.ddp   binary
+
+# Arquivos compactados
+*.zip   binary
+*.rar   binary
+*.7z    binary
