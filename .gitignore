@@ -16,6 +16,15 @@
 *.vsidx
 *.v2
 
+# Delphi / Lazarus Build Artifacts (fontes do brModelo)
+*.dcu
+*.ddp
+*.dsk
+*.identcache
+*.local
+__history/
+__recovery/
+
 # Arquivos temporários e backups
 *.tmp
 *.bak
