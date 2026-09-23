@@ -25,6 +25,12 @@
 __history/
 __recovery/
 
+# Extensões do CasalFlow: os relatórios trazem dados pessoais de terceiros
+# (participantes do teste de usabilidade e R.A. dos colegas). Ficam só no disco;
+# o original versionado está no repositório do CasalFlow (.planning/).
+02 - AC E EXTENSÃO UNIVERSITÁRIA/Em Andamento/Extensões CasalFlow/
+02 - AC E EXTENSÃO UNIVERSITÁRIA/Relatórios Concluídos/Extensão Universitária (EU)/CasalFlow*/
+
 # Arquivos temporários e backups
 *.tmp
 *.bak

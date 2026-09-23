@@ -3,43 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de Extensão Universitária - Representação Discente 2026.1</title>
+    <title>Relatório de Extensão Universitária — <span class="pendente">[AÇÃO DE EXTENSÃO]</span> (<span class="pendente">[CH]</span>h)</title>
+    <!--
+      ────────────────────────────────────────────────────────────────────────
+      RELATÓRIO DE ATIVIDADE DE EXTENSÃO UNIVERSITÁRIA (<span class="pendente">[CH]</span> horas)
+      UNIP · ICET · CST em Análise e Desenvolvimento de Sistemas
+      Ação: <span class="pendente">[AÇÃO DE EXTENSÃO]</span>
+
+      Formato ABNT: A4, margens 3cm superior/esquerda e 2cm inferior/direita,
+      Arial 12pt, parágrafo justificado com recuo de 1,25cm~1,5cm.
+      Para gerar o PDF: abrir no Chrome, anexar as imagens da seção 4 clicando
+      sobre elas e imprimir (Ctrl+P) na MESMA sessão — a troca não é salva.
+      ────────────────────────────────────────────────────────────────────────
+    -->
     <style>
-        /* 1. RESET E CONFIGURAÇÃO DO BODY */
+        /* 1. RESET GERAL E CONFIGURAÇÃO DO BODY */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             background-color: #525659;
-            margin: 0;
-            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 30px;
+            padding: 30px;
             font-family: Arial, "Times New Roman", serif;
             font-size: 12pt;
             color: black;
         }
 
-        /* 2. ESTRUTURA DA PÁGINA (Padrão ABNT - A4) */
+        /* 2. ESTRUTURA DA PÁGINA (Padrão ABNT Estrito - A4) */
         .page {
             background-color: white;
             width: 21cm;
             min-height: 29.7cm;
-            margin-bottom: 20px;
             /* Margens ABNT: Superior 3cm, Direita 2cm, Inferior 2cm, Esquerda 3cm */
-            padding: 3cm 2cm 2cm 3cm; 
-            box-sizing: border-box;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            padding: 3cm 2cm 2cm 3cm;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             position: relative;
         }
 
-        /* 3. TIPOGRAFIA E TEXTOS */
+        /* 3. NUMERAÇÃO DE PÁGINAS (ABNT - Canto superior direito) */
+        .page-number {
+            position: absolute;
+            top: 2cm;
+            right: 2cm;
+            font-size: 10pt;
+            font-family: Arial, "Times New Roman", serif;
+        }
+
+        /* 4. TIPOGRAFIA E TEXTOS */
         h1, h2, h3, h4, h5, h6 {
             font-weight: bold;
             color: black;
-            margin-top: 1.5em;
-            margin-bottom: 1em;
-            text-indent: 0; /* Títulos não devem ter recuo de parágrafo */
+            margin-top: 1.1em;
+            margin-bottom: 0.7em;
+            text-indent: 0;
         }
-        
+
         h1, h2 {
             text-align: center;
             font-size: 14pt;
@@ -50,15 +75,37 @@
             font-size: 12pt;
         }
 
+        h2:first-of-type, h3:first-child { margin-top: 0; }
+
         p {
             text-align: justify;
             line-height: 1.5;
             text-indent: 1.5cm; /* Recuo de primeira linha */
             margin-top: 0;
-            margin-bottom: 1em;
+            margin-bottom: 0.8em;
         }
 
-        /* 4. TABELAS (Estrutura e Design) */
+        ul, ol {
+            margin: 0 0 0.8em 1.5cm;
+            padding-left: 0.8cm;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        li { margin-bottom: 0.35em; }
+
+        .uppercase { text-transform: uppercase; }
+        .no-indent { text-indent: 0; }
+
+        /* Campo ainda por preencher — visível de propósito, inclusive impresso. */
+        .pendente {
+            background-color: #ffe9a8;
+            border: 1px dashed #b58900;
+            padding: 0 4px;
+            font-weight: bold;
+        }
+
+        /* 5. TABELAS (Estrutura e Design Padrão) */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -66,8 +113,11 @@
             font-size: 12pt;
         }
 
-        th, td {
+        table, th, td {
             border: 1px solid black;
+        }
+
+        th, td {
             padding: 8px;
             text-align: left;
         }
@@ -81,41 +131,49 @@
             text-align: center;
         }
 
-        /* 5. SUMÁRIO (Links âncora) */
-        .sumario-list {
-            list-style-type: none;
-            padding: 0;
-            margin-left: 0;
-        }
-        
-        .sumario-list li {
+        .table-dados td:first-child { text-align: left; font-weight: bold; width: 32%; }
+        .table-dados td:last-child { text-align: left; }
+
+        /* 6. SUMÁRIO (Estilo Índice ABNT) */
+        .sumario-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
             margin-bottom: 12px;
             font-size: 12pt;
         }
-        
-        .sumario-list a {
+
+        .sumario-item a {
             text-decoration: none;
             color: black;
-            display: block;
+            font-weight: bold;
         }
-        
-        .sumario-list a:hover {
+
+        .sumario-item a:hover {
             text-decoration: underline;
         }
 
-        /* 6. IMAGENS E LEGENDAS (Estilo Geral) */
+        .sumario-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #000;
+            margin: 0 10px;
+            position: relative;
+            top: -4px;
+        }
+
+        /* 7. IMAGENS E LEGENDAS */
         .image-container {
             text-align: center;
             margin: 20px 0;
-            page-break-inside: avoid; /* Evita que a imagem seja cortada na metade na impressão */
+            page-break-inside: avoid;
         }
 
         .image-container img {
             max-width: 100%;
+            max-height: 11cm;
             height: auto;
             border: 1px solid #ccc;
             margin-bottom: 5px;
-            /* Efeito para indicar que a imagem é clicável */
             cursor: pointer;
             transition: opacity 0.2s ease-in-out;
         }
@@ -130,212 +188,332 @@
             text-indent: 0;
         }
 
-        /* 7. ESTILO ESPECÍFICO PARA A CAPA (Imagem Maior) */
-        #capa {
-            padding: 0; /* Remove margens para a imagem ocupar a folha inteira */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+        .figure-title {
+            text-align: center;
+            font-size: 10pt;
+            text-indent: 0;
+            margin-bottom: 5px;
         }
 
-        .capa-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Garante que a imagem preencha o A4 */
+        /* 8. ESTILOS DA CAPA */
+        .logo-unip {
             display: block;
-            border: none;
-            cursor: pointer;
-            transition: opacity 0.2s ease-in-out;
-        }
-        
-        .capa-img:hover {
-            opacity: 0.9;
+            margin: 0 auto 0.5cm auto;
+            width: 6cm;
+            border: none !important;
+            cursor: default !important;
         }
 
-        /* 8. RESPONSIVIDADE (Mobile) */
+        .logo-unip:hover { opacity: 1 !important; }
+
+        .capa-header {
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 2cm;
+            font-size: 12pt;
+            font-weight: normal;
+        }
+
+        .table-capa {
+            width: 75%;
+            margin: 0 auto;
+            border: none !important;
+            border-collapse: collapse;
+        }
+
+        .table-capa th, .table-capa td {
+            border: none !important;
+            padding: 4px 8px;
+            background-color: transparent;
+            text-align: left;
+            font-size: 12pt;
+        }
+
+        .table-capa th { font-weight: bold; }
+        .table-capa td { font-weight: normal; }
+
+        .capa-footer {
+            position: absolute;
+            bottom: 2cm;
+            left: 3cm;
+            right: 2cm;
+            text-align: center;
+            line-height: 1.5;
+            font-weight: bold;
+        }
+
+        /* 9. RESPONSIVIDADE (Mobile) */
         @media screen and (max-width: 800px) {
-            body {
-                padding: 10px;
-            }
-            .page {
-                width: 100%;
-                min-height: auto;
-                padding: 20px; 
-                margin-bottom: 15px;
-            }
-            #capa {
-                padding: 0;
-            }
-            p {
-                text-indent: 1cm;
-            }
+            body { padding: 10px; }
+            .page { width: 100%; height: auto !important; min-height: auto; padding: 20px; margin-bottom: 15px; box-shadow: none; }
+            .capa-footer { position: relative; bottom: auto; left: auto; right: auto; margin-top: 2cm; }
+            .table-capa { width: 100%; margin-top: 2cm; margin-bottom: 2cm; }
+            p { text-indent: 1cm; }
+            ul, ol { margin-left: 0.5cm; }
+            .sumario-dots { display: none; }
         }
 
-        /* 9. MÍDIA DE IMPRESSÃO - CORREÇÃO DAS FOLHAS EM BRANCO */
+        /* 10. MÍDIA DE IMPRESSÃO (PDF limpo) */
         @page {
             size: A4;
-            margin: 0; /* Diz ao navegador para não colocar margens extras (cabeçalho/rodapé do chrome) */
+            margin: 0;
         }
 
         @media print {
-            body {
-                background-color: white;
-                margin: 0;
-                padding: 0;
-            }
+            body { background-color: white; margin: 0; padding: 0; gap: 0; display: block; }
             .page {
-                box-shadow: none;
-                margin: 0;
-                border: none;
+                box-shadow: none; margin: 0; border: none;
                 width: 100%;
-                /* Remove o min-height na impressão para não dar conflito e criar páginas em branco */
-                min-height: auto; 
+                min-height: 29.5cm;
                 page-break-after: always;
             }
-            /* Evita que a ÚLTIMA página force mais uma quebra (que gera folha vazia no fim) */
-            .page:last-of-type {
-                page-break-after: auto; 
-            }
-            /* Removemos o cursor e o efeito hover na impressão */
-            .image-container img, .capa-img {
-                cursor: default;
-            }
-            .image-container img:hover, .capa-img:hover {
-                opacity: 1;
-            }
-            #capa {
-                display: block;
-            }
-            .capa-img {
-                height: 29.7cm; /* Força a capa a ter exatamente o tamanho do papel A4 */
-            }
+            .page:last-of-type { page-break-after: auto; }
+            .image-container img { cursor: default; }
+            .image-container img:hover { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <section class="page" id="capa">
-        <img src="Capa.png" alt="Capa da Atividade de Extensão Universitária" class="capa-img dynamic-img" title="Clique para trocar a capa (JPG, PNG, etc)">
+    <section class="page" id="capa" aria-label="Capa do Trabalho">
+        <header>
+            <img src="assets/Logo UNIP.png" alt="Logo da Universidade Paulista" class="logo-unip" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/UNIP_Logo.svg/1200px-UNIP_Logo.svg.png'">
+            <div class="capa-header uppercase">
+                UNIVERSIDADE PAULISTA<br>
+                ICET - INSTITUTO DE CIÊNCIAS EXATAS E TECNOLOGIA<br>
+                CURSO SUPERIOR DE TECNOLOGIA EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS<br><br><br>
+                EXTENSÃO UNIVERSITÁRIA<br><br><br>
+                RELATÓRIO DE ATIVIDADE DE EXTENSÃO — <SPAN CLASS="PENDENTE">[AÇÃO DE EXTENSÃO]</SPAN><br>
+                <span style="text-transform: none;">(<span class="pendente">[TÍTULO DA ATIVIDADE]</span>)</span><br>
+                <span style="text-transform: none;">Carga horária: <span class="pendente">[CH]</span> horas</span>
+            </div>
+        </header>
+
+        <table class="table-capa" aria-label="Tabela de Autores">
+            <tr><th width="70%">Nome</th><th width="30%">R.A</th></tr>
+            <tr>
+                <td><span class="pendente">[NOME COMPLETO DO ALUNO]</span></td>
+                <td><span class="pendente">[R.A.]</span></td>
+            </tr>
+            <tr>
+                <td><span class="pendente">[NOME COMPLETO DO ALUNO]</span></td>
+                <td><span class="pendente">[R.A.]</span></td>
+            </tr>
+        </table>
+
+        <footer class="capa-footer uppercase">
+            São José dos Campos - SP<br><span class="pendente">[MÊS]</span> / <span class="pendente">[ANO]</span>
+        </footer>
     </section>
 
     <section class="page" id="sumario">
         <h2>Sumário</h2>
-        <ul class="sumario-list">
-            <li><a href="#dados-cadastro">1. Dados de Cadastro</a></li>
-            <li><a href="#descricao-atividade">2. Descrição da Atividade</a></li>
-            <li><a href="#conclusao-local">3. Conclusão e Local</a></li>
-            <li><a href="#comprovacoes">4. Comprovações</a></li>
-        </ul>
+
+        <div class="sumario-item">
+            <a href="#dados-cadastro">1. Dados de Cadastro</a>
+            <div class="sumario-dots"></div>
+            <span>3</span>
+        </div>
+
+        <div class="sumario-item">
+            <a href="#descricao-1">2. Descrição da Atividade</a>
+            <div class="sumario-dots"></div>
+            <span>4</span>
+        </div>
+
+        <div class="sumario-item">
+            <a href="#conclusao">3. Conclusão e Resultados Alcançados</a>
+            <div class="sumario-dots"></div>
+            <span>7</span>
+        </div>
+
+        <div class="sumario-item">
+            <a href="#comprovacao">4. Comprovação</a>
+            <div class="sumario-dots"></div>
+            <span>9</span>
+        </div>
     </section>
 
     <section class="page" id="dados-cadastro">
-        <h2>Dados de Cadastro</h2>
-        
+        <div class="page-number">3</div>
+        <h2>1. Dados de Cadastro</h2>
+
         <h3>Campus</h3>
-        <p>Campus SJC Dutra – São José dos Campos (SP)</p>
+        <p><span class="pendente">[CAMPUS — ex.: Campus SJC Dutra, São José dos Campos (SP)]</span></p>
 
         <h3>Alunos Participantes</h3>
         <table>
             <thead>
                 <tr>
                     <th>Número</th>
-                    <th>RA</th>
+                    <th>R.A.</th>
                     <th>Nome</th>
+                    <th>Curso</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>H719CD3</td>
-                    <td>Maycon Douglas Inácio Silva</td>
+                    <td><span class="pendente">[R.A.]</span></td>
+                    <td><span class="pendente">[NOME COMPLETO DO ALUNO]</span></td>
+                    <td>Análise e Desenvolvimento de Sistemas</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><span class="pendente">[R.A.]</span></td>
+                    <td><span class="pendente">[NOME COMPLETO DO ALUNO]</span></td>
+                    <td>Análise e Desenvolvimento de Sistemas</td>
                 </tr>
             </tbody>
         </table>
-        <p><em>Turma: DS3A48</em></p>
+        <p class="no-indent"><em>Turma: <span class="pendente">[TURMA]</span></em></p>
+        <p class="no-indent"><em>Grupo composto por <span class="pendente">[Nº]</span> alunos do mesmo campus. <span class="pendente">[o que o grupo fez em conjunto]</span></em></p>
 
         <h3>Período</h3>
-        <p>Ano: 2026 | Semestre: 1º</p>
+        <p>Ano: <span class="pendente">[ANO]</span> | Semestre: <span class="pendente">[Nº]</span></p>
 
-        <h3>Área Temática e Projetos</h3>
-        <p>Educação, Comunicação e Gestão Acadêmica.</p>
+        <h3>Área Temática e Projeto</h3>
+        <p><span class="pendente">[ÁREA TEMÁTICA E PROJETO — copiar exatamente a opção da plataforma]</span></p>
 
         <h3>Ação</h3>
-        <p>Prestação de Serviços (Representação Discente).</p>
+        <p><span class="pendente">[AÇÃO — copiar exatamente a opção da plataforma, ex: Cartilha (50 horas)]</span></p>
+
+        <h3>Organização Parceira e Público Beneficiário</h3>
+        <table class="table-dados">
+            <tr><td>Organização Parceira</td><td><span class="pendente">[ORGANIZAÇÃO PARCEIRA (nome e CNPJ)]</span></td></tr>
+            <tr><td>Público Beneficiário</td><td><span class="pendente">[PÚBLICO BENEFICIÁRIO]</span></td></tr>
+        </table>
     </section>
 
-    <section class="page" id="descricao-atividade">
-        <h2>Descrição da Atividade</h2>
-        
-        <h3>Descrição Geral da Atividade</h3>
-        <p>A atividade extensionista consistiu no exercício da função de Vice-Representante de Turma (DS3A48) durante o 1º semestre letivo de 2026. O foco principal da atuação foi garantir uma comunicação clara e fluida entre a coordenação do curso de Análise e Desenvolvimento de Sistemas (ADS) e os alunos. O trabalho envolveu o acompanhamento e o repasse de informações institucionais, assegurando que toda a turma ficasse por dentro dos comunicados, prazos e demandas acadêmicas de forma rápida e organizada.</p>
+    <section class="page" id="descricao-1">
+        <div class="page-number">4</div>
+        <h2>2. Descrição da Atividade</h2>
+        <h3>2.1 Descrição Geral da Atividade</h3>
+        <p><span class="pendente">[PARÁGRAFO DE ABERTURA — o que foi a atividade, em uma frase longa]</span></p>
 
-        <h3>Descrição da participação do aluno</h3>
-        <h4>Maycon Douglas Inácio Silva</h4>
-        <p>Como Vice-Representante, fiquei responsável por gerenciar a comunicação acadêmica da turma, utilizando principalmente o nosso grupo oficial no aplicativo de mensagens instantâneas. Minha rotina envolveu a triagem e o repasse ágil de documentos acadêmicos, avisos da coordenação e diretrizes essenciais. Dessa forma, procurei manter os colegas sempre atualizados, evitando que perdessem informações cruciais para o bom andamento das disciplinas e do semestre como um todo.</p>
+        <p class="no-indent">Esta é a página 4 do relatório. Descreva aqui <strong>o que foi
+        feito</strong>, para quem, com que método e com que material. É a seção mais lida da
+        avaliação: o que não estiver dito aqui não conta como realizado.</p>
+
+        <ul>
+            <li><strong><span class="pendente">[ETAPA OU EIXO 1]</span>:</strong> <span class="pendente">[o que foi feito nesta etapa]</span></li>
+            <li><strong><span class="pendente">[ETAPA OU EIXO 2]</span>:</strong> <span class="pendente">[o que foi feito nesta etapa]</span></li>
+            <li><strong><span class="pendente">[ETAPA OU EIXO 3]</span>:</strong> <span class="pendente">[o que foi feito nesta etapa]</span></li>
+        </ul>
     </section>
 
-    <section class="page" id="conclusao-local">
-        <h2>Conclusão e Resultados Alcançados</h2>
-        <p>O exercício da vice-representação neste semestre foi uma excelente oportunidade para desenvolver habilidades práticas de comunicação e organização. A responsabilidade de ser a ponte entre a coordenação e os alunos exigiu proatividade e um bom gerenciamento de tempo, garantindo que as mensagens chegassem de maneira clara e no momento certo para todos.</p>
-        <p>Essa experiência ajudou a fortalecer o senso de responsabilidade coletiva e o trabalho em equipe dentro da turma. Acredito que manter um grupo bem informado é essencial para um ambiente acadêmico mais colaborativo, e essa prática serviu como uma ótima base para o desenvolvimento de competências interpessoais (soft skills) que são muito valorizadas no dia a dia do mercado de trabalho.</p>
+    <section class="page" id="descricao-2">
+        <div class="page-number">5</div>
+        <h2>2. Descrição da Atividade (continuação)</h2>
+        <p class="no-indent">Página 5 — continuação da descrição. Use-a para o
+        detalhamento que não coube na anterior. Se sobrar espaço, prefira encurtar a página 4 a
+        deixar esta quase vazia.</p>
 
-        <h2>Local onde a atividade foi realizada</h2>
-        <p>As atividades de comunicação e representação foram executadas de forma híbrida (presencial e digital) interagindo com as dependências do Campus da universidade.</p>
+        <ul>
+            <li><strong><span class="pendente">[ETAPA OU EIXO 4]</span>:</strong> <span class="pendente">[o que foi feito nesta etapa]</span></li>
+            <li><strong><span class="pendente">[ETAPA OU EIXO 5]</span>:</strong> <span class="pendente">[o que foi feito nesta etapa]</span></li>
+        </ul>
+
+        <p><span class="pendente">[PARÁGRAFO DE FECHAMENTO — como o material foi produzido ou entregue]</span></p>
+    </section>
+
+    <section class="page" id="participacao">
+        <div class="page-number">6</div>
+        <h2>2.2 Descrição da Participação de Cada Aluno</h2>
+
+        <h4><span class="pendente">[NOME DO ALUNO 1]</span> (R.A. <span class="pendente">[R.A.]</span>)</h4>
+        <p>Atuou em <strong><span class="pendente">[FRENTE DE TRABALHO]</span></strong>, aplicando conhecimentos das disciplinas de <em><span class="pendente">[DISCIPLINAS]</span></em>. Foi responsável por <span class="pendente">[tarefas concretas]</span>. <strong>O modelo oficial exige um subtítulo por aluno</strong> — descreva o que CADA UM fez, e não o que a dupla fez.</p>
+
+        <h4><span class="pendente">[NOME DO ALUNO 2]</span> (R.A. <span class="pendente">[R.A.]</span>)</h4>
+        <p>Atuou em <strong><span class="pendente">[FRENTE DE TRABALHO]</span></strong>, aplicando conhecimentos das disciplinas de <em><span class="pendente">[DISCIPLINAS]</span></em>. Foi responsável por <span class="pendente">[tarefas concretas]</span>.</p>
+    </section>
+
+    <section class="page" id="conclusao">
+        <div class="page-number">7</div>
+        <h2>3. Conclusão e Resultados Alcançados</h2>
+        <p><span class="pendente">[O QUE A ATIVIDADE PRODUZIU — resultado concreto, não intenção]</span></p>
+        <p>A atividade atendeu diretamente <strong><span class="pendente">[Nº]</span> pessoas da comunidade externa</strong> mediante <span class="pendente">[como foram atendidas]</span>. <strong>Este número é obrigatório</strong>: as Orientações pedem quantas pessoas foram atendidas, e ele precisa corresponder ao que de fato ocorreu — a lista de presença é o que o comprova.</p>
+
+        <p class="no-indent">A atividade está alinhada aos seguintes <strong>Objetivos de
+        Desenvolvimento Sustentável (ODS) da ONU</strong>:</p>
+        <ul>
+            <li><strong><span class="pendente">[ODS Nº (NOME)]</span>:</strong> <span class="pendente">[como a atividade se liga a este objetivo]</span></li>
+            <li><strong><span class="pendente">[ODS Nº (NOME)]</span>:</strong> <span class="pendente">[como a atividade se liga a este objetivo]</span></li>
+            <li><strong><span class="pendente">[ODS Nº (NOME)]</span>:</strong> <span class="pendente">[como a atividade se liga a este objetivo]</span></li>
+        </ul>
+    </section>
+
+    <section class="page" id="conclusao-2">
+        <div class="page-number">8</div>
+        <h2>3. Conclusão e Resultados Alcançados (continuação)</h2>
+
+        <h3>3.1 Local onde a atividade foi realizada</h3>
+        <p><span class="pendente">[ONDE A ATIVIDADE ACONTECEU — cidade e espaço]</span>. <strong>As Orientações exigem que a atividade seja PRESENCIAL</strong>, para alunos presenciais e EAD — o local precisa ser um lugar de verdade.</p>
+
+        <h3>3.2 Considerações Finais</h3>
+        <ul>
+            <li><strong>Dificuldades enfrentadas:</strong> <span class="pendente">[o que deu trabalho, e como foi contornado]</span></li>
+            <li><strong>Sugestões:</strong> <span class="pendente">[o que recomendaria para uma próxima edição]</span></li>
+            <li><strong>Observações:</strong> <span class="pendente">[o que mais vale registrar]</span></li>
+        </ul>
+    </section>
+
+    <section class="page" id="comprovacao">
+        <div class="page-number">9</div>
+        <h2>4. Comprovação</h2>
+        <p>A comprovação fundamenta-se em <span class="pendente">[os artefatos que comprovam a atividade]</span>. Substitua as duas imagens abaixo clicando sobre elas — a troca vive na memória da aba, então anexe <strong>e imprima na mesma sessão</strong>.</p>
+
+        <h3>Comprovação 1 — <span class="pendente">[LEGENDA DA FIGURA 1 — descreva o que a imagem mostra]</span></h3>
+        <p class="figure-title">Figura 1 – <span class="pendente">[LEGENDA DA FIGURA 1 — descreva o que a imagem mostra]</span></p>
         <div class="image-container">
-            <img src="Foto Campus UNIP.png" alt="Foto do Campus UNIP SJC Dutra" class="dynamic-img" title="Clique para trocar a imagem (JPG, PNG, etc)">
-            <p class="caption">Fonte: Acervo pessoal do autor</p>
+            <img src="assets/1.png" alt="[LEGENDA DA FIGURA 1 — descreva o que a imagem mostra]" class="dynamic-img"
+                 title="Clique para trocar a imagem (JPG, PNG, WEBP)">
+            <p class="caption">Fonte: Acervo dos autores (2026) — reprodução da peça produzida na atividade.</p>
         </div>
     </section>
 
-    <section class="page" id="comprovacoes">
-        <h2>Comprovação (Evidências da Atividade)</h2>
-        
-        <h3>Comprovação 1 – Repasse de Curso Complementar (Git)</h3>
-        <p><em>Captura de tela do grupo oficial da turma demonstrando o repasse do curso básico de Git, proposto pelo professor Egídio em sala de aula, com o intuito de facilitar os estudos e o desenvolvimento técnico dos alunos.</em></p>
-        <div class="image-container">
-            <img src="Comprovante 1.png" alt="Print do repasse do curso de Git" class="dynamic-img" title="Clique para trocar a imagem (JPG, PNG, etc)">
-            <p class="caption">Fonte: Acervo pessoal do autor</p>
-        </div>
-    </section>
+    <section class="page" id="comprovacao-2">
+        <div class="page-number">10</div>
+        <h2>4. Comprovação (continuação)</h2>
 
-    <section class="page" id="comprovacoes-2">
-        <h2>Comprovação (Continuação)</h2>
-
-        <h3>Comprovação 2 – Divulgação do Plantão Psicológico da UNIP</h3>
-        <p><em>Captura de tela evidenciando o compartilhamento de informações sobre o plantão psicológico. A iniciativa visa o cuidado com a saúde mental dos estudantes e, simultaneamente, apoia o estágio dos alunos formandos do curso de Psicologia do próprio campus.</em></p>
+        <h3>Comprovação 2 — <span class="pendente">[LEGENDA DA FIGURA 2 — descreva o que a imagem mostra]</span></h3>
+        <p class="figure-title">Figura 2 – <span class="pendente">[LEGENDA DA FIGURA 2 — descreva o que a imagem mostra]</span></p>
         <div class="image-container">
-            <img src="Comprovante 2.png" alt="Print da divulgação do plantão psicológico" class="dynamic-img" title="Clique para trocar a imagem (JPG, PNG, etc)">
-            <p class="caption">Fonte: Acervo pessoal do autor</p>
+            <img src="assets/2.png" alt="[LEGENDA DA FIGURA 2 — descreva o que a imagem mostra]" class="dynamic-img"
+                 title="Clique para trocar a imagem (JPG, PNG, WEBP)">
+            <p class="caption">Fonte: Acervo dos autores (2026) — reprodução da peça produzida na atividade.</p>
         </div>
     </section>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const images = document.querySelectorAll('.dynamic-img');
-            
-            images.forEach(img => {
-                const fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.accept = 'image/png, image/jpeg, image/jpg, image/webp, image/gif';
-                fileInput.style.display = 'none';
+        /* Troca de imagem por clique e fallback para placeholder: anexe as comprovações
+           e imprima na mesma sessão — a troca vive na memória da aba. */
+        const FALLBACK_SVG = 'data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="450"%3E%3Crect width="800" height="450" fill="%23f4f4f4" stroke="%23999" stroke-width="2" stroke-dasharray="10 6"/%3E%3Ctext x="400" y="210" font-family="Arial" font-size="26" fill="%23666" text-anchor="middle"%3EImagem da comprovação%3C/text%3E%3Ctext x="400" y="252" font-family="Arial" font-size="19" fill="%23888" text-anchor="middle"%3EClique aqui para anexar (JPG, PNG ou WEBP)%3C/text%3E%3C/svg%3E';
 
-                fileInput.addEventListener('change', (event) => {
-                    const file = event.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            img.src = e.target.result;
-                        };
-                        reader.readAsDataURL(file);
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.dynamic-img').forEach((img) => {
+                img.addEventListener('error', function () {
+                    if (!this.dataset.hasFallback) {
+                        this.dataset.hasFallback = 'true';
+                        this.src = FALLBACK_SVG;
                     }
                 });
 
-                img.addEventListener('click', () => {
-                    fileInput.click();
+                const seletor = document.createElement('input');
+                seletor.type = 'file';
+                seletor.accept = 'image/png, image/jpeg, image/jpg, image/webp, image/gif';
+                seletor.style.display = 'none';
+
+                seletor.addEventListener('change', (evento) => {
+                    const arquivo = evento.target.files[0];
+                    if (!arquivo) return;
+                    const leitor = new FileReader();
+                    leitor.onload = (e) => { img.src = e.target.result; };
+                    leitor.readAsDataURL(arquivo);
                 });
 
-                document.body.appendChild(fileInput);
+                img.addEventListener('click', () => seletor.click());
+                document.body.appendChild(seletor);
             });
         });
     </script>

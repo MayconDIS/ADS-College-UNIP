@@ -13,7 +13,7 @@ Pacote da atividade de extensão referente ao **AI-Workspace**, painel de diagn�
 | `assets/1.png` · `2.png` | As duas comprovações fotográficas da seção 4 |
 | `assets/Logo UNIP.png` | Logo da capa |
 | `SinglePostAnalytics_….xlsx` | Dados brutos de alcance, exportados da plataforma — **não apague**: é a fonte dos números da seção 3 |
-| `Captura de tela ….png` | As capturas originais, preservadas como estavam |
+| `links.txt` | Links do repositório no GitHub e da publicação no LinkedIn |
 
 O `relatorio.html` sai em **21 folhas**, com o sumário apontando as páginas reais (1→3, 2→4, 3→10, 4→19) e sem nenhuma folha em branco. Conferido imprimindo o PDF e procurando os títulos dentro dele, não de olho.
 

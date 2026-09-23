@@ -24,11 +24,16 @@ ADS-College-UNIP/
 │       └── Material de Apoio/ # Calendários, prazos, Manual do PIM IV e modelo de EU
 │
 ├── 02 - AC E EXTENSÃO UNIVERSITÁRIA/
-│   ├── Modelos e Manuais/    # Documentos padrão, templates web interativos de AC/EU
-│   ├── Em Andamento/         # Manuais técnicos e comprovantes em desenvolvimento
+│   ├── Modelos e Manuais/
+│   │   ├── Documentos Oficiais da Extensão (UNIP)/ # Regulamento, orientações, FAQ, áreas temáticas, modelo oficial
+│   │   ├── Exemplos de Manuais/                     # Manuais de usuário (Fazenda Urbana, Cidade Verde) e PIM II
+│   │   └── Templates Web e Padrões/                 # Modelos HTML em branco de AC e EU (ABNT, A4)
+│   ├── Em Andamento/         # Manuais do Sistema Datashow, relatórios de Representação Discente
+│   │                         # e as 5 extensões CasalFlow (local)
 │   └── Relatórios Concluídos/
 │       ├── Atividades Complementares (AC)/ # Git & GitHub (20h), Representação Discente, Palestras
-│       └── Extensão Universitária (EU)/    # AI-Workspace (70h), Super IA World E-book (50h)
+│       └── Extensão Universitária (EU)/    # AI-Workspace - Oficina (50h), Super IA World E-book (50h),
+│                                           # CasalFlow - Oficina (50h, local)
 │
 ├── 03 - BIBLIOTECA E EBOOKS/
 │   ├── TI e Programação/     # Livros técnicos (POO, Front-end, Heuser BD, etc.)
@@ -44,10 +49,31 @@ ADS-College-UNIP/
 
 ## 🌟 Destaques de Extensão Universitária (EU) e AC
 
-- **Extensão Universitária (70h)**: `AI-Workspace` — Prestação de Serviços à Comunidade com documentação completa, métricas de engajamento e relatório oficial.
+- **Extensão Universitária (50h)**: `AI-Workspace` — Oficina, com documentação completa, métricas de engajamento e relatório oficial.
 - **Extensão Universitária (50h)**: `Super IA World` — Elaboração e divulgação de E-book sobre Inteligência Artificial.
+- **Extensão Universitária (50h)**: `CasalFlow` — Oficina com teste de usabilidade presencial do sistema de controle financeiro para casais ([casalflow.com.br](https://www.casalflow.com.br)). Entregue na plataforma em 08/09/2026.
 - **Representação Discente**: Relatórios formais e comprovações dos semestres 2025.2 e 2026.1.
 - **Cursos Extracurriculares**: Certificação em Git e GitHub (20h).
+
+> AI-Workspace e CasalFlow foram enviados como **Prestação de serviços (70h)**, e é isso que dizem os relatórios e comprovantes das pastas. O professor enquadrou as duas atividades como **Oficina** e creditou **50h** para cada uma.
+
+### Extensões do CasalFlow (4° semestre)
+
+Atividades feitas em grupo, com o CasalFlow como ferramenta levada à comunidade. Meta do semestre: **253h**.
+
+| Atividade | Ação na plataforma UNIP | Horas | Situação |
+|---|---|---:|---|
+| 1 - Cartilha | Cartilha | 50h | Relatório escrito, falta comprovação e PDF |
+| 2 - Infográfico | Infográfico | 30h | Relatório escrito, falta comprovação e PDF |
+| 3 - Panfleto | Panfleto informativo | 30h | Relatório escrito, falta comprovação e PDF |
+| 4 - Oficina | Oficina | 50h | Relatório escrito, falta comprovação e PDF |
+| 5 - Palestra | Palestra, seminário ou workshop | 50h | Relatório escrito, falta comprovação e PDF |
+| 6 - Teste de Usabilidade | Enviada como Prestação de serviços (70h), creditada como Oficina | 50h | ✔️ Entregue em 08/09/2026 |
+| **Total** | | **260h** | **50h entregues** |
+
+Com a atividade 6 valendo 50h, o total planejado cai de 280h para **260h**. Ainda cobre as 253h, mas sobram só 7h de folga: se outra atividade for recusada ou tiver as horas reduzidas, a meta deixa de fechar.
+
+> Os relatórios do CasalFlow trazem dados pessoais de participantes e colegas, então ficam só na cópia local (ver `.gitignore`). O original versionado está no repositório do CasalFlow, em `.planning/Extensões Universitárias/`.
 
 ---
 

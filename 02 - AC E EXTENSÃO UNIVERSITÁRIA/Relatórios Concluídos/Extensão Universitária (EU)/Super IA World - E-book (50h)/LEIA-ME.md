@@ -13,7 +13,7 @@ Pacote da atividade de extensão referente ao e-book **"Super IA World: Curiosid
 | `assets/1.png` · `2.png` · `3.png` | As três comprovações da seção 4 |
 | `assets/Logo UNIP.png` | Logo da capa |
 | `SinglePostAnalytics_….xlsx` | Dados brutos de alcance, exportados da plataforma — **não apague**: é a fonte dos números da seção 3 |
-| `super-mario*.png` | As capturas originais, preservadas como estavam |
+| `link.txt` | Links da publicação no LinkedIn e do repositório no GitHub |
 
 O `relatorio.html` sai em **16 folhas**, com o sumário apontando as páginas reais (1→3, 2→4, 3→7, 4→14) e sem nenhuma folha em branco. Isso foi conferido imprimindo o PDF e procurando os títulos dentro dele, não por conferência de olho.
 
