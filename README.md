@@ -16,7 +16,12 @@ ADS-College-UNIP/
 │   │   ├── AVA (Disciplinas Online)/
 │   │   ├── Disciplinas/      # Banco de Dados & NoSQL, POO C# (Teoria, ED e Códigos VS)
 │   │   └── Projetos e PIM III/
-│   └── 4° Semestre (Atual)/  # Semestre em andamento (Disciplinas e PIM IV)
+│   └── 4° Semestre (Atual)/  # Semestre em andamento
+│       ├── AVA/              # Disciplinas online (gabaritos por unidade)
+│       ├── DP/               # Dependências (Web Responsivo, BD & NoSQL, POO C#)
+│       ├── Disciplinas/      # Disciplinas presenciais
+│       ├── ED/               # Estudos Disciplinares (Mobile e Web .NET)
+│       └── Material de Apoio/ # Calendários, prazos, Manual do PIM IV e modelo de EU
 │
 ├── 02 - AC E EXTENSÃO UNIVERSITÁRIA/
 │   ├── Modelos e Manuais/    # Documentos padrão, templates web interativos de AC/EU
@@ -47,12 +52,23 @@ ADS-College-UNIP/
 ---
 
 ## 📌 Disciplinas do 4° Semestre (Atual)
-- **Cloud Computing e DevOps**
+
+**Presenciais**
 - **Desenvolvimento Mobile**
 - **Desenvolvimento Web com .NET**
-- **Empreendedorismo em TI**
 - **Gerenciamento de Projetos Ágil**
 - **Programação Aplicada em .NET**
 - **Programação de Banco de Dados**
 - **Projetos e PIM IV**
+
+**AVA (online)**
+- **Cloud Computing e DevOps**
+- **Desenvolvimento Mobile com JavaScript** (optativa)
+- **Empreendedorismo em TI**
+- **Relações Étnico-Raciais e Afrodescendência**
+
+**DP (dependências)**
+- **Desenvolvimento Web Responsivo**
+- **Modelagem de Banco de Dados e NoSQL**
+- **Programação Orientada a Objetos com C#**
 
