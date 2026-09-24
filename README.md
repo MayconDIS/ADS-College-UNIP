@@ -10,19 +10,29 @@ Repositório central de estudos, disciplinas, projetos e atividades do curso sup
 ADS-College-UNIP/
 │
 ├── 01 - CURSO ADS/
-│   ├── 1° Semestre/          # Disciplinas concluídas, avaliações e Projetos/PIM I
-│   │   └── Material de Apoio/ # Calendário das avaliações e prazos (2025-1)
-│   ├── 2° Semestre/          # Disciplinas concluídas, códigos e Projetos/PIM II
-│   ├── 3° Semestre/          # Disciplinas, AVA, Estudos Disciplinares e PIM III
-│   │   ├── AVA/              # Disciplinas online
-│   │   ├── Disciplinas/      # Banco de Dados & NoSQL, POO C# (Slides, ED e Códigos VS)
-│   │   ├── Material de Apoio/ # Horário, calendário e instruções de DP (2026-1)
+│   │   # Padrão de cada semestre:
+│   │   #   Disciplinas On-line/AVA|DP/<Disciplina>/UNIDADE N/  (Livro-Texto, Slides de Aula, exercícios, gabarito)
+│   │   #   Disciplinas Presenciais/ED/<Disciplina>/            (Slides, atividades, códigos + UNIDADE N/)
+│   │   #   Material de Apoio/ e Projetos e PIM <N>/
+│   ├── 1° Semestre/
+│   │   ├── Disciplinas On-line/AVA/    # Cibersegurança, Direitos Humanos, LGPD, Ética
+│   │   ├── Disciplinas Presenciais/ED/ # Infraestrutura, Lógica com C e Python, Matemática, TIC
+│   │   ├── Material de Apoio/          # Calendário das avaliações e prazos (2025-1)
+│   │   └── Projetos e PIM I/
+│   ├── 2° Semestre/
+│   │   ├── Disciplinas On-line/AVA/    # Educação Ambiental, Pesquisa e Inovação, Redes
+│   │   ├── Disciplinas Presenciais/ED/ # Análise e Projeto de Sistemas, Engenharia de Requisitos
+│   │   └── Projetos e PIM II/
+│   ├── 3° Semestre/
+│   │   ├── Disciplinas On-line/AVA/    # Comunicação e Liderança, Libras, Machine Learning
+│   │   ├── Disciplinas Presenciais/ED/ # Web Responsivo, Eng. Software II, BD & NoSQL, C, POO C#, UX/UI
+│   │   ├── Material de Apoio/          # Horário, calendário e instruções de DP (2026-1)
 │   │   └── Projetos e PIM III/
 │   └── 4° Semestre (Atual)/  # Semestre em andamento
-│       ├── AVA/              # Disciplinas online (gabaritos por unidade)
-│       ├── DP/               # Dependências (Web Responsivo, BD & NoSQL, POO C#)
-│       ├── Disciplinas/      # Disciplinas presenciais
-│       ├── ED/               # Estudos Disciplinares (Mobile e Web .NET)
+│       ├── Disciplinas On-line/
+│       │   ├── AVA/          # Cloud e DevOps, Mobile JS, Empreendedorismo, Relações Étnico-Raciais
+│       │   └── DP/           # Dependências (Web Responsivo, BD & NoSQL, POO C#)
+│       ├── Disciplinas Presenciais/ED/ # Mobile, Web .NET, Projetos Ágil, Programação de BD
 │       └── Material de Apoio/ # Calendários, prazos, Manual do PIM IV e modelo de EU
 │
 ├── 02 - AC E EXTENSÃO UNIVERSITÁRIA/
