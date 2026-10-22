@@ -34,6 +34,8 @@ __recovery/
 # Arquivos temporários e backups
 *.tmp
 *.bak
+# Exceção: backup do SQL Server usado nas aulas de Programação de Banco de Dados
+!**/Prática de Laboratório/biblioteca.bak
 *.~*
 *.chc
 
