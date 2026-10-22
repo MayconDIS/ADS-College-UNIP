@@ -1,0 +1,357 @@
+--Cláusula LIKE (e NOT LIKE)
+/*
+Sintaxe:
+SELECT colunas
+FROM tabela
+WHERE coluna LIKE padrão;
+===========
+Metacaracteres
+% - Qualquer cadeia de 0 ou mais caracteres
+_ - Qualquer caracter único
+[] Caracteres únicos no intervalo ou conjunto especificado
+[Circunflexo] Caracreres único NÂO no intervalo ou conjunto especificado
+*/
+
+use BIBLIOTECA1;
+
+--Lista todos os livros que começam com F 
+SELECT * FROM Livro WHERE NomeLivro LIKE 'F%';
+
+--Lista todos os autores que não começam com S
+SELECT NomeAutor FROM Autor WHERE NomeAutor NOT LIKE 'S%';
+
+--Lista todos os livros que começam com F ou D
+SELECT * FROM Livro WHERE NomeLivro LIKE '[FD]%';
+
+--JOINS , VIEWS e SUBCONSULTAS
+
+/*
+Sintaxe:
+SELECT colunas 
+FROM tabela1
+[INNER] JOIN tabela2
+ON tabela1.coluna = tabela2.coluna
+[INNER] JOIN tabelaN
+ON tabela1.coluna = tabelaN.coluna
+*/
+
+SELECT * 
+FROM Livro
+INNER JOIN Assunto
+ON Livro.IdAssunto = Assunto.IdAssunto;
+
+SELECT NomeLivro, NomeAssunto 
+FROM Livro
+INNER JOIN Assunto
+ON Livro.IdAssunto = Assunto.IdAssunto;
+
+SELECT NomeLivro AS livros, NomeEditora AS Editoras 
+FROM Livro
+INNER JOIN Editora
+ON Livro.IdEditora = Editora.IdEditora
+WHERE Editora.NomeEditora LIKE '[MH]%'
+ORDER BY Livro.NomeLivro;
+
+
+SELECT L.NomeLivro livros, E.NomeEditora Editoras 
+FROM Livro L
+INNER JOIN Editora E
+ON L.IdEditora = E.IdEditora
+WHERE E.NomeEditora LIKE '[MH]%'
+ORDER BY L.NomeLivro;
+
+SELECT L.NomeLivro Livro, A.NomeAutor Autor, A.SobrenomeAutor Sobrenome
+FROM LivroAutor LA
+INNER JOIN Autor A
+ON LA.IdAutor = A.IdAutor
+INNER JOIN Livro L
+ON L.IdLivro = LA.IdLivro
+
+--Incluindo a Editora dos livros
+SELECT L.NomeLivro Livro, A.NomeAutor Autor, 
+A.SobrenomeAutor Sobrenome, E.NomeEditora Editora
+FROM LivroAutor LA
+INNER JOIN Autor A
+ON LA.IdAutor = A.IdAutor
+INNER JOIN Livro L
+ON L.IdLivro = LA.IdLivro
+JOIN Editora E
+ON L.IdEditora = E.IdEditora
+ORDER BY Livro;
+
+/*EXERCÍCIOS
+1. Escreva uma consulta que retorne os nomes dos livros e seus 
+	respectivos assuntos.
+2. Liste os nomes e sobrenomes dos autores, livros escritos por eles
+	e os assuntos dos livros.
+3. Escreva uma consulta que retorne os nomes dos livros, seus preços, 
+	a editora e o assunto, em ordem alfabética de nomes de livros.
+4. Retornar os nomes dos livros e as datas de publicação dos livros 
+	cujo nome do autor se inicia com a letra B.
+5. Retornar os assuntos e sobrenomes de autores de livros que custam
+	mais de R$ 80,00.
+6. Consultar preços, assuntos e nome dos livros que custam entre 
+	R$ 70,00 e R$ 170,00 Ordenando do mais caro para o mais barato.
+*/
+
+--Resolvendo os exercícios
+--01
+SELECT L.NomeLivro Livro, A.NomeAssunto Assunto
+FROm Livro L
+JOIN Assunto A
+ON L.IdAssunto = A.IdAssunto;
+--02
+SELECT 
+AU.NomeAutor 'Nome do Autor',
+AU.SobrenomeAutor 'Sobrenome do Autor',
+L.NomeLivro Livro,
+A.NomeAssunto Assunto
+FROM Autor AU
+JOIN LivroAutor LA ON AU.IdAutor = LA.IdAutor
+JOIN Livro L ON LA.IdLivro = L.IdLivro
+JOIN Assunto A ON L.IdAssunto = A.IdAssunto;
+
+--03
+SELECT L.NomeLivro Livro, L.PrecoLivro Preço,
+			E.NomeEditora Editora, A.NomeAssunto assunto
+FROM Livro L
+JOIN Editora E ON L.IdEditora = E.IdEditora
+JOIN Assunto A ON L.IdAssunto = A.IdAssunto
+ORDER BY L.NomeLivro;
+
+--04
+SELECT L.NomeLivro Livro, L.DataPub 'Data de Publicação',
+			AU.SobrenomeAutor
+FROM Livro L
+JOIN LivroAutor LA ON L.IdLivro = LA.IdLivro
+JOIN Autor AU ON LA.IdAutor = AU.IdAutor
+WHERE AU.SobrenomeAutor LIKE 'B%';
+
+--05
+SELECT A.NomeAssunto, AU.SobrenomeAutor, L.PrecoLivro
+FROM Livro L
+JOIN LivroAutor LA ON L.IdLivro = LA.IdLivro
+JOIN Autor AU ON LA.IdAutor = AU.IdAutor
+JOIN Assunto A ON L.IdAssunto = A.IdAssunto
+WHERE L.PrecoLivro > 75
+Order by L.PrecoLivro ASC;
+
+--06
+SELECT L.PrecoLivro Preço, L.NomeLivro Livro, A.NomeAssunto Assunto 
+FROM Livro L
+JOIN Assunto A ON L.IdAssunto = A.IdAssunto
+WHERE L.PrecoLivro BETWEEN 70.00 AND 170.00
+Order by L.PrecoLivro DESC;
+
+--OUTER JOIN
+use BIBLIOTECA1;
+
+SELECT * FROM Editora E
+LEFT JOIN Livro L
+ON L.IdEditora = E.IdEditora;
+
+SELECT * FROM Livro L
+LEFT JOIN Editora E
+ON L.IdEditora = E.IdEditora;
+
+--RIGHT JOIN
+
+SELECT * FROM Editora E
+RIGHT JOIN Livro L
+ON L.IdEditora = E.IdEditora;
+
+SELECT * FROM Livro L
+RIGHT JOIN Editora E
+ON L.IdEditora = E.IdEditora;
+
+--No Segundo caso os nulos voltaram porque apresenta o mesmo caso 
+--de não correspondência de livros para algumas editoras.
+
+--FULL JOIN - Sintaxe
+
+SELECT * FROM Livro L
+FULL JOIN Editora E
+ON L.IdEditora = E.IdEditora;
+
+--Os dados das duas tabelas foram juntados pelo FULL JOIN.
+
+--CROSS JOIN
+
+SELECT * FROM Livro CROSS JOIN Assunto;
+
+/*CREATE VIEW
+
+CREATE [OR ALTER] VIEW nomeView AS
+SELECT colunas
+FROM tabelas
+WHERE condições
+*/
+
+USE BIBLIOTECA1;
+
+--Criar uma VIEW com Nome e Preço dos primeiros 5 livros
+
+CREATE OR ALTER VIEW vwLivroPreco AS
+	SELECT TOP 5 NomeLivro, PrecoLivro
+	FROM Livro
+	ORDER BY PrecoLivro;
+
+SELECT * FROM vwLivroPreco;
+
+--O mesmo comando sem TOP causará um erro
+
+CREATE OR ALTER VIEW vwLivroPreco AS
+	SELECT NomeLivro, PrecoLivro
+	FROM Livro
+	ORDER BY PrecoLivro;
+
+SELECT * FROM vwLivroPreco;
+
+EXEC sp_helptext vwLivroPreco;
+
+--Este comando EXEC sp_helptext serve para ver a estrutura da View, se precisar rever ou se a 
+--View foi feita por outra pessoa, é possível ver o código com este comando.
+
+
+--Exemplo com verificação prévia.
+IF OBJECT_ID('vwLivroAssunto', 'view') IS NOT NULL
+	DROP VIEW vwLivroAssunto;
+GO
+CREATE VIEW vwLivroAssunto AS 
+	SELECT L.NomeLivro Livro, A.NomeAssunto Assunto
+	FROM Livro L
+	INNER JOIN Assunto A
+	ON L.IdAssunto = A.IdAssunto;
+GO
+
+SELECT * FROM vwLivroAssunto;
+
+EXEC sp_helptext vwLivroAssunto;
+
+/*Para usar ou executar uma View já existente, basta usar o SELECT 
+da mesma forma que usamos para as tabelas. */
+
+SELECT Livro, Assunto FROM vwLivroAssunto;
+
+/*É muito útil quando precisamos incluir ou combinar códigos SQL em outras linguagens, 
+em vez de escrever todo o código SQl, cria uma View com todo o código necessário, 
+e apenas use o comando SELECT relacionado à View na aplicação Java ou C#, por exemplo.
+*/
+
+/*Para alterar uma View, é necessário reescrever todo o código com as alterações desejadas. 
+Neste caso foi incluída a coluna ISBN13
+*/
+
+ALTER VIEW vwLivroAssunto AS  
+	SELECT L.NomeLivro Livro, L.ISBN13 ISBN,  A.NomeAssunto Assunto
+	FROM Livro L
+	INNER JOIN Assunto A
+	ON L.IdAssunto = A.IdAssunto;
+--GO
+
+SELECT * FROM vwLivroAssunto;
+
+/*Para excluir uma View, usamos o DROP como usamos em todos os objetos do BD.*/
+
+DROP VIEW vwLivroPreco;
+
+===========================================
+
+--SubConsultas (É um aninhamento de consultas dentro de consultas)
+
+--Escrever apenas um dado na tela
+
+SELECT (SELECT 'Fábio!!!') AS Subconsulta;
+
+--Uma subconsulta pode substituir um INNER JOIN
+
+SELECT NomeLivro, IdEditora
+FROM Livro
+WHERE IdEditora = ( 
+	SELECT IdEditora 
+	FROM Editora
+	WHERE NomeEditora = 'Prentice Hall')
+	ORDER BY NomeLivro;
+
+Select * from Editora;
+
+/*Retorna os livros de determinada editora sem saber 
+o código e sem utilizar um INNER JOIN.
+
+Como exibir as editora que publicam livros de assuntos específicos? 
+Necessitaria de um INNER JOIN, mas pode ser feito por uma subconsulta usando o operador IN.
+*/
+
+SELECT NomeEditora
+FROM Editora
+WHERE IdEditora IN (
+	SELECT IdEditora
+	FROM Livro
+	WHERE IdAssunto IN (1,3,7) )
+ORDER BY NomeEditora;
+
+Select * from Editora;
+
+/* *Aqui o problema deve ser tabelas com colunas PK usando IDENTITY onde houve deleção de registros. 
+Os Ids das editoras entre as tabelas Livro e Editora, não estão convergentes.
+*/
+
+/*SubConsulta com a cláusula FROM 
+(Como calcular a média dos preços dos livros e retornar os livros que estão 
+com preços acima da média) AVG com função de agregação
+*/
+
+SELECT L.NomeLivro, L.PrecoLivro 
+FROM Livro L,
+	(SELECT AVG(PrecoLivro) AS MediaPreco FROM Livro) 
+	AS SubConsulta
+	WHERE L.PrecoLivro > SubConsulta.MediaPreco;
+
+/*Aninhamento de subconsultas, pode ser mais simples que usar vários INNER JOINS. 
+Como retornar os nomes das editoras cujo assunto é Ficção científica?
+*/
+
+SELECT NomeEditora
+FROM Editora
+WHERE IdEditora = (
+	SELECT IdEditora
+	FROM Livro
+	WHERE IdAssunto = (
+		SELECT IdAssunto
+		FROM Assunto
+		WHERE NomeAssunto = 'Romance'
+	)
+)
+ORDER BY NomeEditora;
+
+/*Desta foram dará um erro... 
+Porque as editoras podem publicar livros de mais de um assunto. 
+Para corrigir devemos usar a cláusula IN na consulta externa.
+*/
+
+SELECT NomeEditora
+FROM Editora
+WHERE IdEditora IN (
+	SELECT IdEditora
+	FROM Livro
+	WHERE IdAssunto = (
+		SELECT IdAssunto
+		FROM Assunto
+		WHERE NomeAssunto = 'Romance'
+	)
+)
+ORDER BY NomeEditora;
+
+
+
+Select * From Assunto;
+Select * From Livro;
+Select * From Editora;
+
+
+
+SELECT NomeLivro, PrecoLivro 
+FROM Livro
+WHERE PrecoLivro = ( 
+	SELECT MAX(PrecoLivro) 
+	FROM Livro);

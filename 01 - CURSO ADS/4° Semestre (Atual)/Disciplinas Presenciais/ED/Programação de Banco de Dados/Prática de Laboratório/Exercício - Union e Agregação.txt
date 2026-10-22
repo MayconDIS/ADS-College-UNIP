@@ -1,0 +1,115 @@
+/*--Combinar consultas com o operador UNION
+
+Sintaxe:
+
+SELECT colunas FROM tabela1
+UNION
+SELECT colunas FROM tabela2
+*/
+
+Use BIBLIOTECA1;
+
+--Ex1
+SELECT NomeAutor Nome, 'Autor' AS Tipo FROM Autor
+UNION
+SELECT NomeEditora Nome, 'Editora' AS Tipo FROM Editora;
+
+--Ex2
+SELECT NomeLivro Nome, 'Livro' Tipo FROM Livro
+UNION
+SELECT NomeAssunto Nome, 'Assunto' Tipo FROM Assunto;
+
+--Ex3
+SELECT NomeAutor Nome, 'Autor' AS Tipo FROM Autor
+UNION
+SELECT NomeEditora Nome, 'Editora' AS Tipo FROM Editora
+UNION
+SELECT NomeAssunto Nome, 'Assunto' Tipo FROM Assunto
+UNION
+SELECT NomeLivro Nome, 'Livro' Tipo FROM Livro;
+
+--Util se Houver várias tabelas com dados relativamente relacionados
+
+--Funções de Agregação: MIN, MAX, AVG, COUNT
+
+SELECT COUNT(*) Total FROM Autor;
+
+SELECT MAX(PrecoLivro) 'Mais Caro' FROM Livro;
+
+SELECT MIN(NrPaginas) 'Nr de Paginas' FROM Livro;
+
+SELECT AVG(PrecoLivro) 'Preço Médio' FROM Livro;
+
+SELECT SUM(PrecoLivro) 'Valor Total' FROM Livro;
+
+SELECT COUNT(*) Total FROM Livro WHERE IdAssunto=99;
+
+SELECT SUM(PrecoLivro) / COUNT(*) 'Preço Médio' FROM Livro;
+
+--SubConsulta
+SELECT NomeLivro, PrecoLivro 
+FROM Livro
+WHERE PrecoLivro = ( 
+	SELECT MAX(PrecoLivro) 
+	FROM Livro);
+
+--Revisando a Cláusula LIKE
+/* 
+
+SELECT colunas 
+FROM tabela 
+WHERE coluna LIKE padrão;
+
+*/
+
+/*
+
+Metacaracteres
+% - Qualquer cadeia de 0 ou mais caracteres
+_ - Qualquer caracter único
+[ ] Caracteres únicos no intervalo ou conjunto especificado
+[^] Caracreres único NÂO no intervalo ou conjunto especificado
+
+*/
+
+SELECT * FROM Livro WHERE NomeLivro LIKE 'F%';
+
+SELECT * FROM Livro WHERE NomeLivro LIKE '[FD]%';
+
+SELECT * FROM Livro WHERE NomeLivro LIKE '[^F^D]%';
+
+SELECT * FROM Livro WHERE NomeLivro LIKE '[aeiou]%';
+
+SELECT * FROM Livro WHERE NomeLivro LIKE '%[aeiou]';
+
+SELECT * FROM Livro WHERE NomeLivro LIKE '[0-9]%';
+
+SELECT NomeLivro FROM Livro WHERE NomeLivro LIKE 'A%o';
+
+SELECT NomeAutor, SobrenomeAutor FROM Autor
+WHERE NomeAutor LIKE 'R%' AND SobrenomeAutor LIKE 'B%';
+
+--Lista as editora com nomes que começam com a letra O até a Letra T.
+
+SELECT NomeEditora FROM Editora WHERE NomeEditora LIKE '[o-t]%'
+
+--Nomes dos autores que tenha 4 letras e comecem com a letra J.
+--Menciona-se a letra J e 3 sublinhados ou underscore (J___)
+
+SELECT NomeAutor, SobrenomeAutor FROM Autor
+WHERE NomeAutor LIKE 'J___' ;
+
+/*
+
+Livros que comecem com uma consoante e nenhum número. 
+Neste caso aparecem os números, e precisamos listar apenas 
+os que comecem com uma consoante.
+Basta inserir no final da sequência de vogais o caracter 0 e o 9
+como segue ‘[aeiou0-9]%’
+
+*/
+
+SELECT * FROM Livro WHERE NomeLivro NOT LIKE '[aeiou0-9]%';
+
+
+Select * FROM Livro;

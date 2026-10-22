@@ -33,7 +33,9 @@ ADS-College-UNIP/
 │       │   ├── AVA/          # Cloud e DevOps, Mobile JS, Empreendedorismo, Relações Étnico-Raciais
 │       │   └── DP/           # Dependências (Web Responsivo, BD & NoSQL, POO C#)
 │       ├── Disciplinas Presenciais/ED/ # Mobile, Web .NET, Projetos Ágil, Programação de BD
-│       └── Material de Apoio/ # Calendários, prazos, Manual do PIM IV e modelo de EU
+│       │                               # (slides, listas, Desafio 01 NUMBANK, laboratório SQL Server)
+│       └── Material de Apoio/ # Calendários, prazos, Manual do PIM IV, modelo de EU
+│                              # e Questões CQA (Tomos 01-18 de ADS + Formação Geral)
 │
 ├── 02 - AC E EXTENSÃO UNIVERSITÁRIA/
 │   ├── Modelos e Manuais/

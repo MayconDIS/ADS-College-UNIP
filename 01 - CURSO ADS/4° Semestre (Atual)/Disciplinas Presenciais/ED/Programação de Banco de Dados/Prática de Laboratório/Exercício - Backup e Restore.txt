@@ -1,0 +1,42 @@
+Backup e Restauração de arquivo
+Após restaurar o BD ou recriá-lo através do script da aula passada, realizar os exercícios.
+--BACKUP e RESTORE do Bd.
+
+--Sintaxe:
+--BACKUP DATABASE nome_banco
+--TO DISK = 'x:\CAMINHO\nome_banco.bak'
+--[WITH FORMAT];
+--GO
+
+--RESTORE DATABASE nome_banco
+--FROM DISK = 'x:\CAMINHO\nome_banco.bak'
+--[WITH REPLACE];
+--GO
+
+BACKUP DATABASE biblioteca1
+TO DISK = 'C:\SQL\biblioteca.bak';
+GO
+
+--Verifique sempre se o destino existe para êxito do backup 
+--Para excluir um bd, é necessário desconectá-lo da instância
+--e também de todas as conexões existentes.
+USE master;
+GO
+ALTER DATABASE BIBLIOTECA1
+SET single_user WITH ROLLBACK immediate;
+GO
+DROP DATABASE BIBLIOTECA1;
+GO
+
+RESTORE DATABASE BIBLIOTECA1
+FROM DISK = 'C:\SQL\BIBLIOTECA.BAK';
+GO
+
+EXERCÍCIOS:
+
+1.Retornar os nomes de livros, preços e datas de publicação.
+2.Mostrar apenas os sobrenomes dos autores.
+3.Retornar a lista de assuntos.
+4.Mostrar a lista de editoras com os Ids de cada uma, com a coluna de nomes de editoras à esquerda da coluna de IDs.
+5.Mostar os IDs de assuntos dos quais existem livros cadastrados na tabela de livros, sem repetição.
+6.Criar uma nova tabela chamada “LivrosFicção” que contenha todos os dados dos livros relacionados ao assunto de ID=1.

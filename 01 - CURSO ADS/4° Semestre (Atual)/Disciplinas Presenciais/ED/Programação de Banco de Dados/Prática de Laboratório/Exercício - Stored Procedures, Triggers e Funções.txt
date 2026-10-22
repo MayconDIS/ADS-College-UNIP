@@ -1,0 +1,447 @@
+--Stored Procedures - PROCEDIMENTOS ARMAZENADOS
+
+CREATE PROCEDURE sp_teste
+AS 
+SELECT 'Análise e Desenvolvimento de Sistemas - ADS' AS curso;
+
+EXEC sp_teste; --EXECUTE
+
+--Drop PROCEDURE dbo.sp_teste;
+
+CREATE PROCEDURE sp_LivroValor
+AS
+BEGIN
+	SELECT Nomelivro Título, PrecoLivro Valor
+	FROM Livro;
+END
+GO
+
+EXEC sp_LivroValor;
+
+ALTER PROCEDURE sp_LivroValor
+AS
+BEGIN
+	SELECT Nomelivro Título, PrecoLivro Valor
+	FROM Livro
+	WHERE PrecoLivro >= 150.00;
+END
+GO
+
+EXEC sp_helptext sp_LivroValor;
+
+EXEC sp_helptext sp_helptext; --Código de todo o helptext
+
+
+CREATE PROCEDURE sp_LivroISBN
+WITH ENCRYPTION
+AS
+BEGIN
+	SELECT Nomelivro, ISBN13
+	FROM Livro;
+END
+GO
+
+EXEC sp_LivroISBN;
+
+EXEC sp_helptext sp_LivroISBN;
+
+SELECT * FROM Livro;
+
+sp_rename 'Nome Atual', 'Nome Novo'; 
+--Não é recomendado pela Microsoft, o ideal é excluir e criar novamente
+--porque o nome de objeto não muda no catálogo interno do sistema de BD
+
+--Parâmetros de entrada para SP (Simples)
+
+Create or ALTER PROCEDURE sp_teste1a (@p1 as int)
+AS
+SELECT CONCAT('Valor: ', @p1) AS Valor;
+
+EXEC sp_teste1a 63;
+
+ALTER PROCEDURE sp_LivroValor (
+@ID as smallint) AS
+BEGIN
+	SELECT NomeLivro Título, PrecoLivro Valor
+	FROM Livro
+	WHERE IdLivro = @ID;
+END
+GO
+
+EXEC sp_LivroValor 104;
+GO
+
+--Parâmetros de entrada para SP (Passando 2 parâmetros)
+
+CREATE OR ALTER PROCEDURE sp_teste (@p1 as int, @p2 AS VARCHAR(20))
+AS
+SELECT @p1 AS 'Parâmetro 01: ', @p2 AS 'Parâmetro 02: ';
+
+EXEC sp_teste 63, 'Meu teste';
+
+--Se passar os parâmetros fora da ordem de definição, é preciso infrormar o nome deles
+
+EXEC sp_teste @p2 = 'Meu teste', @p1=63;
+
+
+--Para passar dois parâmetros para o sp realizar um cálculo usando dados da tabela
+
+ALTER PROCEDURE sp_LivroValor (
+@ID as smallint, @Qtde SMALLINT)
+AS
+BEGIN
+	SELECT NomeLivro Título, @Qtde Quantidade,
+	PrecoLivro * @Qtde 'Valor Total'
+	FROM Livro
+	WHERE IdLivro = @ID;
+END
+GO
+
+EXEC sp_LivroValor 104, 5;
+
+--sp para cadastrar dados no banco de dados
+
+CREATe OR ALTER PROCEDURE sp_cadastra_editora (
+	@nome varchar(50))
+AS
+BEGIN
+	INSERT INTO Editora(NomeEditora)
+	VALUES (@Nome);
+END
+GO
+
+EXEC sp_cadastra_editora 'Editora UNIP-ADS';
+
+SELECT * FROM Editora;
+
+--Para não exibir a mensagem de "Linhas afetadas" inclui-se o comando SET NOCOUNT ON
+
+CREATE OR ALTER PROCEDURE sp_cadastra_editora (
+	@nome varchar(50))
+AS
+BEGIN
+	SET NOCOUNT ON
+	INSERT INTO Editora(NomeEditora)
+	VALUES (@Nome);
+END
+GO
+
+-- Para excluir um sp
+--DROP PROCEDURE Nome do Procedimento
+
+
+
+DROP PROCEDURE sp_teste
+
+
+-================================
+
+--Triggers - (Gatilhos)
+
+CREATE OR ALTER TRIGGER tg_editora_cadastrada
+ON Editora
+AFTER INSERT
+AS 
+BEGIN
+	SELECT CONCAT('Há ', COUNT(*), ' editoras cadsatradas') AS cadastros
+	FROM Editora;
+END
+GO
+
+INSERT INTO  Editora Values ('Nova Editora trg');
+
+SELECT * FROM Editora;
+
+
+CREATE OR ALTER TRIGGER tg_bloqueia_autor
+ON Autor
+INSTEAD OF INSERT
+AS 
+BEGIN
+	PRINT  'Cadastro de autores está bloqueado';
+END
+GO
+
+INSERT INTO  Autor Values ('José', 'de Alencar');
+
+SELECT * FROM Autor;
+
+--Se precisar cadastrar uma autor, é preciso destivar o trigger
+
+ALTER TABLE Autor
+DISABLE TRIGGER tg_bloqueia_autor;
+
+--Para habilitar novamente o trigger
+
+ALTER TABLE Autor
+ENABLE TRIGGER tg_bloqueia_autor;
+
+--Para EXCLUIR um trigger
+DROP TRIGGER tg_bloqueia_autor;
+
+--Para visualizar os triggers de uma tabela específica
+EXEC sp_helptrigger @tabname=Editora;
+EXEC sp_helptrigger @tabname=Autor;
+
+--Para visualizar todos os triggers do BD
+SELECT * FROM sys.triggers
+WHERE is_disabled = 0 OR IS_DISABLED = 1;
+
+--Um procedimento poderá ser executado direto ou 
+--por um trigger
+CREATE OR ALTER PROCEDURE sp_consulta_autores
+AS
+BEGIN
+	SELECT NomeAutor, SobrenomeAutor
+	FROM Autor
+	ORDER BY NomeAutor;
+END
+GO
+
+EXEC sp_consulta_autores;
+
+--Este trigger executa o sp_consulta-autores
+CREATE OR ALTER TRIGGER tg_insere_autor
+ON Autor
+AFTER INSERT
+AS
+BEGIN
+	EXEC sp_consulta_autores;
+END
+GO
+--O comando INSERT INTO dispara o trigger específico
+INSERT INTO  Autor Values ('Clarice', 'Lispector');
+
+--Um Trigger que bloqueia uma ação necessária precisa ser 
+--desboqueado, neste caso o Trigger tg_bloqueia_autor
+ALTER TABLE Autor
+DISABLE TRIGGER tg_bloqueia_autor;
+
+SELECT * FROM Autor ORDER BY NomeAutor;
+
+DELETE FROM Autor WHERE NomeAutor = 'Clarice' AND SobrenomeAutor = 'Lispector';
+
+
+
+=============================================
+
+/* Funções UDF
+
+Podemos criar funções (User-Defined Functions / UDFs) para realizar diversas 
+tarefas no BD tais como:
+- Inserir lógica complexa em uma consulta
+- Criar novas funções para expressões complexas
+- Substituir views com a vantagem de aceitar parâmetros
+
+As funções UDF podem ser Escalares ou Tabulares (com valor de tabela):
+- Funçã UDF Escalar: Retorna um valor único
+- Funçã UDF Tabular: Retorna uma tabela de valores (DataSET)
+*/
+
+--Funções Escalares - Sintaxe
+
+CREATE FUNCTION nome_função(parâmetros)
+RETURNS tipo_dado_retorno
+AS
+BEGIN
+	bloco de códigos
+	RETURN valor_retorno
+END;
+
+CREATE FUNCTION valor_total(@inferior SMALLINT, @superior SMALLINT)
+RETURNS REAL
+AS
+BEGIN
+	DECLARE @media REAL
+	SELECT @media = AVG(PrecoLivro)
+	FROM Livro
+	WHERE IdLivro BETWEEN @inferior AND @superior
+	RETURN @media
+END;
+
+SELECT dbo.valor_total (101,105) Total;
+
+
+--Função com valor de tabela com os dados de livros e editoras
+
+CREATE FUNCTION retorna_itens(@valor REAL)
+RETURNS TABLE
+AS
+RETURN (
+	SELECT L.NomeLivro, A.NomeAssunto, E.NomeEditora
+	FROM Livro L
+	JOIN Assunto A
+	ON L.IdAssunto = A.IdAssunto
+	JOIN Editora E
+	ON L.IdEditora = E.IdEditora
+	WHERE L.PrecoLivro > @valor
+);
+
+--Aqui menciona-se os dados que se deseja ver.
+
+SELECT NomeLivro, NomeAssunto, NomeEditora From dbo.retorna_itens (130);
+
+SELECT NomeLivro FROM dbo.retorna_itens (62.00);
+
+--Para excluir uma função, pocedemos da mesma maneira que fizemos com os Triggers e SPs.
+
+DROP FUNCTION retorna_itens;
+
+--Funções de Data e Hora
+
+SELECT getdate() AS 'Data e Hora atuais';
+SELECT getutcdate() AS 'Data e Hora atuais'; --Tempo universal coordenado - Fuso horário - Antigo horário definido pelo meridiano de greenwich
+SELECT CURRENT_TIMESTAMP; -- Retorna o mesmo que getdate()
+
+SELECT YEAR(GETDATE()) AS Ano;
+
+SELECT month(GETDATE()) AS Mês;
+SELECT day(GETDATE()) AS Dia;
+
+--DATEDIFF - Diferença entre datas em horas, dias, ano
+/*
+Sintaxe:
+DATEDIFF (parte, data_inicial, data_final)
+*/
+
+SELECT DATEDIFF (hh, getutcdate(), getdate() ) AS 'UTC Sâo Paulo';
+
+SELECT DATEDIFF(dd, '1980-12-15', getdate());
+
+SELECT DATEDIFF(dd, '1960-11-23', getdate());
+
+SELECT DATEPART(yyyy, DataPub) AS 'Ano de lançamento',
+DATEPART(mm, DataPub) AS 'Mês',
+DATEPART(dd, DataPub) AS 'Dia'
+FROM Livro
+WHERE IdLivro = 105;
+
+--Ajustando a ordem para dd/mm/aaaa
+--CONVERT (tipo_dados, expressão, estilo) 103
+--Ver tabela de padrões de exibição de datas
+
+--Data no formato(103) nacional ou Francês DD/MM/AAAA
+
+SELECT CONVERT(varchar(10), GETDATE(), 103) Hoje; -- 103 para Dia
+
+
+SELECT CONVERT(varchar(10), GETDATE(), 108) Hora; -- 108 para Hora
+
+--Para mostrar o nome dos livros e as datas de publicação
+SELECT NomeLivro, CONVERT(VARCHAR(10),DataPub, 103) Publicação
+FROM Livro;
+
+--Com filtro WHERE
+
+SELECT NomeLivro, CONVERT(VARCHAR(10),DataPub, 103) Publicação
+FROM Livro
+WHERE DataPub >= CONVERT(VARCHAR(10), '10/10/2015', 103);
+
+
+
+SELECT DATEPART(dd, DataPub) AS 'DIA',
+DATENAME(mm, DataPub) AS 'MÊS', --Traz o nome do mês
+DATEPART(yy, DataPub) AS 'ANO de Publicação'
+FROM Livro
+WHERE IdLivro = 105;
+
+--DATEADD Adiciona um valor de dias uma data à outra
+/*
+DATEADD (parte, número, data)
+*/
+
+--Data no formato nacional
+
+SELECT DataPub 'Publicação Europa', DATEADD(DD,50,DataPub) AS 'Brasil'
+FROm Livro
+WHERE IdLivro = 104;
+
+--Para saber uma data após n dias de hoje ou de determinada data
+
+SELECT DATEADD(dd,20, GETDATE());
+SELECT DATEADD(dd,20, '1980-01-01');
+
+--Função de manipulação de Strings
+
+SELECT NomeLivro, LEN(NomeLivro) 'Comprimento do nome do livro'
+FROM Livro;
+
+--Validando o tamenho da coluna do ISBN13
+
+SELECT NomeLivro, ISBN13, LEN(ISBN13) 'Tamanho ISBN'
+FROM Livro
+WHERE LEN(ISBN13) = 13;
+
+--Funções LOWER e UPPER
+
+SELECT LOWER(NomeLivro) 'Nome do livro em minúsculo'
+FROM Livro;
+
+SELECT UPPER(NomeAssunto) AssuntoEmMaiúsculo
+FROM Assunto;
+
+--Garantir que a inclusção seja em maiúscilo
+INSERT INTO Autor(NomeAutor, SobrenomeAutor)
+VALUES (UPPER('Epaminondas'), UPPER('da Silva'));
+
+--Funções LTRIM, RTRIM e TRIM Ajuda a armazenar os dados corretamente
+
+SELECT LTRIM(NomeLivro) 'Lista de livros com espaçoes removidos no início'
+FROM Livro;
+
+SELECT RTRIM(NomeLivro) 'Lista de livros com espaçoes removidos no final'
+FROM Livro;
+
+--TRIM tira/corrige o excesso de espaços no cadastro de dados
+
+INSERT INTO Autor(NomeAutor, SobrenomeAutor)
+VALUES (TRIM('    Fred   '), TRIM('         Krugger     '));
+
+--Função REPLACE substirui dados errados por dados corretos tipo UPDATE
+
+UPDATE Livro
+SET NomeLivro = REPLACE(NomeLivro, '2016', '2025')
+WHERE NomeLivro LIKE '%Server 2016%';
+
+--Função SUBSTRING - uma parte da STRING
+
+SELECT SUBSTRING(NomeLivro, 1, 3) As Código
+FROM Livro;
+
+SELECT SUBSTRING(NomeLivro, 1, 3) As Código
+FROM Livro;
+
+
+SELECT * FROM Editora;
+
+--Torna os nomes das editoras em maiúsculo
+UPDATE Editora
+SET NomeEditora = UPPER(NomeEditora);
+
+--Atualiza o primerio caracter da editora para maiúsculo e o
+--restante para minúsculo
+
+--Função LEFT
+
+UPDATE Editora
+SET NomeEditora = UPPER(LEFT(NomeEditora, 1)) +
+LOWER(SUBSTRING(NomeEditora, 2, LEN(NomeEditora)))
+WHERE NomeEditora IS NOT NULL;
+
+--No caso, todas as editoras como "Prentice Hall" após a execução do comando, ficou com o segundo 
+--nome começando em minúsculo "Prentice hall", e tanto o promeiro como o segundo nome deve começar
+--com letras maiúsculas. Desafio - Utilize as funções estudadas para resolver isto.
+
+--Função RIGHT
+
+SELECT ISBN13, RIGHT(ISBN13, 4) 'Título e DV'
+FROM Livro;
+
+--Função CONCAT
+
+SELECT CONCAT('Francisco ', 'Martins');
+
+SELECT CONCAT(NomeAutor, ' ', SobrenomeAutor) 'Nome Completo'
+FROM Autor;
+
+Select * FROM Livro;
