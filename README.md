@@ -128,3 +128,17 @@ Materiais de disciplina seguem o mesmo formato em todos os semestres:
 
 Pastas de código (projetos C#, C, Python) mantêm os nomes originais para não quebrar referências.
 
+---
+
+## 💻 Como Clonar (Windows)
+
+Vários caminhos passam de 260 caracteres, o limite padrão do Windows. Sem `core.longpaths`, o Git pula esses arquivos sem avisar. Clone assim:
+
+```bash
+git clone -c core.longpaths=true https://github.com/MayconDIS/ADS-College-UNIP.git
+```
+
+Em um clone já existente, rode `git config core.longpaths true` e depois `git checkout -- .`.
+
+Pastas de unidades ainda sem conteúdo levam um `.gitkeep` para manter a estrutura no clone.
+
